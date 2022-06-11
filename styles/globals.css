@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://use.typekit.net/wyp3msi.css");
+
+body, html {
+  background-color: black;
+  background-image: url("https://i.gabirmotors.com/assets/other/carbon_fiber.jpg");
+}
+
+.acumin {
+  font-family: acumin-pro-extra-condensed, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #222222;
+	border-radius: 1px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #444444;
+}
