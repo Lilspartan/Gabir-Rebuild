@@ -4,7 +4,11 @@
 
 @import url("https://use.typekit.net/wyp3msi.css");
 
-body, html {
+* {
+  color: white;
+}
+
+.background {
   background-color: black;
   background-image: url("https://i.gabirmotors.com/assets/other/carbon_fiber.jpg");
 }

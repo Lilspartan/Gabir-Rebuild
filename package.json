@@ -19,7 +19,8 @@
         "heroicons": "^1.0.6",
         "mongoose": "^6.2.7",
         "next": "^12.0.10",
-        "react-icons": "^4.3.1",
+        "react-draggable": "^4.4.5",
+        "react-icons": "^4.4.0",
         "socket.io": "^4.4.1",
         "socket.io-client": "^4.4.1"
     },
