@@ -26,6 +26,7 @@ const Card = (props:any) => {
             handle = ".handle"
             bounds = {".background"}    
             disabled = {width || !pinned}
+            grid = {[5, 5]}
         >
             <div className = "mx-4">
                 <div className = {`${pinned ? "cursor-move" : ""} handle p-4 mt-8 bg-[#222222ff] flex flex-row justify-between ${open ? "rounded-t-lg" : "rounded-lg"}`}>

@@ -217,7 +217,7 @@ export default function Home() {
 										minutes = (_tempSeconds - _seconds) / 60;
 										displayTime = `${displayType === "Interval" ? "" : ""} ${(minutes > 0 ? minutes + ":" : "")}${(_seconds < 10 ? (minutes > 0 ? "0" : "") + _seconds.toFixed(3) : _seconds.toFixed(3))}`
 									}
-									
+
 									return (
 										<tr className = {classnames([
 											(d.raceData.onPitRoad ? "text-gray-400" : "")
@@ -247,34 +247,43 @@ export default function Home() {
 						) : ""}
 					</Card>
 
-					<Card id = "welcome-card" title = "Welcome!">
-						<h1 className = "font-bold text-center text-xl">Welcome to the</h1>
-						<h1 className = "font-bold text-center text-5xl acumin">GABIR MOTORS PIT WALL</h1>
-						<img src="https://i.gabirmotors.com/assets/other/pit_wall.png" alt="Gabir Motors Logo" className = "w-64 m-auto mt-6"/>
+					<Card title = "Debug">
+						<pre>{ JSON.stringify({flags:session.flags,highlightedDriver}, null, 4) }</pre>
 					</Card>
 				</div>
 				<div id="right" className = "flex flex-col grow-0">
 					<div id="innerright" className = "flex flex-col-reverse md:flex-row justify-evenly">
-						<ChatCard />
-						
-						{/* <pre>{ JSON.stringify(session.flags, null, 4) }</pre> */}
+						<div>
+							<ChatCard />
+
+							<Card id = "welcome-card" title = "Welcome!">
+								<h1 className = "font-bold text-center text-xl">Welcome to the</h1>
+								<h1 className = "font-bold text-center text-5xl acumin">GABIR MOTORS PIT WALL</h1>
+								<img src="https://i.gabirmotors.com/assets/other/pit_wall.png" alt="Gabir Motors Logo" className = "w-64 m-auto mt-6"/>
+							</Card>
+						</div>
 						
 						<div>
-							<Card id = "track-info-card" title = "Track Info" popout = "/popout/track">
+							<Card title = "Location">
 								<h1 className = "font-bold text-center text-xl">{ session.track.name }</h1>
 								<h2 className = "text-center text-lg">{ session.track.city }, { session.track.country }</h2>
+							</Card>
 
-								<h1 className = "text-center font-bold my-2">Time Remaining: <span className = "font-normal">{ new Date(session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span></h1>
-								<hr className = "m-4"/>
-								<span className = "font-bold">Weather: <span className = "font-normal">{ session.weather.skies }</span></span><br />
+							<Card title = "Race Info">
+								<span className = "font-bold">Time Remaining: <span className = "font-normal">{ new Date(session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span></span><br />
+								<span className = "font-bold">Quick Repairs: <span className = "font-normal">{ session.session.fastRepairs }</span></span><br />
+								<span className = "font-bold">Track Length: <span className = "font-normal">{ session.track.length }</span></span><br />
+								<span className = "font-bold">Lap: <span className = "font-normal">{ drivers[0].raceData.lap }</span></span><br />
+							</Card>
+
+							<Card title = "Weather">
+								<span className = "font-bold">Skies: <span className = "font-normal">{ session.weather.skies }</span></span><br />
 								<span className = "font-bold">Wind: <span className = "font-normal">{ session.weather.windSpeed }</span></span><br />
 								<span className = "font-bold">Track Temperature: <span className = "font-normal">{ session.track.temperature }</span></span><br />
 								<span className = "font-bold">Air Temperature: <span className = "font-normal">{ session.weather.temperature }</span></span><br />
-								<span className = "font-bold">Track Length: <span className = "font-normal">{ session.track.length }</span></span><br />
-								<span className = "font-bold">Quick Repairs: <span className = "font-normal">{ session.session.fastRepairs }</span></span><br />
 							</Card>
 
-							<Draggable handle = ".handle" bounds = ".background" disabled = {width}>
+							<Draggable handle = ".handle" bounds = ".background" disabled = {width} grid = {[5, 5]}>
 								<div id = "controls" className = "flex flex-col">
 									<div className = {`mx-4 handle block p-4 mt-8 bg-[#222222ff] ${flag !== "" ? "rounded-t-lg" : "rounded-lg"} cursor-move1`}>
 										<h1 className = "font-bold">Flags</h1>

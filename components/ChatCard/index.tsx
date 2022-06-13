@@ -6,7 +6,8 @@ const ChatCard = () => {
             <iframe id="twitch-chat-embed"
                     src="https://www.twitch.tv/embed/pennyarcade/chat?parent=localhost"
                     height="500"
-                    width="100%">
+                    width="100%"
+                    className = "rounded-lg">
             </iframe>
         </Card>
     )    
