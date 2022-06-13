@@ -1,51 +1,51 @@
+import { MouseEventHandler } from 'react';
+
 export interface RaceData {
-	position: number;
-	onPitRoad: boolean;
-	class: number;
-	f2Time: number;
-	lap: number;
-	lapsCompleted: number;
-	fastRepairsUsed: number;
+	position:         number;
+	onPitRoad:        boolean;
+	class:            number;
+	f2Time:           number;
+	lap:              number;
+	lapsCompleted:    number;
+	fastRepairsUsed:  number;
 }
 
 export interface CarData {
-	trackSurface: TrackSurface;
-	steer: number;
-	rpm: number;
-	gear: number;
+	trackSurface:  TrackSurface;
+	steer:         number;
+	rpm:           number;
+	gear:          number;
 }
 
 export interface Driver {
-	carIndex: number;
-	name: string;
-	userID: number;
-	carNumber: string;
-	classID: number;
-	isPaceCar: boolean;
-	raceData: RaceData;
-	carData: CarData;
-	lapTimes: {
-		last: number;
-		best: {
-			time: number;
-			lap: number;
-		}
-	};
-	flags: Flag[];
+	carIndex:   number;
+	name:       string;
+	userID:     number;
+	carNumber:  string;
+	classID:    number;
+	isPaceCar:  boolean;
+	raceData:   RaceData;
+	carData:    CarData;
+	lapTimes:   LapTimes;
+	flags:      Flag[];
+}
+
+export interface LapTimes {
+	last:     number;
+	best: {
+		time:   number;
+		lap:    number;
+	}
 }
 
 export interface Session {
     flags: Flag[],
     session: {
         number: number,
-        type: "PRACTICE" | "QUALIFY" | "RACE",
+        type: SessionType,
         timeRemaining: number,
-		fastRepairs: number | string,
-		fastestLap: {
-			CarIdx: number,
-			FastestLap: number,
-			FastestTime: number
-		} | null
+				fastRepairs: number | string,
+				fastestLap: FastestLap | null
     },
 	track: {
 		name: string,
@@ -60,6 +60,18 @@ export interface Session {
 		  skies: string
 	  }
 }
+
+export interface FastestLap {
+	CarIdx: number;
+	FastestLap: number;
+	FastestTime: number;
+}
+
+export type SessionType = 
+	"PRACTICE" |
+	"QUALIFY" |
+	"RACE" |
+	"LOADING"
 
 export type Flag = 
 	"OneLapToGreen" | 
@@ -84,3 +96,26 @@ export type Connection =
 	"disconnected" |
 	"connected" |
 	"connecting"
+
+export interface DriverData {
+	tiresRemaining: {
+		left: {
+			front: number,
+			rear: number,
+		},
+		right: {
+			front: number,
+			rear: number,
+		}
+	},
+	fuel: {
+		remaining: number,
+		max: number,
+	}
+}
+
+export interface DismissedCard {
+	id: string;
+	reopen: MouseEventHandler;
+	name: string;
+}
