@@ -79,3 +79,8 @@ export type TrackSurface =
 	"InPitStall" |
 	"NotInWorld" |
 	string
+
+export type Connection = 
+	"disconnected" |
+	"connected" |
+	"connecting"

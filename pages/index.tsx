@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import Draggable from 'react-draggable';
-import { Driver, Session } from '../utils/interfaces';
-import { DriverCard, Card } from '../components';
+import { Driver, Session, Connection } from '../utils/interfaces';
+import { DriverCard, Card, ChatCard, StreamCard, ConnectionCard } from '../components';
 import classnames from 'classnames';
 import io from 'socket.io-client';
 import Head from 'next/head'
 let socket;
+let connectionTimeout;
 
 export default function Home() {
 	const [drivers, setDrivers] = useState<Driver[]>([
@@ -40,8 +41,8 @@ export default function Home() {
 	])
 	const [highlightedDriver, setHighlightedDriver] = useState<Driver | null>(null);
 	const [highlightedDriverIndex, setHighlightedDriverIndex] = useState<number | null>(null);
-	const [firstPlaceLaps, setFirstPLaceLaps] = useState(0);
 	const [displayType, setDisplayType] = useState("Leader")
+	const [connection, setConection] = useState<Connection>("connecting");
 	const [session, setSession] = useState<Session>({
 		flags: [],
 		session: {
@@ -74,6 +75,8 @@ export default function Home() {
 		"#00000000"
 	]);
 
+	let width = typeof window !== "undefined" && window.innerWidth <= 900;
+
 	const socketInitializer = async () => {
 		if (socket) return;
 		socket = io("https://streaming.gabirmotors.com");
@@ -83,6 +86,7 @@ export default function Home() {
 		})
 
 		socket.on('standings_update', (data) => {
+			setConection("connected")
 			let newDrivers = [];
 			let parsed = JSON.parse(data)
 
@@ -98,7 +102,11 @@ export default function Home() {
 			
 			if (newDrivers.length) setDrivers(newDrivers);
 
-			setFirstPLaceLaps(drivers[0]?.raceData.lapsCompleted || 0);
+			clearTimeout(connectionTimeout);
+			connectionTimeout = setTimeout(() => {
+				console.log(drivers)
+				if (drivers.length <= 1) setConection("disconnected")
+			}, 5000)
 		})
 	}
 
@@ -112,6 +120,10 @@ export default function Home() {
 
 	useEffect(() => {
 		socketInitializer();
+
+		setTimeout(() => {
+			if (drivers.length <= 1) setConection("disconnected")
+		}, 25000)
 	}, [])
 
 	useEffect(() => {
@@ -164,12 +176,13 @@ export default function Home() {
 		<div className = "background min-h-screen h-auto">
 			<div className = "text-white flex flex-col-reverse lg:flex-row justify-center">
 				<Head>
-					<title>Race Standings | Powered By Gabir Motors</title>
+					<title>Gabir Motors Pit Wall</title>
 					<link rel="icon" href="/small_logo.png" />
 					<link rel="stylesheet" href="https://use.typekit.net/mzl0gsb.css" />
 				</Head>
 				<div id="left">
-					<Card title = {`Race Standings | ${(session.session.type === "PRACTICE" ? "Practicing" : (
+					<ConnectionCard connection = {connection} />
+					<Card id = "standings-card" title = {`Race Standings | ${(session.session.type === "PRACTICE" ? "Practicing" : (
 							session.session.type === "QUALIFY" ? "Qualifying" : "Racing"
 						))}`}>
 						<table className = "">
@@ -233,39 +246,52 @@ export default function Home() {
 							}}>Display Mode: { displayType }</a>
 						) : ""}
 					</Card>
+
+					<Card id = "welcome-card" title = "Welcome!">
+						<h1 className = "font-bold text-center text-xl">Welcome to the</h1>
+						<h1 className = "font-bold text-center text-5xl acumin">GABIR MOTORS PIT WALL</h1>
+						<img src="https://i.gabirmotors.com/assets/other/pit_wall.png" alt="Gabir Motors Logo" className = "w-64 m-auto mt-6"/>
+					</Card>
 				</div>
-				<div id="right" className = "flex flex-col">
-					<div id="innerright" className = "flex flex-col md:flex-row justify-evenly">
-						<div id = "controls" className = "flex flex-col">
-							<div className = {`mx-4 handle block p-4 mt-8 bg-[#222222ff] ${flag !== "" ? "rounded-t-lg" : "rounded-lg"} cursor-move1`}>
-								<h1 className = "font-bold">Flags</h1>
-							</div>
-							<div id = "flagSection" style = {{
-								backgroundColor: flagColor[0],
-								color: flagColor[1],
-							}} className = {`mx-4 px-24 rounded-b-lg font-bold text-2xl text-center ${flag !== "" ? "py-12" : ""}`}> 
-								{ flag }
-							</div>
-						</div>
+				<div id="right" className = "flex flex-col grow-0">
+					<div id="innerright" className = "flex flex-col-reverse md:flex-row justify-evenly">
+						<ChatCard />
 						
 						{/* <pre>{ JSON.stringify(session.flags, null, 4) }</pre> */}
 						
-						<Card title = "Track Info" popout = "/popout/track">
-							<h1 className = "font-bold text-center text-xl">{ session.track.name }</h1>
-							<h2 className = "text-center text-lg">{ session.track.city }, { session.track.country }</h2>
+						<div>
+							<Card id = "track-info-card" title = "Track Info" popout = "/popout/track">
+								<h1 className = "font-bold text-center text-xl">{ session.track.name }</h1>
+								<h2 className = "text-center text-lg">{ session.track.city }, { session.track.country }</h2>
 
-							<h1 className = "text-center font-bold my-2">Time Remaining: <span className = "font-normal">{ new Date(session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span></h1>
-							<hr className = "m-4"/>
-							<span className = "font-bold">Weather: <span className = "font-normal">{ session.weather.skies }</span></span><br />
-							<span className = "font-bold">Wind: <span className = "font-normal">{ session.weather.windSpeed }</span></span><br />
-							<span className = "font-bold">Track Temperature: <span className = "font-normal">{ session.track.temperature }</span></span><br />
-							<span className = "font-bold">Air Temperature: <span className = "font-normal">{ session.weather.temperature }</span></span><br />
-							<span className = "font-bold">Track Length: <span className = "font-normal">{ session.track.length }</span></span><br />
-							<span className = "font-bold">Quick Repairs: <span className = "font-normal">{ session.session.fastRepairs }</span></span><br />
-						</Card>
+								<h1 className = "text-center font-bold my-2">Time Remaining: <span className = "font-normal">{ new Date(session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span></h1>
+								<hr className = "m-4"/>
+								<span className = "font-bold">Weather: <span className = "font-normal">{ session.weather.skies }</span></span><br />
+								<span className = "font-bold">Wind: <span className = "font-normal">{ session.weather.windSpeed }</span></span><br />
+								<span className = "font-bold">Track Temperature: <span className = "font-normal">{ session.track.temperature }</span></span><br />
+								<span className = "font-bold">Air Temperature: <span className = "font-normal">{ session.weather.temperature }</span></span><br />
+								<span className = "font-bold">Track Length: <span className = "font-normal">{ session.track.length }</span></span><br />
+								<span className = "font-bold">Quick Repairs: <span className = "font-normal">{ session.session.fastRepairs }</span></span><br />
+							</Card>
+
+							<Draggable handle = ".handle" bounds = ".background" disabled = {width}>
+								<div id = "controls" className = "flex flex-col">
+									<div className = {`mx-4 handle block p-4 mt-8 bg-[#222222ff] ${flag !== "" ? "rounded-t-lg" : "rounded-lg"} cursor-move1`}>
+										<h1 className = "font-bold">Flags</h1>
+									</div>
+									<div id = "flagSection" style = {{
+										backgroundColor: flagColor[0],
+										color: flagColor[1],
+									}} className = {`mx-4 px-24 rounded-b-lg font-bold text-2xl text-center ${flag !== "" ? "py-12" : ""}`}> 
+										{ flag }
+									</div>
+								</div>
+							</Draggable>
+						</div>
 					</div>
 					<div>
 						<DriverCard driver = { highlightedDriver } session = { session }/>
+						<StreamCard />
 					</div>
 				</div>
 			</div>

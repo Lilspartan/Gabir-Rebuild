@@ -11,6 +11,7 @@
 .background {
   background-color: black;
   background-image: url("https://i.gabirmotors.com/assets/other/carbon_fiber.jpg");
+  background-attachment: fixed;
 }
 
 .acumin {
