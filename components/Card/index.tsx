@@ -46,7 +46,7 @@ const Card = (props:any) => {
 	            bounds = {".background"}    
 	            disabled = {width || !pinned}
 	        >
-	            <div className = "mx-4">
+	            <div className = "mx-4 card">
 	                <div className = {`transition duration-300 ${pinned ? "cursor-move" : ""} handle p-4 mt-8 bg-light-card-handle dark:bg-dark-card-handle flex flex-row justify-between ${open ? "rounded-t-lg" : "rounded-lg"} select-none`}>
 	                    <h1 className = "font-bold cursor-default">{ props.title || "Unnamed Window" }</h1>
 	                    <span className = "">
@@ -84,11 +84,9 @@ const Card = (props:any) => {
 	                        )}
 	                    </span>
 	                </div>
-	                {open && (
-	                    <div className = {`transition duration-300 drop-shadow-lg backdrop-blur-sm px-8 pb-8 pt-4 rounded-b-lg bg-light-card-body dark:bg-dark-card-body ${open ? "" : "invisible"}`}>
-	                        { props.children }
-	                    </div>
-	                )}
+										<div className = {`transition duration-300 drop-shadow-lg backdrop-blur-sm px-8 pb-8 pt-4 rounded-b-lg bg-light-card-body dark:bg-dark-card-body ${open ? "" : "invisible"}`}>
+												{ props.children }
+										</div>
 	            </div>
 	        </Draggable>
 	    )

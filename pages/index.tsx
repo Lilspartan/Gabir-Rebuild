@@ -195,7 +195,7 @@ export default function Home() {
 
 	return (
 		<>
-			<Loading loading = { loading } />
+			{/*<Loading loading = { loading } />*/}
 
 			<div id = "bg" className = {`${theme.theme === "dark" ? "dark" : ""} background min-h-screen h-auto`}>
 				<div className = "text-black dark:text-white flex flex-col-reverse lg:flex-row justify-center lg:px-16">
@@ -313,21 +313,25 @@ export default function Home() {
 						
 						<NotesCard setDismissedCards = {setDismissedCards} dismissedCards = {dismissedCards}/>
 
-						<Card title = "Closed Cards">
-							<h1 className = "font-bold text-center text-xl">Click to Reopen</h1>
-							{dismissedCards.map(d => (
-								<div className = "my-6">
-									<Button block = {true} click = {() => { 
-										d.reopen(); 
-										let _c = [ ...dismissedCards ];
-										_c = _c.filter((a) => {
-											return a.name !== d.name;
-										})	
-										setDismissedCards(_c);
-									}}>{ d.name }</Button>
-								</div>
-							))}
-						</Card>
+						{dismissedCards.length ? (
+							<Card title = "Closed Cards">
+								<h1 className = "font-bold text-center text-xl">Click to Reopen</h1>
+								{dismissedCards.map(d => (
+									<div className = "my-6">
+										<Button block = {true} click = {() => { 
+											d.reopen(); 
+											let _c = [ ...dismissedCards ];
+											_c = _c.filter((a) => {
+												return a.name !== d.name;
+											})	
+											setDismissedCards(_c);
+										}}>{ d.name }</Button>
+									</div>
+								))}
+							</Card>
+						) : (
+							""
+						)}
 					</div>
 					<div id="right" className = "flex flex-col grow-0 lg:w-2/3">
 						<div id="innerright" className = "flex flex-col-reverse md:flex-row justify-evenly lg:w-1/1">
