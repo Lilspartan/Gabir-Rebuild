@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react'
 import SVG from './icon';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+let targetElement = null;
 
 const LoadingIcon = ({ loading }: {loading:boolean}) => {
     const [fade, setFade] = useState(false);
     const [show, setShow] = useState(true);
     const [done, setDone] = useState(false);
     const [showLogo, setShowLogo] = useState(false);
-
-    let targetElement = null;
 
     const fadeOut = () => {
         setFade(true)
@@ -24,7 +23,9 @@ const LoadingIcon = ({ loading }: {loading:boolean}) => {
         setTimeout(() => {
             setShowLogo(true);
         }, 500)
+    }, [])
 
+    useEffect(() => {
         if (loading !== undefined && !loading && done) {
             fadeOut();
             // console.log(loading)
