@@ -5,6 +5,7 @@ import StreamCard from './StreamCard';
 import ConnectionCard from './ConnectionCard';
 import NotesCard from './NotesCard';
 import Button from './Button';
+import Loading from './Loading';
 
 export {
     DriverCard,
@@ -14,4 +15,5 @@ export {
     ConnectionCard,
 		NotesCard,
     Button,
+    Loading,
 }

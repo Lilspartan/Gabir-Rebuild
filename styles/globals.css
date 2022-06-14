@@ -15,6 +15,13 @@
 	background-size: cover;
 }
 
+.background-c {
+  background-color: black;
+  background-image: url("https://i.gabirmotors.com/assets/other/carbon_fiber.jpg");
+  background-attachment: fixed;
+	background-size: cover;
+}
+
 .acumin {
   font-family: acumin-pro-extra-condensed, sans-serif;
   font-weight: 400;
@@ -40,4 +47,20 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #444444;
+}
+
+#eWN29t6hTui5_to {animation: eWN29t6hTui5_to__to 3500ms linear 1 normal forwards}@keyframes eWN29t6hTui5_to__to { 0% {transform: translate(1760.78547px,160.000004px)} 57.142857% {transform: translate(1760.78547px,160.000004px);animation-timing-function: cubic-bezier(0.42,0,1,1)} 68.571429% {transform: translate(1106.399187px,160.000004px)} 100% {transform: translate(1106.399187px,160.000004px)}} #eWN29t6hTui6_to {animation: eWN29t6hTui6_to__to 3500ms linear 1 normal forwards}@keyframes eWN29t6hTui6_to__to { 0% {transform: translate(539.796388px,-157.476186px)} 11.428571% {transform: translate(539.796388px,-157.476186px);animation-timing-function: cubic-bezier(0.42,0,0.58,1)} 22.857143% {transform: translate(454.791px,157.358245px)} 100% {transform: translate(454.791px,157.358245px)}} #eWN29t6hTui7_to {animation: eWN29t6hTui7_to__to 3500ms linear 1 normal forwards}@keyframes eWN29t6hTui7_to__to { 0% {transform: translate(664.761985px,-157.476186px)} 22.857143% {transform: translate(664.761985px,-157.476186px);animation-timing-function: cubic-bezier(0.42,0,0.58,1)} 34.285714% {transform: translate(579.762985px,157.358245px)} 100% {transform: translate(579.762985px,157.358245px)}} #eWN29t6hTui8_to {animation: eWN29t6hTui8_to__to 3500ms linear 1 normal forwards}@keyframes eWN29t6hTui8_to__to { 0% {transform: translate(784.945463px,-157.476186px)} 34.285714% {transform: translate(784.945463px,-157.476186px);animation-timing-function: cubic-bezier(0.42,0,0.58,1)} 45.714286% {transform: translate(699.949463px,157.358245px)} 100% {transform: translate(699.949463px,157.358245px)}} #eWN29t6hTui9_to {animation: eWN29t6hTui9_to__to 3500ms linear 1 normal forwards}@keyframes eWN29t6hTui9_to__to { 0% {transform: translate(296.739242px,-154.83443px);animation-timing-function: cubic-bezier(0.42,0,0.58,1)} 11.428571% {transform: translate(211.74369px,160.000001px)} 100% {transform: translate(211.74369px,160.000001px)}}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}   
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+
+  to {
+      opacity: 0;
+  }
 }
