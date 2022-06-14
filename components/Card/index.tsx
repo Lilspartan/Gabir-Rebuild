@@ -27,13 +27,7 @@ const Card = (props:any) => {
 			_cards.push({
 				id: props.id,
 				reopen: () => {
-					console.log("reopen");
 					setDismissed(false);
-					let _c = [...props.dismissedCards];
-					_c.filter((a) => {
-						return a.id !== props.id;
-					})
-					props.onDismiss(_c)
 				},
 				name: props.title || "Unnamed Window"
 			})
@@ -43,7 +37,7 @@ const Card = (props:any) => {
 
 		if (dismissed) {
 			return (
-				""
+				<></>
 			)
 		} else {
 	    return (
@@ -53,7 +47,7 @@ const Card = (props:any) => {
 	            disabled = {width || !pinned}
 	        >
 	            <div className = "mx-4">
-	                <div className = {`${pinned ? "cursor-move" : ""} handle p-4 mt-8 bg-[#222222ff] flex flex-row justify-between ${open ? "rounded-t-lg" : "rounded-lg"} select-none`}>
+	                <div className = {`transition duration-300 ${pinned ? "cursor-move" : ""} handle p-4 mt-8 bg-light-card-handle dark:bg-dark-card-handle flex flex-row justify-between ${open ? "rounded-t-lg" : "rounded-lg"} select-none`}>
 	                    <h1 className = "font-bold cursor-default">{ props.title || "Unnamed Window" }</h1>
 	                    <span className = "">
 	                        {props.popout ? (
@@ -83,7 +77,7 @@ const Card = (props:any) => {
 	                        )}
 													{props.dismissible ? (
 	                            <a className = "cursor-pointer p-2" onClick = {dismiss}>
-																{/*<AiOutlineClose className = "inline"/>*/}
+									<AiOutlineClose className = "inline"/>
 	                            </a>
 	                        ): (
 	                            ""
@@ -91,7 +85,7 @@ const Card = (props:any) => {
 	                    </span>
 	                </div>
 	                {open && (
-	                    <div className = {`drop-shadow-lg backdrop-blur-sm px-8 pb-8 pt-4 rounded-b-lg bg-[#22222299] ${open ? "" : "invisible"}`}>
+	                    <div className = {`transition duration-300 drop-shadow-lg backdrop-blur-sm px-8 pb-8 pt-4 rounded-b-lg bg-light-card-body dark:bg-dark-card-body ${open ? "" : "invisible"}`}>
 	                        { props.children }
 	                    </div>
 	                )}

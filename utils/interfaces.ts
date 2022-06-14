@@ -110,7 +110,7 @@ export interface DriverData {
 	},
 	fuel: {
 		remaining: number,
-		max: number,
+		percent: number,
 	}
 }
 
