@@ -195,7 +195,7 @@ export default function Home() {
 
 	return (
 		<>
-			{/*<Loading loading = { loading } />*/}
+			<Loading loading = { loading } />
 
 			<div id = "bg" className = {`${theme.theme === "dark" ? "dark" : ""} background min-h-screen h-auto`}>
 				<div className = "text-black dark:text-white flex flex-col-reverse lg:flex-row justify-center lg:px-16">
@@ -203,6 +203,27 @@ export default function Home() {
 						<title>Gabir Motors Pit Wall</title>
 						<link rel="icon" href="/small_logo.png" />
 						<link rel="stylesheet" href="https://use.typekit.net/mzl0gsb.css" />
+
+						<meta name="title" content="Gabir Motors Pit Wall" />
+						<meta name="description" content="Harness your inner Pit Crew using this handy tool to keep up with all the car stats your heart desires in real time!
+
+						Powered by Gabir Motors, the world's premiere pretend Motorsports Company. " />
+
+						<meta property="og:type" content="website" />
+						<meta property="og:url" content="https://standings.gabirmotors.com/" />
+						<meta property="og:title" content="Gabir Motors Pit Wall" />
+						<meta property="og:description" content="Harness your inner Pit Crew using this handy tool to keep up with all the car stats your heart desires in real time!
+
+						Powered by Gabir Motors, the world's premiere pretend Motorsports Company. " />
+						<meta property="og:image" content="/header.jpg" />
+
+						<meta property="twitter:card" content="summary_large_image" />
+						<meta property="twitter:url" content="https://standings.gabirmotors.com/" />
+						<meta property="twitter:title" content="Gabir Motors Pit Wall" />
+						<meta property="twitter:description" content="Harness your inner Pit Crew using this handy tool to keep up with all the car stats your heart desires in real time!
+
+						Powered by Gabir Motors, the world's premiere pretend Motorsports Company. " />
+						<meta property="twitter:image" content="/header.jpg"></meta>
 					</Head>
 					<div id="left" className = "lg:w-1/3">
 						<ConnectionCard connection = {connection} setDismissedCards = {setDismissedCards} dismissedCards = {dismissedCards}/>
