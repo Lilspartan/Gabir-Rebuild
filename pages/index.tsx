@@ -11,7 +11,7 @@ let socket;
 let connectionTimeout;
 
 export default function Home() {
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [drivers, setDrivers] = useState<Driver[]>([
 		{ 
 			carIndex: 0, 
@@ -84,7 +84,7 @@ export default function Home() {
 		fuel: { remaining: 0, percent: 0 }
 	});
 
-	const [theme, setTheme] = useState({
+	const [theme, setTheme] = useState( {
 		theme: "dark",
 		backgroundImage: "https://gabirmotors.com/img/image.jpg",
 		backgroundColor: "#000000",
@@ -140,12 +140,25 @@ export default function Home() {
 	}, [drivers])
 
 	useEffect(() => {
-		socketInitializer();
+		let localTheme = localStorage.getItem("theme");
+		if (localTheme !== null) {
+			setTheme(JSON.parse(localTheme));
+		}
+
+		socketInitializer().then(() => {
+			setLoading(false);
+		});
 
 		setTimeout(() => {
 			if (drivers.length <= 1) setConection("disconnected")
 		}, 25000)
 	}, [])
+
+	useEffect(() => {
+		localStorage.setItem("theme", JSON.stringify(theme));
+		document.getElementById("bg").style.backgroundImage = `url(${theme.backgroundImage})`;
+		document.getElementById("bg").style.backgroundColor = `${theme.backgroundColor}`;
+	}, [theme])
 
 	useEffect(() => {
 		if (session.flags.includes("Checkered")) {
@@ -300,36 +313,36 @@ export default function Home() {
 							)}
 						</Card>
 
-						{/* <Card title = "Debug">
-							<pre>{ JSON.stringify({flags:session.flags,highlightedDriver}, null, 4) }</pre>
-						</Card> */}
-
 						<Card title = "Tires and Fuel" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
-							<h1 className = "font-bold text-center text-xl">Remaining Tires</h1>
-							<div className = "flex flex-col justify-around">
-								<div className = "flex flex-row justify-around">
-									<div>
-										<span className = "font-bold text-xl">Left Front</span><br />
-										<span className = "text-center block">{ driverData.tiresRemaining.left.front }</span>
+							{ (driverData !== undefined) ? (
+								<>
+									<h1 className = "font-bold text-center text-xl">Remaining Tires</h1>
+									<div className = "flex flex-col justify-around">
+										<div className = "flex flex-row justify-around">
+											<div>
+												<span className = "font-bold text-xl">Left Front</span><br />
+												<span className = "text-center block">{ driverData.tiresRemaining.left.front }</span>
+											</div>
+											<div>
+												<span className = "font-bold text-xl">Right Front</span><br />
+												<span className = "text-center block">{ driverData.tiresRemaining.right.front }</span>
+											</div>
+										</div>	
+										<div className = "flex flex-row justify-around">
+											<div>
+												<span className = "font-bold text-xl">Left Rear</span><br />
+												<span className = "text-center block">{ driverData.tiresRemaining.left.rear }</span>
+											</div>
+											<div>
+												<span className = "font-bold text-xl">Right Rear</span><br />
+												<span className = "text-center block">{ driverData.tiresRemaining.right.rear }</span>
+											</div>
+										</div>
 									</div>
-									<div>
-										<span className = "font-bold text-xl">Right Front</span><br />
-										<span className = "text-center block">{ driverData.tiresRemaining.right.front }</span>
-									</div>
-								</div>	
-								<div className = "flex flex-row justify-around">
-									<div>
-										<span className = "font-bold text-xl">Left Rear</span><br />
-										<span className = "text-center block">{ driverData.tiresRemaining.left.rear }</span>
-									</div>
-									<div>
-										<span className = "font-bold text-xl">Right Rear</span><br />
-										<span className = "text-center block">{ driverData.tiresRemaining.right.rear }</span>
-									</div>
-								</div>
-							</div>
-							<hr className = "mx-4 my-4" />
-							<span className = "font-bold">Fuel Remaining: <span className = "font-normal">{ convertToImperial(driverData.fuel.remaining, "L", theme.useMetric)[0].toFixed(3) } {convertToImperial(driverData.fuel.remaining, "L", theme.useMetric)[1]} ({ (driverData.fuel.percent * 100).toFixed(2) }%)</span></span><br />
+									<hr className = "mx-4 my-4" />
+									<span className = "font-bold">Fuel Remaining: <span className = "font-normal">{ convertToImperial(driverData.fuel.remaining, "L", theme.useMetric)[0].toFixed(3) } {convertToImperial(driverData.fuel.remaining, "L", theme.useMetric)[1]} ({ (driverData.fuel.percent * 100).toFixed(2) }%)</span></span><br />	
+								</>
+							) : ""}
 						</Card>
 						
 						<NotesCard setDismissedCards = {setDismissedCards} dismissedCards = {dismissedCards}/>
@@ -353,6 +366,10 @@ export default function Home() {
 						) : (
 							""
 						)}
+
+						<Card title = "Debug" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+							<pre>{ JSON.stringify({flags:session.flags,highlightedDriver}, null, 4) }</pre>
+						</Card>
 					</div>
 					<div id="right" className = "flex flex-col grow-0 lg:w-2/3">
 						<div id="innerright" className = "flex flex-col-reverse md:flex-row justify-evenly lg:w-1/1">
@@ -408,15 +425,13 @@ export default function Home() {
 									Chat Channel: <input onChange = {(e) => { setChannel(e.target.value) }} type="text" className = "mt-6 rounded-lg bg-light-card-handle dark:bg-dark-card-handle py-2 px-4 transition duration-200" placeholder='Channel' value = {channel}/><br />
 									Background Image: <select onChange = {(e) => {
 										setTheme({ ...theme, backgroundImage: e.target.value })
-										document.getElementById("bg").style.backgroundImage = `url(${e.target.value})`
-									}} name="image" id="image" className = "mt-2 rounded-lg bg-light-card-handle dark:bg-dark-card-handle py-2 px-4 transition duration-200">
+									}} value = {theme.backgroundImage} name="image" id="image" className = "mt-2 rounded-lg bg-light-card-handle dark:bg-dark-card-handle py-2 px-4 transition duration-200">
 										<option value="https://gabirmotors.com/img/image.jpg">Mike Racecar</option>
 										<option value="https://i.gabirmotors.com/assets/other/carbon_fiber.jpg">Carbon Fiber</option>
 										<option value="">none</option>
 									</select><br />
-									Background Color: <input type="color" onChange = {(e) => {
+									Background Color: <input value = {theme.backgroundColor} type="color" onChange = {(e) => {
 										setTheme({ ...theme, backgroundColor: e.target.value })
-										document.getElementById("bg").style.backgroundColor = `${e.target.value}`
 									}} className = "mt-2 rounded-lg bg-light-card-handle dark:bg-dark-card-handle transition duration-200" />
 								</Card>
 							</div>
