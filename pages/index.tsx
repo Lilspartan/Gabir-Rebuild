@@ -47,7 +47,9 @@ export default function Home() {
 	const [displayType, setDisplayType] = useState("Leader")
 	const [connection, setConection] = useState<Connection>("connecting");
 	const [session, setSession] = useState<Session>({
-		flags: [],
+		flags: [
+			
+		],
 		session: {
 			number: 0,
 			type: "LOADING",
@@ -86,7 +88,7 @@ export default function Home() {
 
 	const [theme, setTheme] = useState( {
 		theme: "dark",
-		backgroundImage: "https://gabirmotors.com/img/image.jpg",
+		backgroundImage: "https://i.gabirmotors.com/assets/other/carbon_fiber.jpg",
 		backgroundColor: "#000000",
 		useMetric: false
 	})

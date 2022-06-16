@@ -1,6 +1,6 @@
 entrypoint = "pages/index.tsx"
 
-run = "npm run dev"
+run = "npm run start"
 
 [nix]
 channel = "stable-21_11"
