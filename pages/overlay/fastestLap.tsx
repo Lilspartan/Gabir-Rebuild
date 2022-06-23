@@ -104,7 +104,7 @@ export default function Home() {
                 setOpen(true);
                 setTimeout(() => {
                     setOpen(false);
-                }, 10000)
+                }, 5000)
 			}
 		})
 	}
