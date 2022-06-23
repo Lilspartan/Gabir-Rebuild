@@ -11,6 +11,8 @@ module.exports = {
         "dark-card-body": "#222222aa",
         "light-card-handle": "#eeeeeeff",
         "light-card-body": "#eeeeeeaa",
+        "dark-card": "#222222",
+        "light-card": "#eeeeee",
       }
     },
   },

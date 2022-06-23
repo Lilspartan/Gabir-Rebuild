@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { Driver, Session } from "../../utils/interfaces";
 import secondsToFormatted from '../../utils/secondsToFormatted';
 import { Card } from '../'
@@ -6,21 +5,19 @@ import { Card } from '../'
 type Props = {
     driver: Driver | null;
     session: Session;
-    setDismissedCards: any;
-    dismissedCards: any;
 }
 
-const DriverCard = ({ driver, session, setDismissedCards, dismissedCards }: Props) => {
+const DriverCard = ({ driver, session }: Props) => {
     if (driver === null || driver === undefined) {
         return (
-            <Card title = "Driver Inspector" id = "driver-card" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+            <Card title = "Driver Inspector" id = "driver-card">
                 <h1 className = "font-bold text-center text-xl">Click on a Driver</h1>
             </Card>
         )
     } else {
         // console.log(driver.raceData.lap)
         return (
-            <Card title = "Driver Inspector" id = "driver-card" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+            <Card title = "Driver Inspector" id = "driver-card">
                 <h1 className = "font-bold text-center text-xl">#{ driver.carNumber } { driver.name }</h1>
                 <hr className = "m-4"/>
                 <div className = "flex flex-col md:flex-row">
