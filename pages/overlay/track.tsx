@@ -1,23 +1,27 @@
 import { useState, useEffect } from 'react';
 import { Session } from '../../utils/interfaces';
-import { DriverCard, Card } from '../../components';
 import classnames from 'classnames';
 import io from 'socket.io-client';
+import trackmaps from '../../public/trackmaps.json';
+
 let socket;
 
 const TrackOverlay = () => {
     const [session, setSession] = useState<Session>({
-		flags: [],
+		flags: [
+			
+		],
 		session: {
 			number: 0,
-			type: "PRACTICE",
+			type: "LOADING",
 			timeRemaining: 0,
 			fastRepairs: 0,
 			fastestLap: null,
 		},
 		track: {
-		  name: "Unkown Track",
+		  name: "Unknown Track",
 		  city: "Unknown City",
+		  id: -1,
 		  country: "Unknown Country",  
 		  temperature: "N/A",
 		  length: "N/A",
@@ -25,7 +29,7 @@ const TrackOverlay = () => {
 		weather: {
 			windSpeed: "N/A",
 			temperature: "N/A",
-			skies: "Sunny"
+			skies: "N/A"
 		}
 	})
 
@@ -49,19 +53,16 @@ const TrackOverlay = () => {
 	}, [])
 
     return (
-        <Card>
-            <h1 className = "font-bold text-center text-xl">{ session.track.name }</h1>
-            <h2 className = "text-center text-lg">{ session.track.city }, { session.track.country }</h2>
-
-            <h1 className = "text-center font-bold my-2">Time Remaining: <span className = "font-normal">{ new Date(session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span></h1>
-            <hr className = "m-4"/>
-            <span className = "font-bold">Weather: <span className = "font-normal">{ session.weather.skies }</span></span><br />
-            <span className = "font-bold">Wind: <span className = "font-normal">{ session.weather.windSpeed }</span></span><br />
-            <span className = "font-bold">Track Temperature: <span className = "font-normal">{ session.track.temperature }</span></span><br />
-            <span className = "font-bold">Air Temperature: <span className = "font-normal">{ session.weather.temperature }</span></span><br />
-            <span className = "font-bold">Track Length: <span className = "font-normal">{ session.track.length }</span></span><br />
-            <span className = "font-bold">Quick Repairs: <span className = "font-normal">{ session.session.fastRepairs }</span></span><br />
-        </Card>
+		<div className = {`h-auto flex flex-row justify-end`}>
+			<div className = {`bg-[#222222cc] text-white px-8 py-4 rounded-lg flex flex-col transition duration-500 mt-4 mr-4`}>
+				<h2 className = "text-center font-bold text-lg">{ new Date(session.session.timeRemaining * 1000).toISOString().substr(11, 8) } Remaining</h2>
+				<hr className="mx-4 my-2" />
+				<h1 className = "font-extrabold text-3xl">{ session.track.name }</h1>
+				<h2 className = "text-center font-bold text-xl">{ session.track.city }, { session.track.country }</h2>
+				<h3 className = "mt-4 text-xl text-center font-bold mb-1">https://pitwall.gabirmotors.com</h3>
+				{/* <img src={`${trackmaps[session.track.id]}active.svg`} className = "inline" /> */}
+			</div>
+		</div>
     )
 }
 

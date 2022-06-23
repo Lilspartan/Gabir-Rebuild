@@ -8,6 +8,7 @@ export interface RaceData {
 	lap:              number;
 	lapsCompleted:    number;
 	fastRepairsUsed:  number;
+	lapPercent:       number;
 }
 
 export interface CarData {
@@ -44,11 +45,12 @@ export interface Session {
         number: number,
         type: SessionType,
         timeRemaining: number,
-				fastRepairs: number | string,
-				fastestLap: FastestLap | null
+		fastRepairs: number | string,
+		fastestLap: FastestLap[] | null
     },
 	track: {
 		name: string,
+		id: number,
 		city: string,
 		country: string,  
 		temperature: string,
