@@ -6,6 +6,7 @@ import ConnectionCard from './ConnectionCard';
 import NotesCard from './NotesCard';
 import Button from './Button';
 import Loading from './Loading';
+import Alert from './Alert';
 
 export {
     DriverCard,
@@ -16,4 +17,5 @@ export {
 		NotesCard,
     Button,
     Loading,
+    Alert, 
 }

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import Draggable from 'react-draggable';
-import { Driver, Session, Connection, DismissedCard, DriverData } from '../utils/interfaces';
-import { DriverCard, Card, ChatCard, StreamCard, ConnectionCard, NotesCard, Button, Loading } from '../components';
+import { Driver, Session, Connection, DriverData, FastestLap } from '../utils/interfaces';
+import { DriverCard, Card, ChatCard, StreamCard, ConnectionCard, NotesCard, Button, Loading, Alert } from '../components';
 import convertToImperial from '../utils/convertToImperial';
 import classnames from 'classnames';
 import io from 'socket.io-client';
 import Head from 'next/head'
+import trackmaps from '../public/trackmaps.json';
+import { BsFillStopwatchFill } from 'react-icons/bs';
+import leagueDrivers from '../public/drivers.json';
 
 let socket;
 let connectionTimeout;
@@ -27,6 +29,7 @@ export default function Home() {
 				f2Time: 0, 
 				lap: 1, 
 				lapsCompleted: 0 ,
+				lapPercent: 0,
 				fastRepairsUsed: 0,
 			},
 			carData: {
@@ -55,15 +58,12 @@ export default function Home() {
 			type: "LOADING",
 			timeRemaining: 0,
 			fastRepairs: 0,
-			fastestLap: {
-				CarIdx: -1,
-				FastestLap: -1,
-				FastestTime: -1,
-			},
+			fastestLap: null,
 		},
 		track: {
 		  name: "Unknown Track",
 		  city: "Unknown City",
+		  id: -1,
 		  country: "Unknown Country",  
 		  temperature: "N/A",
 		  length: "N/A",
@@ -79,7 +79,6 @@ export default function Home() {
 		"#00000000",
 		"#00000000"
 	]);
-	const [dismissedCards, setDismissedCards] = useState<DismissedCard[]>([]);
 	const [channel, setChannel] = useState("pennyarcade");
 	const [driverData, setDriverData] = useState<DriverData>({
 		tiresRemaining: { left: { front: 0, rear: 0 }, right: { front: 0, rear: 0 } },
@@ -92,6 +91,8 @@ export default function Home() {
 		backgroundColor: "#000000",
 		useMetric: false
 	})
+
+	const [fastestLap, setFastestLap] = useState<FastestLap | null>(null);
 
 	let width = typeof window !== "undefined" && window.innerWidth <= 900;
 
@@ -121,6 +122,14 @@ export default function Home() {
 			
 			if (newDrivers.length) setDrivers(newDrivers);
 
+			let fLap = parsed.sessionInfo.session.fastestLap;
+
+			// console.log(fLap)
+
+			if (fLap !== null && fLap[0].CarIdx !== 255) {
+				setFastestLap(fLap[0]);
+			}
+
 			clearTimeout(connectionTimeout);
 			connectionTimeout = setTimeout(() => {
 				console.log(drivers)
@@ -128,10 +137,6 @@ export default function Home() {
 			}, 5000)
 		})
 	}
-
-	useEffect(() => {
-		console.log(dismissedCards);
-	}, [dismissedCards])
 	
 	useEffect(() => {
 		drivers.forEach((d) => {
@@ -213,6 +218,10 @@ export default function Home() {
 			<Loading loading = { loading } />
 
 			<div id = "bg" className = {`${theme.theme === "dark" ? "dark" : ""} background min-h-screen h-auto`}>
+				<Alert permaDismiss = {true} id = "no-drag" body = "Windows are no longer draggable due to it causing too many issues" />
+
+				<span className="text-white fixed p-2 z-40 opacity-50">Gabir Motors Pit Wall V1.1</span>
+
 				<div className = "text-black dark:text-white flex flex-col-reverse lg:flex-row justify-center lg:px-16">
 					<Head>
 						<title>Gabir Motors Pit Wall</title>
@@ -225,7 +234,7 @@ export default function Home() {
 						Powered by Gabir Motors, the world's premiere pretend Motorsports Company. " />
 
 						<meta property="og:type" content="website" />
-						<meta property="og:url" content="https://standings.gabirmotors.com/" />
+						<meta property="og:url" content="https://pitwall.gabirmotors.com/" />
 						<meta property="og:title" content="Gabir Motors Pit Wall" />
 						<meta property="og:description" content="Harness your inner Pit Crew using this handy tool to keep up with all the car stats your heart desires in real time!
 
@@ -233,7 +242,7 @@ export default function Home() {
 						<meta property="og:image" content="/header.jpg" />
 
 						<meta property="twitter:card" content="summary_large_image" />
-						<meta property="twitter:url" content="https://standings.gabirmotors.com/" />
+						<meta property="twitter:url" content="https://pitwall.gabirmotors.com/" />
 						<meta property="twitter:title" content="Gabir Motors Pit Wall" />
 						<meta property="twitter:description" content="Harness your inner Pit Crew using this handy tool to keep up with all the car stats your heart desires in real time!
 
@@ -241,17 +250,20 @@ export default function Home() {
 						<meta property="twitter:image" content="/header.jpg"></meta>
 					</Head>
 					<div id="left" className = "lg:w-1/3">
-						<ConnectionCard connection = {connection} setDismissedCards = {setDismissedCards} dismissedCards = {dismissedCards}/>
+						<ConnectionCard connection = {connection}/>
 						<Card id = "standings-card" title = {`Race Standings | ${(session.session.type === "PRACTICE" ? "Practicing" : (
 								session.session.type === "QUALIFY" ? "Qualifying" : (
 									session.session.type === "RACE" ? "Racing" : "Waiting"
 								)
-							))}`} dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+							))}`}>
 							{session.session.type !== "LOADING" ? (
 								<>
 									<table className = "mb-8">
 										<thead>
 											<tr>
+												<th></th>
+												<th></th>
+												<th></th>
 												<th></th>
 												<th></th>
 												<th></th>
@@ -262,6 +274,14 @@ export default function Home() {
 											{drivers.map((d, i) => {
 												// let isFastestLap = (session.session.fastestLap !== null && d.carIndex === session.session.fastestLap.CarIdx);
 												let displayTime = "";
+												let leagueTeam = null;
+
+												for (let i in leagueDrivers) {
+													if (leagueDrivers[i]["iRacing Customer ID"] === d.userID) {
+														leagueTeam = leagueDrivers[i]["Team"]
+													}
+												}
+
 												if (displayType === "Interval") {
 													if (i === 0 && session.session.type === "RACE") displayTime = "INTERVAL";
 													else if (i !== 0) displayTime = (d.raceData.f2Time - drivers[i - 1].raceData.f2Time).toFixed(3);
@@ -284,10 +304,16 @@ export default function Home() {
 			
 												return (
 													<tr className = {classnames([
-														(d.raceData.onPitRoad ? "text-gray-500 dark:text-gray-400" : "")
+														"",
+														(d.raceData.onPitRoad ? "text-gray-500 dark:text-gray-400" : ""),
+														(fastestLap !== null && fastestLap.CarIdx === d.carIndex ? "text-purple-700 dark:text-purple-500" : "")
 													])}>
-														<td className = "px-4">{ d.raceData.position }</td>
-														<td className = "px-6 py-1">
+														<td className = "px-4 ">{ d.raceData.position }</td>
+														{/* <td className = "px-4 flex flex-row justify-center">{ leagueTeam === null ? "" : (
+															<img src={`https://i.gabirmotors.com/assets/teams/${leagueTeam}/main.png`} alt="" className='h-6' />
+														) }</td> */}
+														<td className = "text-center p-1 rounded-md">#{ d.carNumber }</td>
+														<td className = "px-2 py-1">
 															<a onClick = {() => {
 																setHighlightedDriverIndex(d.carIndex);
 																setHighlightedDriver(d);
@@ -297,6 +323,9 @@ export default function Home() {
 															</a>	
 														</td>
 														<td>{ displayTime }</td>
+														<td>{ (fastestLap !== null && fastestLap.CarIdx === d.carIndex) ? (
+															<BsFillStopwatchFill className = "ml-4 text-purple-600" />
+														) : ""}</td>
 													</tr>
 												)
 											})}
@@ -304,10 +333,12 @@ export default function Home() {
 									</table>
 
 									{ drivers.length > 1 ? (
-										<Button block = {true} click = {() => {
-											if (displayType === "Interval") setDisplayType("Leader");
-											else setDisplayType("Interval");
-										}}>Display Mode: { displayType }</Button>
+										<>
+											<Button block = {true} click = {() => {
+												if (displayType === "Interval") setDisplayType("Leader");
+												else setDisplayType("Interval");
+											}}>Display Mode: { displayType }</Button>
+										</>
 								) : ""}
 								</>
 							) : (
@@ -315,7 +346,7 @@ export default function Home() {
 							)}
 						</Card>
 
-						<Card title = "Tires and Fuel" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+						<Card title = "Tires and Fuel">
 							{ (driverData !== undefined) ? (
 								<>
 									<h1 className = "font-bold text-center text-xl">Remaining Tires</h1>
@@ -347,38 +378,18 @@ export default function Home() {
 							) : ""}
 						</Card>
 						
-						<NotesCard setDismissedCards = {setDismissedCards} dismissedCards = {dismissedCards}/>
+						<NotesCard/>
 
-						{dismissedCards.length ? (
-							<Card title = "Closed Cards">
-								<h1 className = "font-bold text-center text-xl">Click to Reopen</h1>
-								{dismissedCards.map(d => (
-									<div className = "my-6">
-										<Button block = {true} click = {() => { 
-											d.reopen(); 
-											let _c = [ ...dismissedCards ];
-											_c = _c.filter((a) => {
-												return a.name !== d.name;
-											})	
-											setDismissedCards(_c);
-										}}>{ d.name }</Button>
-									</div>
-								))}
-							</Card>
-						) : (
-							""
-						)}
-
-						<Card title = "Debug" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
-							<pre>{ JSON.stringify({flags:session.flags,highlightedDriver}, null, 4) }</pre>
+						<Card title = "Debug">
+							<pre>{ JSON.stringify({flags:session.flags,highlightedDriver,fastestLap}, null, 4) }</pre>
 						</Card>
 					</div>
 					<div id="right" className = "flex flex-col grow-0 lg:w-2/3">
 						<div id="innerright" className = "flex flex-col-reverse md:flex-row justify-evenly lg:w-1/1">
 							<div className = "lg:w-1/2">
-								<ChatCard theme = {theme.theme} channel = {channel} setDismissedCards = {setDismissedCards} dismissedCards = {dismissedCards}/>
+								<ChatCard theme = {theme.theme} channel = {channel}/>
 
-								<Card id = "welcome-card" title = "Welcome!" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+								<Card id = "welcome-card" title = "Welcome!">
 									<h1 className = "font-bold text-center text-xl">Welcome to the</h1>
 									<h1 className = "font-bold text-center text-5xl acumin">GABIR MOTORS PIT WALL</h1>
 									<img src="https://i.gabirmotors.com/assets/other/pit_wall.png" alt="Gabir Motors Logo" className = "w-64 m-auto mt-6"/>
@@ -386,40 +397,38 @@ export default function Home() {
 							</div>
 							
 							<div className = "lg:w-1/2">
-								<Card title = "Location" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+								<Card title = "Location">
 									<h1 className = "font-bold text-center text-xl">{ session.track.name }</h1>
 									<h2 className = "text-center text-lg">{ session.track.city }, { session.track.country }</h2>
 								</Card>
 
-								<Card title = "Race Info" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+								<Card title = "Race Info">
 									<span className = "font-bold">Time Remaining: <span className = "font-normal">{ new Date(session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span></span><br />
 									<span className = "font-bold">Quick Repairs: <span className = "font-normal">{ session.session.fastRepairs }</span></span><br />
 									<span className = "font-bold">Track Length: <span className = "font-normal">{ session.track.length }</span></span><br />
 									<span className = "font-bold">Lap: <span className = "font-normal">{ drivers[0].raceData.lap }</span></span><br />
 								</Card>
 
-								<Card title = "Weather" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+								<Card title = "Weather">
 									<span className = "font-bold">Skies: <span className = "font-normal">{ session.weather.skies }</span></span><br />
 									<span className = "font-bold">Wind: <span className = "font-normal">{ session.weather.windSpeed }</span></span><br />
 									<span className = "font-bold">Track Temperature: <span className = "font-normal">{ session.track.temperature }</span></span><br />
 									<span className = "font-bold">Air Temperature: <span className = "font-normal">{ session.weather.temperature }</span></span><br />
 								</Card>
 
-								<Draggable handle = ".handle" bounds = ".background" disabled = {width}>
-									<div id = "controls" className = "flex flex-col">
-										<div className = {`mx-4 handle block p-4 mt-8 bg-light-card-handle dark:bg-dark-card-handle transition duration-300 ${flag !== "" ? "rounded-t-lg" : "rounded-lg"} cursor-move1`}>
-											<h1 className = "font-bold">Flags</h1>
-										</div>
-										<div id = "flagSection" style = {{
-											backgroundColor: flagColor[0],
-											color: flagColor[1],
-										}} className = {`mx-4 px-24 rounded-b-lg font-bold text-2xl text-center ${flag !== "" ? "py-12" : ""}`}> 
-											{ flag }
-										</div>
+								<div id = "controls" className = "flex flex-col">
+									<div className = {`mx-4 handle block p-4 mt-8 bg-light-card-handle dark:bg-dark-card-handle transition duration-300 ${flag !== "" ? "rounded-t-lg" : "rounded-lg"} cursor-move1`}>
+										<h1 className = "font-bold">Flags</h1>
 									</div>
-								</Draggable>
+									<div id = "flagSection" style = {{
+										backgroundColor: flagColor[0],
+										color: flagColor[1],
+									}} className = {`mx-4 px-24 rounded-b-lg font-bold text-2xl text-center ${flag !== "" ? "py-12" : ""}`}> 
+										{ flag }
+									</div>
+								</div>
 
-								<Card title = "Settings" dismissible = {true} onDismiss = {setDismissedCards} dismissedCards = {dismissedCards}>
+								<Card title = "Settings">
 									<Button block = {true} click = {() => {
 										setTheme({ ...theme, theme: (theme.theme === "dark" ? "light" : "dark") })
 									}}>Change Theme</Button>
@@ -439,8 +448,8 @@ export default function Home() {
 							</div>
 						</div>
 						<div>
-							<DriverCard driver = { highlightedDriver } session = { session } setDismissedCards = {setDismissedCards} dismissedCards = {dismissedCards}/>
-							<StreamCard channel = {channel} setDismissedCards = {setDismissedCards} dismissedCards = {dismissedCards}/>
+							<DriverCard driver = { highlightedDriver } session = { session }/>
+							<StreamCard channel = {channel}/>
 						</div>
 					</div>
 				</div>
