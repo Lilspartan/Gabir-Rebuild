@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Driver, FastestLap } from '../../utils/interfaces';
+import { Driver, FastestLap } from '../../../utils/interfaces';
 import classnames from 'classnames';
 import io from 'socket.io-client';
 import { BsFillStopwatchFill } from 'react-icons/bs';
+import { useRouter } from 'next/router'
 
 let socket;
 
@@ -76,6 +77,8 @@ export default function Home() {
     });
     const [open, setOpen] = useState(false);
 
+    const router = useRouter();
+
 	const socketInitializer = async () => {
 		if (socket) return;
 		socket = io("https://streaming.gabirmotors.com");
@@ -84,7 +87,7 @@ export default function Home() {
 			console.log('connected');
 		})
 
-        socket.on('standings_update', (data) => {
+        socket.on(`standings_update-${router.query.channel}`, (data) => {
 			let newDrivers = [];
 			let parsed = JSON.parse(data)
 			
@@ -94,8 +97,8 @@ export default function Home() {
 
 			if (newDrivers.length) setDrivers(newDrivers);
 		})
-
-		socket.on('fastest_lap', (data) => {
+        console.log(`fastest_lap-${router.query.channel}`)
+		socket.on(`fastest_lap-${router.query.channel}`, (data) => {
             let parsed = data;
             console.log(data)
             if (parsed.fastestLap !== null && parsed.driver !== null) {
