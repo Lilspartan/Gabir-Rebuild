@@ -97,7 +97,7 @@ export default function Home() {
 
 			if (newDrivers.length) setDrivers(newDrivers);
 		})
-        console.log(`fastest_lap-${router.query.channel}`)
+        
 		socket.on(`fastest_lap-${router.query.channel}`, (data) => {
             let parsed = data;
             console.log(data)
@@ -113,8 +113,12 @@ export default function Home() {
 	}
 
     useEffect(() => {
-        socketInitializer();
-    }, [])
+		if (router.query.channel === undefined) return;
+		
+		console.log(router.query.channel)
+
+		socketInitializer();
+	}, [router.query.channel])
 
 	return (
 		<>

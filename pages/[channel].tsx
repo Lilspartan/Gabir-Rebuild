@@ -95,6 +95,7 @@ export default function Home() {
 
 	const [fastestLap, setFastestLap] = useState<FastestLap | null>(null);
 	const [isStreamer, setIsStreamer] = useState(false);
+	const [leftSideWidth, setLeftSideWidth] = useState(400);
 
 	const router = useRouter();
 
@@ -155,6 +156,8 @@ export default function Home() {
 	}, [drivers])
 
 	useEffect(() => {
+		setLeftSideWidth(window.innerWidth - (window.innerWidth / 5));
+
 		let localTheme = localStorage.getItem("theme");
 		if (localTheme !== null) {
 			setTheme(JSON.parse(localTheme));
@@ -242,7 +245,7 @@ export default function Home() {
 			<div id = "bg" className = {`${theme.theme === "dark" ? "dark" : ""} background min-h-screen h-auto`}>
 				<Alert permaDismiss = {true} id = "no-drag" body = "Windows are no longer draggable due to it causing too many issues" />
 
-				<span className="text-white fixed p-2 z-40 opacity-50">Gabir Motors Pit Wall V1.2</span>
+				<span className="text-white fixed p-2 z-40 opacity-50">Gabir Motors Pit Wall V1.3</span>
 
 				
 				{!width && isStreamer ? <ChatCard theme = {theme.theme} channel = {channel}/> : <div></div> }

@@ -6,7 +6,7 @@ import Head from 'next/head';
 export default function Channels() {
 	const [loading, setLoading] = useState(true);
 	const [channels, setChannels] = useState([ "" ])
-  const [selected, setSelected] = useState("");
+  	const [selected, setSelected] = useState("");
 
 	useEffect(() => {
 		(async () => {
@@ -24,9 +24,9 @@ export default function Channels() {
 			<Loading loading = { loading } />
 
 			<div id = "bg" className = {`dark background-c min-h-screen h-auto`}>
-				{/* <Alert permaDismiss = {true} id = "no-drag" body = "Windows are no longer draggable due to it causing too many issues" />
+				{/* <Alert permaDismiss = {true} title = "Notice" id = "in-testing" body = "Multiple pit walls is currently in testing" /> */}
 
-				<span className="text-white fixed p-2 z-40 opacity-50">Gabir Motors Pit Wall V1.2</span> */}
+				{/* <span className="text-white fixed p-2 z-40 opacity-50">Gabir Motors Pit Wall V1.2</span> */}
 
 				<div className = "text-black dark:text-white flex flex-col-reverse lg:flex-row justify-center lg:px-16">
 					<Head>

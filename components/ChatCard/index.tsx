@@ -67,6 +67,8 @@ const ChatCard = (props) => {
         if (width <= 100 && !moving) {
             setWidth(20);
         }
+
+        // props.setLeftWidth(window.innerWidth - width);
     }, [width, moving])
 
     useEffect(() => {

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Session } from '../../utils/interfaces';
+import { Session } from '../../../utils/interfaces';
 import classnames from 'classnames';
 import io from 'socket.io-client';
-import trackmaps from '../../public/trackmaps.json';
+import trackmaps from '../../../public/trackmaps.json';
+import { useRouter } from 'next/router'
 
 let socket;
 
@@ -33,6 +34,8 @@ const TrackOverlay = () => {
 		}
 	})
 
+	const router = useRouter();
+
     const socketInitializer = async () => {
 		if (socket) return;
 		socket = io("https://streaming.gabirmotors.com");
@@ -41,7 +44,7 @@ const TrackOverlay = () => {
 			console.log('connected');
 		})
 
-		socket.on('standings_update', (data) => {
+		socket.on(`standings_update-${router.query.channel}`, (data) => {
 			let parsed = JSON.parse(data)
 
 			setSession(parsed.sessionInfo)
@@ -49,8 +52,12 @@ const TrackOverlay = () => {
 	}
 
 	useEffect(() => {
+		if (router.query.channel === undefined) return;
+		
+		console.log(router.query.channel)
+
 		socketInitializer();
-	}, [])
+	}, [router.query.channel])
 
     return (
 		<div className = {`h-auto flex flex-row justify-end`}>

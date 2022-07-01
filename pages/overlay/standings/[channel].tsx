@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Session, Driver, FastestLap } from '../../utils/interfaces';
+import { Session, Driver, FastestLap } from '../../../utils/interfaces';
 import classnames from 'classnames';
 import io from 'socket.io-client';
 import { BsFillStopwatchFill } from 'react-icons/bs';
+import { useRouter } from 'next/router';
 
 let socket;
 
@@ -67,6 +68,8 @@ const TrackOverlay = () => {
 
     const [flagColor, setFlagColor] = useState("#222222");
 
+	const router = useRouter();
+
     const socketInitializer = async () => {
 		if (socket) return;
 		socket = io("https://streaming.gabirmotors.com");
@@ -74,8 +77,8 @@ const TrackOverlay = () => {
 		socket.on('connect', () => {
 			console.log('connected');
 		})
-
-		socket.on('standings_update', (data) => {
+		console.log(`standings_update-${router.query.channel}`);
+		socket.on(`standings_update-${router.query.channel}`, (data) => {
 			let parsed = JSON.parse(data)
 
 			setSession(parsed.sessionInfo)
@@ -103,8 +106,12 @@ const TrackOverlay = () => {
 	}
 
 	useEffect(() => {
+		if (router.query.channel === undefined) return;
+		
+		console.log(router.query.channel)
+
 		socketInitializer();
-	}, [])
+	}, [router.query.channel])
 
     useEffect(() => {
 		if (session.flags.includes("Checkered")) {
