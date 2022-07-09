@@ -1,4 +1,8 @@
 const secondsToFormatted = (seconds: number) => {
+    if (seconds === -1) {
+        return "N/A";
+    }
+
     let _seconds = seconds;
     let _tempSeconds = _seconds;
     _seconds = _seconds % 60;

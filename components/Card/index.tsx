@@ -10,7 +10,7 @@ const Card = (props:any) => {
 	return (
 		<div className = {`mx-4`}>
 			<div className = {`transition duration-300 p-4 mt-8 bg-light-card-handle dark:bg-dark-card-handle flex flex-row justify-between ${open ? "rounded-t-lg" : "rounded-lg"} select-none`}>
-				<h1 className = "font-bold cursor-default">{ props.title || "Unnamed Window" }</h1>
+				<span className = "font-bold cursor-default">{ props.title || "Unnamed Window" }</span>
 				<span className = "">
 					{open ? (
 						<a className = "cursor-pointer p-2" onClick = {minimize}>

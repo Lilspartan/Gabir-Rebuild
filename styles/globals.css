@@ -76,3 +76,11 @@
 .card {
 	
 }
+
+#flagSection {
+  background-size: cover;
+}
+
+h1 {
+  @apply font-bold text-center text-xl;
+}

@@ -62,7 +62,7 @@ const TrackOverlay = () => {
     return (
 		<div className = {`h-auto flex flex-row justify-end`}>
 			<div className = {`bg-[#222222cc] text-white px-8 py-4 rounded-lg flex flex-col transition duration-500 mt-4 mr-4`}>
-				<h1 className = "font-extrabold text-3xl">{ session.track.name }</h1>
+				<h1 className = "font-extrabold text-3xl text-center">{ session.track.name }</h1>
 				<h2 className = "text-center font-bold text-xl">{ session.track.city }, { session.track.country }</h2>
 				<h3 className = "mt-4 text-xl text-center font-bold mb-1">https://pitwall.gabirmotors.com</h3>
 				{/* <img src={`${trackmaps[session.track.id]}active.svg`} className = "inline" /> */}

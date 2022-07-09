@@ -29,6 +29,7 @@ export interface Driver {
 	carData:    CarData;
 	lapTimes:   LapTimes;
 	flags:      Flag[];
+	qualifyingResult: QualifyingResult | null;
 }
 
 export interface LapTimes {
@@ -37,6 +38,13 @@ export interface LapTimes {
 		time:   number;
 		lap:    number;
 	}
+}
+
+export interface QualifyingResult {
+	position: number;
+	classPosition: number;
+	fastestLap: number;
+	fastestTime: number;
 }
 
 export interface Session {
@@ -144,3 +152,9 @@ export enum Type {
 export interface Options {
 	channel: string
 }
+
+export type DisplayMode = 
+	"LEADER" |
+	"INTERVAL" |
+	"FASTESTLAP" |
+	"GAINEDLOSTPOSITIONS";

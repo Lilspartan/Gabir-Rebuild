@@ -7,15 +7,17 @@ import NotesCard from './NotesCard';
 import Button from './Button';
 import Loading from './Loading';
 import Alert from './Alert';
+import SEO from './SEO';
 
 export {
-    DriverCard,
-    Card,
-    ChatCard,
-    StreamCard,
-    ConnectionCard,
-		NotesCard,
-    Button,
-    Loading,
-    Alert, 
+  DriverCard,
+  Card,
+  ChatCard,
+  StreamCard,
+  ConnectionCard,
+  NotesCard,
+  Button,
+  Loading,
+  Alert, 
+  SEO,
 }

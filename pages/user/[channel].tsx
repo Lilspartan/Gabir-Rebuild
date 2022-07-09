@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { Driver, Session, Connection, DriverData, FastestLap } from '../utils/interfaces';
-import { DriverCard, Card, ChatCard, StreamCard, ConnectionCard, NotesCard, Button, Loading, Alert } from '../components';
-import convertToImperial from '../utils/convertToImperial';
+import { Driver, Session, Connection, DriverData, FastestLap } from '../../utils/interfaces';
+import { DriverCard, Card, ChatCard, ConnectionCard, NotesCard, Button, Loading, Alert, SEO } from '../../components';
+import convertToImperial from '../../utils/convertToImperial';
 import classnames from 'classnames';
 import io from 'socket.io-client';
 import Head from 'next/head'
-import trackmaps from '../public/trackmaps.json';
-import { BsFillStopwatchFill } from 'react-icons/bs';
-import leagueDrivers from '../public/drivers.json';
+import { BsFillStopwatchFill, BsTwitter, BsGithub, BsChevronUp, BsChevronDown, BsDash } from 'react-icons/bs';
+import { SiGmail } from 'react-icons/si';
+import leagueDrivers from '../../public/drivers.json';
 import { useRouter } from 'next/router'
 
 let socket;
@@ -43,7 +43,8 @@ export default function Home() {
 				last: 0,
 				best: { time: 0, lap: 0 }
 			}, 
-			flags: []
+			flags: [],
+			qualifyingResult: null
 		}
 	])
 	const [highlightedDriver, setHighlightedDriver] = useState<Driver | null>(null);
@@ -96,6 +97,7 @@ export default function Home() {
 	const [fastestLap, setFastestLap] = useState<FastestLap | null>(null);
 	const [isStreamer, setIsStreamer] = useState(false);
 	const [leftSideWidth, setLeftSideWidth] = useState(400);
+	const [debug, setDebug] = useState(false);
 
 	const router = useRouter();
 
@@ -186,42 +188,56 @@ export default function Home() {
 
 	useEffect(() => {
 		if (session.flags.includes("Checkered")) {
+			document.getElementById("flagSection").style.backgroundImage = `url(https://i.gabirmotors.com/assets/other/pit_wall/checkered_flag.jpg)`;
+			document.getElementById("flagSection").style.opacity = `0.95`;
 			setFlag("Checkered Flag");
 			setFlagColor([
-				"#ffffff",
-				"#000000"
+				"#222222",
+				"#ffffff00"
 			]);
 		} else if (session.flags.includes("White")) {
+			document.getElementById("flagSection").style.backgroundImage = ``;
+			document.getElementById("flagSection").style.opacity = `1`;
 			setFlag("Final Lap");
 			setFlagColor([
 				"#ffffffaa",
 				"#000000"
 			]);
 		} else if (session.flags.includes("Green")) {
+			document.getElementById("flagSection").style.backgroundImage = ``;
+			document.getElementById("flagSection").style.opacity = `1`;
 			setFlag("Green Flag");
 			setFlagColor([
 				"#00ff00",
 				"#000000"
 			]);
 		} else if (session.flags.includes("OneLapToGreen")) {
+			document.getElementById("flagSection").style.backgroundImage = ``;
+			document.getElementById("flagSection").style.opacity = `1`;
 			setFlag("One Lap to Green");
 			setFlagColor([
 				"#00ff00aa",
 				"#000000"
 			]);
 		} else if (session.flags.includes("CautionWaving")) {
+			document.getElementById("flagSection").style.backgroundImage = ``;
+			document.getElementById("flagSection").style.opacity = `1`;
 			setFlag("Caution Thrown");
 			setFlagColor([
 				"#ffff00aa",
 				"#000000"
 			]);
 		} else if (session.flags.includes("Caution")) {
+			document.getElementById("flagSection").style.backgroundImage = ``;
+			document.getElementById("flagSection").style.opacity = `1`;
 			setFlag("Caution");
 			setFlagColor([
 				"#ffff00",
 				"#000000"
 			]);
 		} else {
+			document.getElementById("flagSection").style.backgroundImage = ``;
+			document.getElementById("flagSection").style.opacity = `1`;
 			setFlag("");
 			setFlagColor([
 				"#00000000",
@@ -240,47 +256,22 @@ export default function Home() {
 
 	return (
 		<>
+			<SEO 
+				title = {`Gabir Motors Pit Wall | ${channel}`}
+				url = {`user/${channel}`}
+			/>
+
 			<Loading loading = { loading } />
 
 			<div id = "bg" className = {`${theme.theme === "dark" ? "dark" : ""} background min-h-screen h-auto`}>
-				<Alert permaDismiss = {true} id = "no-drag" body = "Windows are no longer draggable due to it causing too many issues" />
+				{/* <Alert permaDismiss = {true} id = "no-drag" body = "Windows are no longer draggable due to it causing too many issues" /> */}
 
-				<span className="text-white fixed p-2 z-40 opacity-50">Gabir Motors Pit Wall V1.3</span>
+				<span className="text-white fixed p-2 z-40 opacity-50">Gabir Motors Pit Wall V1.4</span>
 
 				
 				{!width && isStreamer ? <ChatCard theme = {theme.theme} channel = {channel}/> : <div></div> }
 
 				<div className = "text-black dark:text-white flex flex-col-reverse lg:flex-row justify-center lg:px-16">
-					<Head>
-						<title>Gabir Motors Pit Wall | { channel }</title>
-						<link rel="icon" href="/small_logo.png" />
-						<link rel="stylesheet" href="https://use.typekit.net/mzl0gsb.css" />
-
-						<meta name="author" content = "Gabe Krahulik" />
-						<meta name="keywords" content="Gabir Motors, Penny Arcade, Iracing, pit wall, racing, motorsports" />
-
-						<meta name="title" content={`Gabir Motors Pit Wall | ${channel}`} />
-						<meta name="description" content="Harness your inner Pit Crew using this handy tool to keep up with all the car stats your heart desires in real time!
-
-						Powered by Gabir Motors, the world's premiere pretend Motorsports Company. " />
-
-						<meta property="og:type" content="website" />
-						<meta property="og:url" content={`https://pitwall.gabirmotors.com/${channel}`} />
-						<meta property="og:title" content={`Gabir Motors Pit Wall | ${channel}`} />
-						<meta property="og:description" content="Harness your inner Pit Crew using this handy tool to keep up with all the car stats your heart desires in real time!
-
-						Powered by Gabir Motors, the world's premiere pretend Motorsports Company. " />
-						<meta property="og:image" content="/header.jpg" />
-
-						<meta property="twitter:card" content="summary_large_image" />
-						<meta property="twitter:url" content={`https://pitwall.gabirmotors.com/${channel}`} />
-						<meta property="twitter:title" content={`Gabir Motors Pit Wall | ${channel}`} />
-						<meta property="twitter:description" content="Harness your inner Pit Crew using this handy tool to keep up with all the car stats your heart desires in real time!
-
-						Powered by Gabir Motors, the world's premiere pretend Motorsports Company. " />
-						<meta property="twitter:image" content="/header.jpg"></meta>
-					</Head>
-
 					<div id="left" className = "lg:w-1/3">
 						<Card id = "standings-card" title = {`Race Standings | ${(session.session.type === "PRACTICE" ? "Practicing" : (
 								session.session.type === "QUALIFY" ? "Qualifying" : (
@@ -289,9 +280,10 @@ export default function Home() {
 							))}`}>
 							{session.session.type !== "LOADING" ? (
 								<>
-									<table className = "mb-8">
+									<table className = "mb-8 border-separate">
 										<thead>
 											<tr>
+												<th></th>
 												<th></th>
 												<th></th>
 												<th></th>
@@ -339,11 +331,14 @@ export default function Home() {
 														(d.raceData.onPitRoad ? "text-gray-500 dark:text-gray-400" : ""),
 														(fastestLap !== null && fastestLap.CarIdx === d.carIndex ? "text-purple-700 dark:text-purple-500" : "")
 													])}>
+														<td>{ (fastestLap !== null && fastestLap.CarIdx === d.carIndex) ? (
+															<BsFillStopwatchFill className = "text-purple-600" />
+														) : ""}</td>
 														<td className = "px-4 ">{ d.raceData.position }</td>
 														{/* <td className = "px-4 flex flex-row justify-center">{ leagueTeam === null ? "" : (
 															<img src={`https://i.gabirmotors.com/assets/teams/${leagueTeam}/main.png`} alt="" className='h-6' />
 														) }</td> */}
-														<td className = "text-center p-1 rounded-md">#{ d.carNumber }</td>
+														<td className = "text-center bg-white text-black p-1 rounded-md">#{ d.carNumber }</td>
 														<td className = "px-2 py-1">
 															<a onClick = {() => {
 																setHighlightedDriverIndex(d.carIndex);
@@ -354,9 +349,19 @@ export default function Home() {
 															</a>	
 														</td>
 														<td>{ displayTime }</td>
-														<td>{ (fastestLap !== null && fastestLap.CarIdx === d.carIndex) ? (
-															<BsFillStopwatchFill className = "ml-4 text-purple-600" />
-														) : ""}</td>
+														<td className = "pl-4">
+															{ d.qualifyingResult !== null ? (
+																<span className = "text-black dark:text-white">{ (d.qualifyingResult.position + 1 < d.raceData.position) ? (
+																	<BsChevronDown className = "text-2xl text-red-600 inline stroke-1" />
+																) : (
+																	d.qualifyingResult.position + 1 === d.raceData.position ? (
+																		<BsDash className = "text-2xl text-gray-500 dark:text-gray-400 inline stroke-1" />
+																	) : (
+																		<BsChevronUp className = "text-2xl text-green-500 inline stroke-1" />
+																	)
+																) } { Math.abs(d.raceData.position - (d.qualifyingResult.position + 1)) !== 0 ? Math.abs(d.raceData.position - (d.qualifyingResult.position + 1)) : "" }</span>
+															) : "" }
+														</td>
 													</tr>
 												)
 											})}
@@ -373,23 +378,38 @@ export default function Home() {
 								) : ""}
 								</>
 							) : (
-								<h1 className = "font-bold text-center text-xl">Waiting to Recieve Data</h1>
+								<h1>Waiting to Recieve Data</h1>
 							)}
 						</Card>
 						
 						<NotesCard/>
 
-						{/* <Card title = "Debug">
-							<pre>{ JSON.stringify({flags:session.flags,highlightedDriver,fastestLap}, null, 4) }</pre>
-						</Card> */}
+						{debug ? (
+							<Card title = "Debug">
+								<pre>{ JSON.stringify({ session, highlightedDriver }, null, 4) }</pre>
+							</Card>
+						) : ""}
 					</div>
 					<div id="right" className = "flex flex-col grow-0 lg:w-2/3">
-						<div id="innerright" className = "flex flex-col-reverse md:flex-row justify-evenly lg:w-1/1">
+						<div id="innerright" className = "flex flex-col-reverse lg:flex-row justify-evenly lg:w-1/1">
 							<div className = "lg:w-1/2">
 								<Card id = "welcome-card" title = "Welcome!">
-									<h1 className = "font-bold text-center text-xl">Welcome to the</h1>
-									<h1 className = "font-bold text-center text-5xl acumin">GABIR MOTORS PIT WALL</h1>
-									<img src="https://i.gabirmotors.com/assets/other/pit_wall.png" alt="Gabir Motors Logo" className = "w-64 m-auto mt-6"/>
+									<h1>Welcome to the</h1>
+									<h2 className = "font-bold text-center text-5xl acumin">GABIR MOTORS PIT WALL</h2>
+									<img src="https://i.gabirmotors.com/assets/other/pit_wall.png" alt="Gabir Motors Logo" className = "w-64 m-auto mt-4"/>
+									<hr className = "m-4" />
+									<h5 className = "text-center mt-2 text-xl italic">Made By <span className = "font-bold">Gabe Krahulik</span></h5>
+									<div className = "flex flex-row justify-center text-4xl mt-4 gap-8">
+										<a href = "https://twitter.com/gabekrahulik" target = "_new">
+											<BsTwitter className = "hover:text-twitter-brand transition-all duration-200" />
+										</a>
+										<a href = "https://github.com/LilSpartan" target = "_new">	
+											<BsGithub className = "hover:text-github-brand transition-all duration-200" />
+										</a>
+										<a href = "mailto:gabekrahulik@gmail.com" target = "_new">
+											<SiGmail className = "hover:text-gmail-brand transition-all duration-200" />
+										</a>
+									</div>
 								</Card>
 
 								<ConnectionCard connection = {connection}/>
@@ -397,7 +417,7 @@ export default function Home() {
 								<Card title = "Tires and Fuel">
 									{ (driverData !== undefined) ? (
 										<>
-											<h1 className = "font-bold text-center text-xl">Remaining Tires</h1>
+											<h1>Remaining Tires</h1>
 											<div className = "flex flex-col justify-around">
 												<div className = "flex flex-row justify-around">
 													<div>
@@ -429,7 +449,7 @@ export default function Home() {
 							
 							<div className = "lg:w-1/2">
 								<Card title = "Location">
-									<h1 className = "font-bold text-center text-xl">{ session.track.name }</h1>
+									<h1>{ session.track.name }</h1>
 									<h2 className = "text-center text-lg">{ session.track.city }, { session.track.country }</h2>
 								</Card>
 
@@ -453,7 +473,7 @@ export default function Home() {
 
 								<div id = "controls" className = "flex flex-col">
 									<div className = {`mx-4 handle block p-4 mt-8 bg-light-card-handle dark:bg-dark-card-handle transition duration-300 ${flag !== "" ? "rounded-t-lg" : "rounded-lg"} cursor-move1`}>
-										<h1 className = "font-bold">Flags</h1>
+										<span className = "font-bold">Flags</span>
 									</div>
 									<div id = "flagSection" style = {{
 										backgroundColor: flagColor[0],
@@ -467,6 +487,10 @@ export default function Home() {
 									<Button block = {true} click = {() => {
 										setTheme({ ...theme, theme: (theme.theme === "dark" ? "light" : "dark") })
 									}}>Change Theme</Button>
+
+									<Button block = {true} filled = {debug} click = {() => {
+										setDebug(!debug);
+									}}>Toggle Debug</Button>	
 
 									{/* Chat Channel: <input onChange = {(e) => { setChannel(e.target.value) }} type="text" className = "mt-6 rounded-lg bg-light-card-handle dark:bg-dark-card-handle py-2 px-4 transition duration-200" placeholder='Channel' value = {channel}/><br /> */}
 									Background Image: <select onChange = {(e) => {
@@ -492,18 +516,7 @@ export default function Home() {
 										let point = getPoint(driver.raceData.lapPercent);
 
 										let radius = 1.5;
-										if (driver.carIndex === highlightedDriverIndex) radius = 1.5;
-
-										// let colors = [
-										// 	"#ff0000",
-										// 	"#ffff00",
-										// 	"#00ff00",
-										// 	"#00ffff",
-										// 	"#0000ff",
-										// 	"#ff00ff"
-										// ]
-
-										//colors[driver.carIndex % colors.length]
+										if (driver.carIndex === highlightedDriverIndex) radius = 2;
 										
 										let colors = [
 											"#888888cc",

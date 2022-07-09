@@ -17,7 +17,7 @@ export default function Home() {
 	}, [theme])
 
 	return (
-		<>
+		<div>
 			<Loading loading = { loading } />
 
 			<div id = "bg" className = {`${theme.theme === "dark" ? "dark" : ""} background min-h-screen h-auto`}>
@@ -45,20 +45,39 @@ export default function Home() {
 						<meta property="twitter:image" content="/header.jpg"></meta>
 					</Head>
 					<div className = "flex flex-col w-full pl-4">
+						<div className = "p-4">
+                            <h2 className = "text-3xl font-bold">V1.4 - Qualifying Positons</h2>
+                            <h3 className = "text-xl italic font-bold">July 10, 2022</h3>
+
+                            <p></p>
+                        </div>
+						<div className = "p-4">
+                            <h2 className = "text-3xl font-bold">V1.3 - Multi-User Support</h2>
+                            <h3 className = "text-xl italic font-bold">June 30, 2022</h3>
+
+                            <p></p>
+                        </div>
+						<div className = "p-4">
+                            <h2 className = "text-3xl font-bold">V1.2 - New Driver Client</h2>
+                            <h3 className = "text-xl italic font-bold">June 25, 2022</h3>
+
+                            <p></p>
+                        </div>
+
                         <div className = "p-4">
-                            <h1 className = "text-3xl font-bold">V1.1 - Overlays</h1>
-                            <h2 className = "text-xl italic font-bold">June 23, 2022</h2>
+                            <h2 className = "text-3xl font-bold">V1.1 - Overlays</h2>
+                            <h3 className = "text-xl italic font-bold">June 23, 2022</h3>
 
                             <p></p>
                         </div>
                         
                         <div className = "p-4">
-                            <h1 className = "text-3xl font-bold">V1.0 - Initial Release</h1>
-                            <h2 className = "text-xl italic font-bold">June 16, 2022</h2>
+                            <h2 className = "text-3xl font-bold">V1.0 - Initial Release</h2>
+                            <h3 className = "text-xl italic font-bold">June 16, 2022</h3>
                         </div>
                     </div>
 				</div>
 			</div>
-		</>
+		</div>
 	)
 }
