@@ -48,10 +48,12 @@ const DriverCard = ({ driver, session }: Props) => {
                         <span className="italic font-bold">{ driver.raceData.onPitRoad ? "In The Pits" : "" }</span> 
                     </div>
 
-                    <div>
-                        <span className = "font-bold">Qualified: <span className = "font-normal">{ driver.qualifyingResult.position + 1 }</span></span><br />     
-                        <span className = "font-bold">Qualifying Time: <span className = "font-normal">{ secondsToFormatted(driver.qualifyingResult.fastestLap) }</span></span><br />     
-                    </div>
+                    {driver.qualifyingResult !== null ? (
+                        <div>
+                            <span className = "font-bold">Qualified: <span className = "font-normal">{ driver.qualifyingResult.position + 1 }</span></span><br />     
+                            <span className = "font-bold">Qualifying Time: <span className = "font-normal">{ secondsToFormatted(driver.qualifyingResult.fastestLap) }</span></span><br />     
+                        </div>
+                    ) : ""}
                 </div>
             </Card>
         )
