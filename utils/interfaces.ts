@@ -49,6 +49,7 @@ export interface QualifyingResult {
 
 export interface Session {
     flags: Flag[],
+	isPALeagueRace: boolean,
     session: {
         number: number,
         type: SessionType,
@@ -93,6 +94,12 @@ export type Flag =
 	"GreenHeld" |
 	"CautionWaving" |
 	"White" |
+	"Servicible" |
+	"StartSet" |
+	"StartGo" |
+	"Disqualify" |
+	"Furled" |
+	"Black" |
 	string
 
 export type TrackSurface =
@@ -158,3 +165,8 @@ export type DisplayMode =
 	"INTERVAL" |
 	"FASTESTLAP" |
 	"GAINEDLOSTPOSITIONS";
+
+export type UserTag =
+	"early" |
+	"beta_tester" |
+	"vip";

@@ -37,7 +37,8 @@ export default function Home() {
 				last: 0,
 				best: { time: 0, lap: 0 }
 			}, 
-			flags: []
+			flags: [],
+            qualifyingResult: null,
 		}
 	])
 
@@ -73,7 +74,8 @@ export default function Home() {
             last: 0,
             best: { time: 0, lap: 0 }
         }, 
-        flags: []
+        flags: [],
+        qualifyingResult: null,
     });
     const [open, setOpen] = useState(false);
 

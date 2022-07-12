@@ -12,6 +12,7 @@ const TrackOverlay = () => {
 		flags: [
 			
 		],
+		isPALeagueRace: false,
 		session: {
 			number: 0,
 			type: "LOADING",

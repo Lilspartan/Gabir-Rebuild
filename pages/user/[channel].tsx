@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Driver, Session, Connection, DriverData, FastestLap } from '../../utils/interfaces';
+import { Driver, Session, Connection, DriverData, FastestLap, UserTag } from '../../utils/interfaces';
 import { DriverCard, Card, ChatCard, ConnectionCard, NotesCard, Button, Loading, Alert, SEO } from '../../components';
 import convertToImperial from '../../utils/convertToImperial';
 import classnames from 'classnames';
@@ -55,6 +55,7 @@ export default function Home() {
 		flags: [
 			
 		],
+		isPALeagueRace: false,
 		session: {
 			number: 0,
 			type: "LOADING",
@@ -98,6 +99,7 @@ export default function Home() {
 	const [isStreamer, setIsStreamer] = useState(false);
 	const [leftSideWidth, setLeftSideWidth] = useState(400);
 	const [debug, setDebug] = useState(false);
+	const [tags, setTags] = useState<null | UserTag[]>(null);
 
 	const router = useRouter();
 
@@ -126,6 +128,7 @@ export default function Home() {
 			setDriverData(parsed.driverData);
 			setChannel(parsed.options.channel);
 			setIsStreamer(parsed.options.isStreamer);
+			setTags(parsed.options.tags);
 
 			_d.forEach(d => {
 				if (d.raceData.position !== 0) newDrivers.push(d);
@@ -290,6 +293,7 @@ export default function Home() {
 												<th></th>
 												<th></th>
 												<th></th>
+												<th></th>
 											</tr>
 										</thead>
 			
@@ -362,6 +366,50 @@ export default function Home() {
 																) } { Math.abs(d.raceData.position - (d.qualifyingResult.position + 1)) !== 0 ? Math.abs(d.raceData.position - (d.qualifyingResult.position + 1)) : "" }</span>
 															) : "" }
 														</td>
+														<td>
+															{ d.flags.includes("Repair") ? (
+																<span>
+																	<svg className = "h-8 inline" viewBox="0 0 285 285" fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<g clip-path="url(#clip0_88_4)">
+																			<path d="M42.702 0C33.885 0 31.824 7.152 31.824 15.969L31.824 22.316V38.481V273.944C31.824 279.949 36.697 284.822 42.702 284.822C48.707 284.822 53.58 279.949 53.58 273.944V38.481V22.316L53.58 15.969C53.585 7.158 51.524 0 42.702 0Z" fill="#9E9E9E"/>
+																			<path d="M53.5801 21.4586H264.15C269.673 21.4586 274.15 25.9358 274.15 31.4586V145.559C274.15 151.081 269.673 155.559 264.15 155.559H53.5801V21.4586Z" fill="black"/>
+																			<circle cx="163.865" cy="88.5086" r="44.1415" fill="#FF7A00"/>
+																		</g>
+																	</svg>
+																</span>
+															) : "" }
+
+															{ d.flags.includes("Black") ? (
+																<span>
+																	<svg className = "h-8 inline" viewBox="0 0 285 285" fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<g clip-path="url(#clip0_88_4)">
+																			<path d="M42.702 0C33.885 0 31.824 7.152 31.824 15.969L31.824 22.316V38.481V273.944C31.824 279.949 36.697 284.822 42.702 284.822C48.707 284.822 53.58 279.949 53.58 273.944V38.481V22.316L53.58 15.969C53.585 7.158 51.524 0 42.702 0Z" fill="#9E9E9E"/>
+																			<path d="M53.5801 21.4586H264.15C269.673 21.4586 274.15 25.9358 274.15 31.4586V145.559C274.15 151.081 269.673 155.559 264.15 155.559H53.5801V21.4586Z" fill="black"/>
+																		</g>
+																	</svg>
+																</span>
+															) : "" }
+
+															{ d.flags.includes("Checkered") ? (
+																<span>
+																	<svg className = "h-8 inline" viewBox="0 0 285 285" fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<g clip-path="url(#clip0_90_34)">
+																			<path d="M42.7023 0C33.8853 0 31.8242 7.152 31.8242 15.969L31.8243 22.316V38.481V273.944C31.8243 279.949 36.6973 284.822 42.7023 284.822C48.7073 284.822 53.5803 279.949 53.5803 273.944V38.481V22.316L53.5802 15.969C53.5852 7.158 51.5243 0 42.7023 0Z" fill="#9E9E9E"/>
+																			<path d="M53.5801 21.4586H264.15C269.673 21.4586 274.15 25.9358 274.15 31.4586V145.559C274.15 151.081 269.673 155.559 264.15 155.559H53.5801V21.4586Z" fill="url(#pattern0)"/>
+																		</g>
+																		<defs>
+																			<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="0.500532" height="0.823286">
+																				<use xlinkHref="#image0_90_34" transform="scale(0.00782082 0.0128638)"/>
+																			</pattern>
+																			<clipPath id="clip0_90_34">
+																				<rect width="284.822" height="284.822" fill="white"/>
+																			</clipPath>
+																			<image id="image0_90_34" width="64" height="64" xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAONJREFUeF7t20EOhEAIRFG4/6F7DvEnYeFzryQIv6pBd2behOu9dPvsbog+k+NLgArQAqmJcw9iAAhSgZKB3IJkkAySQTJ4CiE+gA8oBeg0mH3Ai084P89HhqwEqIA209ICsQdjAeaZIgaAYKxBDMCAYy8fXwAIgiAIcoJpJEYGI4VjB3YrbC9gL2AvkCB43cM5PgZgAAZgQFnNZAhdGykQBEEQBEEQDBmgAm2glM/z+QUYisYUGoldO7kY32IEAzCg6RgIRgjFAsw+AgRBMNYgBmCAT2TCYfoPPz/HCqQCX1eBHzHnv7C7WhBSAAAAAElFTkSuQmCC"/>
+																		</defs>
+																	</svg>
+																</span>
+															) : "" }
+														</td>
 													</tr>
 												)
 											})}
@@ -386,13 +434,40 @@ export default function Home() {
 
 						{debug ? (
 							<Card title = "Debug">
-								<pre>{ JSON.stringify({ session, highlightedDriver }, null, 4) }</pre>
+								<pre>{ JSON.stringify({ tags, session, highlightedDriver }, null, 4) }</pre>
 							</Card>
 						) : ""}
 					</div>
 					<div id="right" className = "flex flex-col grow-0 lg:w-2/3">
 						<div id="innerright" className = "flex flex-col-reverse lg:flex-row justify-evenly lg:w-1/1">
 							<div className = "lg:w-1/2">
+								{channel !== "" ? (
+									<div id = "CurrentRacer" className = "flex flex-col">
+										<div className = {`mx-4 handle block p-4 mt-8 bg-light-card-handle dark:bg-dark-card-handle transition duration-300 ${flag !== "" ? "rounded-t-lg" : "rounded-lg"} cursor-move1`}>
+											<span className = "font-bold">{ channel }'s Pit Wall</span>
+
+											{tags !== null ? (
+												<span className = "ml-2">
+													{/* {JSON.stringify(tags, null, 4)} */}
+													{tags.map((tag, i) => {
+														if (tag === "beta_tester") {
+															return <span className = "mx-1 px-4 py-1 rounded-full bg-blue-600 text-white">Beta Tester</span>
+														}
+
+														if (tag === "vip") {
+															return <span className = "mx-1 px-4 py-1 rounded-full bg-purple-600 text-white">VIP</span>
+														}
+
+														if (tag === "early") {
+															return <span className = "mx-1 px-4 py-1 rounded-full bg-green-500 text-white">Early User</span>
+														}
+													})}
+												</span>
+											) : ""}
+										</div>
+									</div>
+								): ""}
+
 								<Card id = "welcome-card" title = "Welcome!">
 									<h1>Welcome to the</h1>
 									<h2 className = "font-bold text-center text-5xl acumin">GABIR MOTORS PIT WALL</h2>
