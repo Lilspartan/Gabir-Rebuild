@@ -68,7 +68,7 @@ const ChatCard = (props) => {
             setWidth(20);
         }
 
-        // props.setLeftWidth(window.innerWidth - width);
+        // props.setLeftSideWidth(window.innerWidth - width);
     }, [width, moving])
 
     useEffect(() => {

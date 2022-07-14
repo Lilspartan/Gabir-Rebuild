@@ -12,7 +12,7 @@ const DriverCard = ({ driver, session }: Props) => {
     if (driver === null || driver === undefined) {
         return (
             <Card title = "Driver Inspector" id = "driver-card">
-                <h1 className = "font-bold text-center text-xl">Click on a Driver</h1>
+                <h1 className = "font-bold text-center text-xl">Click on a Driver in the Standings</h1>
             </Card>
         )
     } else {
@@ -43,17 +43,16 @@ const DriverCard = ({ driver, session }: Props) => {
                     </div>
 
                     <div className = "md:pr-8">
+                        {driver.qualifyingResult !== null ? (
+                            <div>
+                                <span className = "font-bold">Qualified: <span className = "font-normal">{ driver.qualifyingResult.position + 1 }</span></span><br />     
+                                <span className = "font-bold">Qualifying Time: <span className = "font-normal">{ secondsToFormatted(driver.qualifyingResult.fastestLap) }</span></span><br />     
+                            </div>
+                        ) : ""}
                         <span className = "font-bold">Gear: <span className = "font-normal">{ driver.carData.gear }</span></span><br />
                         <span className = "font-bold">RPM: <span className = "font-normal">{ driver.carData.rpm.toFixed(0) }</span></span><br />    
                         <span className="italic font-bold">{ driver.raceData.onPitRoad ? "In The Pits" : "" }</span> 
                     </div>
-
-                    {driver.qualifyingResult !== null ? (
-                        <div>
-                            <span className = "font-bold">Qualified: <span className = "font-normal">{ driver.qualifyingResult.position + 1 }</span></span><br />     
-                            <span className = "font-bold">Qualifying Time: <span className = "font-normal">{ secondsToFormatted(driver.qualifyingResult.fastestLap) }</span></span><br />     
-                        </div>
-                    ) : ""}
                 </div>
             </Card>
         )

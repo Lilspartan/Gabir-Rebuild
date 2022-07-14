@@ -8,10 +8,13 @@ type Link = {
 
 type Props = {
     title?: string;
-    body?: string;
+    children?: any;
     links?: Link[];
     permaDismiss: boolean;
     id: string;
+    open?: boolean;
+    color?: string;
+    textColor?: string;
 }
 
 const Alert = (props: Props) => {
@@ -28,22 +31,20 @@ const Alert = (props: Props) => {
         if (props.permaDismiss) localStorage.setItem("alert-dismissed-" + props.id, "true");
     }
 
-    if (open) {
-        return (
-            <div className = "flex flex-row justify-center w-full">
-                <div className = "p-4 fixed bg-dark-card-handle text-white dark:bg-light-card-handle dark:text-black z-40 m-4 rounded-lg flex flex-row">
-                    <div>
-                        <span className = "pr-2 font-bold">{ props.title }</span>
-                        <span>{ props.body }</span>
-                    </div>
+    return (
+        <div className = "flex flex-row justify-center w-full">
+            <div style = {{ backgroundColor: props.color, color: props.textColor }} className = {`p-4 fixed ${props.color !== undefined ? "" : "bg-dark-card-handle dark:bg-light-card-handle"} ${props.textColor !== undefined ? "" : "text-white dark:text-black"} z-40 m-4 rounded-lg flex flex-row drop-shadow-lg transition durstion-500 ${open ? "translate-y-0" : "-translate-y-24"}`}>
+                <div>
+                    <span className = "pr-2 font-bold">{ props.title }</span>
+                    <span>{ props.children }</span>
+                </div>
 
-                    <div>
-                        <a className = "cursor-pointer" onClick = {close} ><AiOutlineClose className = "inline ml-4" /></a>
-                    </div>
+                <div>
+                    <a className = "cursor-pointer" onClick = {close} ><AiOutlineClose className = "inline ml-4" /></a>
                 </div>
             </div>
-        )
-    } else return <></>;
+        </div>
+    )
 }
 
 export default Alert
