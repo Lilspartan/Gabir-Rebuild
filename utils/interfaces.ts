@@ -19,17 +19,24 @@ export interface CarData {
 }
 
 export interface Driver {
-	carIndex:   number;
-	name:       string;
-	userID:     number;
-	carNumber:  string;
-	classID:    number;
-	isPaceCar:  boolean;
-	raceData:   RaceData;
-	carData:    CarData;
-	lapTimes:   LapTimes;
-	flags:      Flag[];
-	qualifyingResult: QualifyingResult | null;
+    carIndex: number;
+    name: string;
+    userID: number;
+    carNumber: string;
+    isPaceCar: boolean;
+    raceData: RaceData;
+    carData: CarData;
+    lapTimes: LapTimes;
+    flags: Flag[];
+    qualifyingResult: QualifyingResult | null;
+    class: CarClass;
+    teamName: string;
+}
+
+export interface CarClass {
+    id: number;
+    car: string;
+    color: string;
 }
 
 export interface LapTimes {
@@ -50,6 +57,7 @@ export interface QualifyingResult {
 export interface Session {
     flags: Flag[],
 	isPALeagueRace: boolean,
+	focusedCarIndex: number,
     session: {
         number: number,
         type: SessionType,
@@ -160,13 +168,24 @@ export interface Options {
 	channel: string
 }
 
-export type DisplayMode = 
-	"LEADER" |
-	"INTERVAL" |
-	"FASTESTLAP" |
-	"GAINEDLOSTPOSITIONS";
+export type StandingsFeature = 
+	"FLAGS" |
+	"QUALIFYINGPOSITIONS" |
+	"CLASSCOLORS" |
+	"STOPWATCHICON" |
+	"FOCUSEDDRIVER";
 
 export type UserTag =
 	"early" |
 	"beta_tester" |
 	"vip";
+
+export interface Theme {
+	theme: string;
+	backgroundImage: string;
+	backgroundColor: string;
+	useMetric: boolean;
+	showTwitch: boolean;
+	hideStandingsFeatures: StandingsFeature[];
+	teamNames: boolean;
+}

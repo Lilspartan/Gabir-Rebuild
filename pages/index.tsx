@@ -44,7 +44,7 @@ export default function Channels() {
                   }} value = {selected} name="channel" id="channel" className = "rounded-lg text-white bg-dark-card-handle py-4 px-8 transition duration-200 text-xl font-bold">
                     {channels.map((channel, i) => {
                       return (
-                        <option value = {channel}>{ channel }</option>
+                        <option value = {channel} key = {i}>{ channel }</option>
                       )
                     })}
                   </select>

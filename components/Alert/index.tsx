@@ -33,7 +33,7 @@ const Alert = (props: Props) => {
 
     return (
         <div className = "flex flex-row justify-center w-full">
-            <div style = {{ backgroundColor: props.color, color: props.textColor }} className = {`p-4 fixed ${props.color !== undefined ? "" : "bg-dark-card-handle dark:bg-light-card-handle"} ${props.textColor !== undefined ? "" : "text-white dark:text-black"} z-40 m-4 rounded-lg flex flex-row drop-shadow-lg transition durstion-500 ${open ? "translate-y-0" : "-translate-y-24"}`}>
+            <div style = {{ backgroundColor: props.color, color: props.textColor }} className = {`p-4 fixed ${props.color !== undefined ? "" : "bg-dark-card-handle dark:bg-light-card-handle"} ${props.textColor !== undefined ? "" : "text-white dark:text-black"} z-40 m-4 rounded-lg flex flex-row drop-shadow-lg transition durstion-500 ${open ? "translate-y-0" : "-translate-y-40"}`}>
                 <div>
                     <span className = "pr-2 font-bold">{ props.title }</span>
                     <span>{ props.children }</span>

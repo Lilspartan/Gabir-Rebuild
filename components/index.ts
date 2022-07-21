@@ -8,6 +8,7 @@ import Button from './Button';
 import Loading from './Loading';
 import Alert from './Alert';
 import SEO from './SEO';
+import Tooltip from './Tooltip';
 
 export {
   DriverCard,
@@ -20,4 +21,5 @@ export {
   Loading,
   Alert, 
   SEO,
+  Tooltip,
 }

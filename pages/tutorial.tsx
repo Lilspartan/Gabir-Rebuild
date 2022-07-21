@@ -1,86 +1,36 @@
 import { useState, useEffect } from 'react';
-import { Driver, Session, Connection, DriverData, FastestLap, UserTag, Theme } from '../../utils/interfaces';
-import { DriverCard, Card, ChatCard, ConnectionCard, NotesCard, Button, Loading, Alert, SEO, Tooltip } from '../../components';
-import convertToImperial from '../../utils/convertToImperial';
+import { Driver, Session, Connection, DriverData, FastestLap, UserTag } from '../utils/interfaces';
+import { DriverCard, Card, ChatCard, ConnectionCard, NotesCard, Button, Loading, Alert, SEO } from '../components';
+import convertToImperial from '../utils/convertToImperial';
 import classnames from 'classnames';
 import io from 'socket.io-client';
-import { BsFillStopwatchFill, BsTwitter, BsGithub, BsChevronUp, BsChevronDown, BsDash, BsFillCameraVideoFill } from 'react-icons/bs';
+import { BsFillStopwatchFill, BsTwitter, BsGithub, BsChevronUp, BsChevronDown, BsDash } from 'react-icons/bs';
 import { SiGmail } from 'react-icons/si';
 import { useRouter } from 'next/router'
-
-let socket;
-let connectionTimeout;
+import tutorial_data from '../public/tutorial_data.json';
 
 export default function Home() {
 	// Show the loading screen
     const [loading, setLoading] = useState(true);
 
 	// Array of Driver objects, has a loading object by default
-    const [drivers, setDrivers] = useState<Driver[]>([{class: { car: "N/A", id: 0, color: "ffffff" }, teamName: "", carIndex: 0,name: "Waiting to Recieve Standings...",userID: 0,carNumber: "0",isPaceCar: false,raceData: {position: 1,onPitRoad: true,class: 0,f2Time: 0,lap: 1,lapsCompleted: 0,lapPercent: 0,fastRepairsUsed: 0,},carData: {trackSurface: "NotInWorld",steer: 0,rpm: 0,gear: 0},lapTimes: {last: 0,best: { time: 0, lap: 0 }},flags: [],qualifyingResult: null}])
+    const [drivers, setDrivers] = useState<Driver[]>([{carIndex: 0,name: "Waiting to Recieve Standings...",userID: 0,carNumber: "0",classID: 0,isPaceCar: false,raceData: {position: 1,onPitRoad: true,class: 0,f2Time: 0,lap: 1,lapsCompleted: 0,lapPercent: 0,fastRepairsUsed: 0,},carData: {trackSurface: "NotInWorld",steer: 0,rpm: 0,gear: 0},lapTimes: {last: 0,best: { time: 0, lap: 0 }},flags: [],qualifyingResult: null}])
 	
 	// Driver to show in the Driver Inspector
 	const [highlightedDriver, setHighlightedDriver] = useState<Driver | null>(null);
     const [highlightedDriverIndex, setHighlightedDriverIndex] = useState<number | null>(null);
     const [displayType, setDisplayType] = useState("Leader")
     const [connection, setConection] = useState<Connection>("connecting");
-    const [session, setSession] = useState<Session>({focusedCarIndex: -1,flags: [],isPALeagueRace: false,session: {number: 0,type: "LOADING",timeRemaining: 0,fastRepairs: 0,fastestLap: null,},track: {name: "Unknown Track",city: "Unknown City",id: -1,country: "Unknown Country",temperature: "N/A",length: "N/A",},weather: {windSpeed: "N/A",temperature: "N/A",skies: "N/A"}})
+    const [session, setSession] = useState<Session>({flags: [],isPALeagueRace: false,session: {number: 0,type: "LOADING",timeRemaining: 0,fastRepairs: 0,fastestLap: null,},track: {name: "Unknown Track",city: "Unknown City",id: -1,country: "Unknown Country",temperature: "N/A",length: "N/A",},weather: {windSpeed: "N/A",temperature: "N/A",skies: "N/A"}})
     const [flag, setFlag] = useState("");
     const [flagColor, setFlagColor] = useState(["#00000000","#00000000"]);
     const [channel, setChannel] = useState("");
     const [driverData, setDriverData] = useState<DriverData>({tiresRemaining: { left: { front: 0, rear: 0 }, right: { front: 0, rear: 0 } },fuel: { remaining: 0, percent: 0 }});
-    const [theme, setTheme] = useState<Theme>({teamNames: false, theme: "dark",backgroundImage: "https://i.gabirmotors.com/assets/other/carbon_fiber.jpg",backgroundColor: "#000000",useMetric: true,showTwitch:true,hideStandingsFeatures:[]})
+    const [theme, setTheme] = useState({theme: "dark",backgroundImage: "https://i.gabirmotors.com/assets/other/carbon_fiber.jpg",backgroundColor: "#000000",useMetric: false})
     const [fastestLap, setFastestLap] = useState<FastestLap | null>(null);
     const [isStreamer, setIsStreamer] = useState(false);
-    const [debug, setDebug] = useState(false);
     const [tags, setTags] = useState<null | UserTag[]>(null);
     const [isSmallScreen, setIsSmallScreen] = useState(true);
-
-    const router = useRouter();
-
-    const socketInitializer = async () => {
-        if (socket) return;
-        socket = io("https://streaming.gabirmotors.com");
-
-        socket.on('connect', () => {
-            console.log('connected');
-        })
-
-        console.log(`Connected to channel: ${router.query.channel}`);
-
-        socket.on(`standings_update-${router.query.channel}`, (data) => {
-            setConection("connected")
-            let newDrivers = [];
-            let parsed = JSON.parse(data)
-
-            let _d = parsed.sessionRacers.sort((a, b) => {
-                return a.raceData.position - b.raceData.position;
-            })
-
-            setSession(parsed.sessionInfo);
-            setDriverData(parsed.driverData);
-            setChannel(parsed.options.channel);
-            setIsStreamer(parsed.options.isStreamer);
-            setTags(parsed.options.tags);
-
-            _d.forEach(d => {
-                if (d.raceData.position !== 0) newDrivers.push(d);
-            })
-
-            if (newDrivers.length) setDrivers(newDrivers);
-
-            let fLap = parsed.sessionInfo.session.fastestLap;
-
-            if (fLap !== null && fLap[0].CarIdx !== 255) {
-                setFastestLap(fLap[0]);
-            }
-
-            clearTimeout(connectionTimeout);
-            connectionTimeout = setTimeout(() => {
-                console.log(drivers)
-                if (drivers.length <= 1) setConection("disconnected")
-            }, 5000)
-        })
-    }
 
     useEffect(() => {
         drivers.forEach((d) => {
@@ -96,10 +46,6 @@ export default function Home() {
             setTheme(JSON.parse(localTheme));
         }
 
-        setTimeout(() => {
-            if (drivers.length <= 1) setConection("disconnected")
-        }, 25000)
-
         setIsSmallScreen(window.innerWidth <= 1000);
 
         window.addEventListener("resize", (size) => {
@@ -108,14 +54,34 @@ export default function Home() {
     }, [])
 
     useEffect(() => {
-        if (router.query.channel === undefined) return;
+        setConection("connected")
+        setLoading(false);
+        
+        let newDrivers = [];
+        let parsed = tutorial_data;
 
-        console.log(router.query.channel)
+        let _d = parsed.sessionRacers.sort((a, b) => {
+            return a.raceData.position - b.raceData.position;
+        })
 
-        socketInitializer().then(() => {
-            setLoading(false);
-        });
-    }, [router.query.channel])
+        setSession(parsed.sessionInfo);
+        setDriverData(parsed.driverData);
+        setChannel(parsed.options.channel);
+        setIsStreamer(parsed.options.isStreamer);
+        setTags(parsed.options.tags);
+
+        _d.forEach(d => {
+            if (d.raceData.position !== 0) newDrivers.push(d);
+        })
+
+        if (newDrivers.length) setDrivers(newDrivers);
+
+        let fLap = parsed.sessionInfo.session.fastestLap;
+
+        if (fLap !== null && fLap[0].CarIdx !== 255) {
+            setFastestLap(fLap[0]);
+        }
+    }, [])
 
     useEffect(() => {
         localStorage.setItem("theme", JSON.stringify(theme));
@@ -157,7 +123,7 @@ export default function Home() {
             <Loading loading={loading} />
 
             <div id="bg" className={`${theme.theme === "dark" ? "dark" : ""} background min-h-screen`}>
-                {/* <Alert permaDismiss = {true} id = "new-layout">A few things have changed with the Pit Wall layout, if you run into any problems, please <a href="mailto:gabekrahulik@gmail.com?subject=Pit Wall Layout Issues" className = "font-semibold hover:underline" target = "_new">let me know</a></Alert> */}
+                <Alert permaDismiss = {true} id = "new-layout">A few things have changed with the Pit Wall layout, if you run into any problems, please <a href="mailto:gabekrahulik@gmail.com?subject=Pit Wall Layout Issues" className = "font-semibold hover:underline" target = "_new">let me know</a></Alert>
 
                 <div className = "flex flex-row justify-center w-full pointer-events-none fixed bottom-20 z-40">
                     <div id = "flagAlert" className = {`p-4 px-12 fixed z-40 m-4 rounded-lg flex flex-row drop-shadow-lg lg:mr-8 transition duration-200 origin-top ${flag === "" ? "scale-y-0" : "scale-y-100"}`} style={{
@@ -170,10 +136,10 @@ export default function Home() {
                     </div>
                 </div>
 
-                <span className="text-white fixed p-2 z-40 opacity-50">Gabir Motors Pit Wall V1.6</span>
+                <span className="text-white fixed p-2 z-40 opacity-50">Gabir Motors Pit Wall V1.4</span>
 
 
-                {!isSmallScreen && isStreamer ? <ChatCard theme={theme.theme} channel={channel} show = {theme.showTwitch} /> : <div></div>}
+                {!isSmallScreen && isStreamer ? <ChatCard theme={theme.theme} channel={channel} /> : <div></div>}
 
 
                 <div className="text-black dark:text-white px-4 pb-8 lg:px-16 columns-1 lg:columns-2 2xl:columns-3 gap-8 [column-fill:_auto] break-inside-avoid overflow-auto">
@@ -186,7 +152,7 @@ export default function Home() {
                             {session.session.type !== "LOADING" ? (
                                 <>
                                     <div className="overflow-x-scroll whitespace-nowrap">
-                                        <table className="border-separate">
+                                        <table className="mb-8 border-separate">
                                             <thead>
                                                 <tr>
                                                     <th></th>
@@ -216,7 +182,7 @@ export default function Home() {
                                                     }
 
                                                     let minutes = 0;
-                                                    if (!isNaN(Number(displayTime))) {
+                                                    if (!isNaN(Number(displayTime)) && i !== 0) {
                                                         let _seconds = Number(displayTime);
                                                         let _tempSeconds = _seconds;
                                                         _seconds = _seconds % 60;
@@ -227,30 +193,23 @@ export default function Home() {
                                                     return (
                                                         <tr className={classnames([
                                                             "",
-                                                            (d.raceData.onPitRoad ? "opacity-50" : ""),
-                                                            (fastestLap !== null && fastestLap.CarIdx === d.carIndex ? "text-purple-700 dark:text-purple-500" : ""),
+                                                            (d.raceData.onPitRoad ? "text-gray-500 dark:text-gray-400" : ""),
+                                                            (fastestLap !== null && fastestLap.CarIdx === d.carIndex ? "text-purple-700 dark:text-purple-500" : "")
                                                         ])}>
-                                                            <td>{session.focusedCarIndex === d.carIndex ? (
-                                                                <Tooltip message = {`The Camera is Focused on ${d.name}`}>
-                                                                    <BsFillCameraVideoFill />
-                                                                </Tooltip>
+                                                            <td>{(fastestLap !== null && fastestLap.CarIdx === d.carIndex) ? (
+                                                                <BsFillStopwatchFill className="text-purple-600" />
                                                             ) : ""}</td>
                                                             <td className="px-4 ">{d.raceData.position}</td>
-                                                            <td className={`text-center text-black p-1 rounded-md`} style = {{ backgroundColor: `#${d.class.color}` }}>#{d.carNumber}</td>
-                                                            <td className="pl-2 py-1">
+                                                            <td className="text-center bg-white text-black p-1 rounded-md">#{d.carNumber}</td>
+                                                            <td className="px-2 py-1">
                                                                 <a onClick={() => {
                                                                     setHighlightedDriverIndex(d.carIndex);
                                                                     setHighlightedDriver(d);
                                                                     console.log(d.carIndex)
                                                                 }} className="block cursor-pointer">
-                                                                    {theme.teamNames ? d.teamName : d.name}
+                                                                    {d.name}
                                                                 </a>
                                                             </td>
-                                                            <td>{(fastestLap !== null && fastestLap.CarIdx === d.carIndex) ? (
-                                                                <Tooltip message = {`${d.name} has the fastest lap`}>
-                                                                    <BsFillStopwatchFill className="text-purple-600 mx-2" />
-                                                                </Tooltip>
-                                                            ) : ""}</td>
                                                             <td>{displayTime}</td>
                                                             {true ? (
                                                                 <>
@@ -258,10 +217,10 @@ export default function Home() {
                                                                         {d.qualifyingResult !== null ? (
                                                                             <span className="text-black dark:text-white">{(d.qualifyingResult.position + 1 < d.raceData.position) ? (
                                                                                 <BsChevronDown className="text-2xl text-red-600 inline stroke-1" />
+                                                                            ) : (
+                                                                                d.qualifyingResult.position + 1 === d.raceData.position ? (
+                                                                                    <BsDash className="text-2xl text-gray-500 dark:text-gray-400 inline stroke-1" />
                                                                                 ) : (
-                                                                                    d.qualifyingResult.position + 1 === d.raceData.position ? (
-                                                                                        <BsDash className="text-2xl text-gray-500 dark:text-gray-400 inline stroke-1" />
-                                                                                        ) : (
                                                                                     <BsChevronUp className="text-2xl text-green-500 inline stroke-1" />
                                                                                 )
                                                                             )} {Math.abs(d.raceData.position - (d.qualifyingResult.position + 1)) !== 0 ? Math.abs(d.raceData.position - (d.qualifyingResult.position + 1)) : ""}</span>
@@ -421,14 +380,14 @@ export default function Home() {
                                         </div>
                                     </div>
                                     <hr className="mx-4 my-4" />
-                                    <span className="font-bold">Fuel Remaining: <span className="font-normal">{convertToImperial(driverData.fuel.remaining, "L", theme.useMetric)[0].toFixed(3)} {theme.useMetric ? "L" : "Gallons"} ({(driverData.fuel.percent * 100).toFixed(3)}%)</span></span><br />
+                                    <span className="font-bold">Fuel Remaining: <span className="font-normal">{convertToImperial(driverData.fuel.remaining, "L", theme.useMetric)[0].toFixed(3)} {convertToImperial(driverData.fuel.remaining, "L", theme.useMetric)[1]} ({(driverData.fuel.percent * 100).toFixed(2)}%)</span></span><br />
                                 </>
                             ) : ""}
                         </Card>
                     </div>
                     
                     <div className = "mt-8 break-inside-avoid-column">
-                        <DriverCard driver={highlightedDriver} session={session} theme = {theme} />
+                        <DriverCard driver={highlightedDriver} session={session} />
                     </div>
 
                     <div className = "2xl:break-before-column mt-8 break-inside-avoid">
@@ -444,14 +403,14 @@ export default function Home() {
                                 <div className="mr-4">
                                     <span className="font-bold">Time Remaining: <span className="font-normal">{new Date(session.session.timeRemaining * 1000).toISOString().substr(11, 8)}</span></span><br />
                                     <span className="font-bold">Quick Repairs: <span className="font-normal">{session.session.fastRepairs}</span></span><br />
-                                    <span className="font-bold">Track Length: <span className="font-normal">{convertToImperial(Number(session.track.length.split(' ')[0]), "KM", theme.useMetric)[0].toFixed(2)} {theme.useMetric ? "km" : "Miles"}</span></span><br />
+                                    <span className="font-bold">Track Length: <span className="font-normal">{session.track.length}</span></span><br />
                                     <span className="font-bold">Lap: <span className="font-normal">{drivers[0].raceData.lap}</span></span><br />
                                 </div>
                                 <div>
                                     <span className="font-bold">Skies: <span className="font-normal">{session.weather.skies}</span></span><br />
-                                    <span className="font-bold">Wind: <span className="font-normal">{convertToImperial(Number(session.weather.windSpeed.split(' ')[0]), "M", theme.useMetric)[0].toFixed(2)} {theme.useMetric ? "m/s" : "mph"}</span></span><br />
-                                    <span className="font-bold">Track Temperature: <span className="font-normal">{convertToImperial(Number(session.track.temperature.split(' ')[0]), "C", theme.useMetric)[0].toFixed(2)} {theme.useMetric ? "C" : "F"}</span></span><br />
-                                    <span className="font-bold">Air Temperature: <span className="font-normal">{convertToImperial(Number(session.weather.temperature.split(' ')[0]), "C", theme.useMetric)[0].toFixed(2)} {theme.useMetric ? "C" : "F"}</span></span><br />
+                                    <span className="font-bold">Wind: <span className="font-normal">{session.weather.windSpeed}</span></span><br />
+                                    <span className="font-bold">Track Temperature: <span className="font-normal">{session.track.temperature}</span></span><br />
+                                    <span className="font-bold">Air Temperature: <span className="font-normal">{session.weather.temperature}</span></span><br />
                                 </div>
                             </div>
 
@@ -474,20 +433,11 @@ export default function Home() {
                             </select><br />
                             Background Color: <input value={theme.backgroundColor} type="color" onChange={(e) => {
                                 setTheme({ ...theme, backgroundColor: e.target.value })
-                            }} className="mt-2 rounded-lg bg-light-card-handle dark:bg-dark-card-handle transition duration-200" /><br /><br />
-                            Show Twitch Widget <input type="checkbox" name="showTwitch" id="showTwitch" onChange = {(e) => {
-                                setTheme({ ...theme, showTwitch: e.target.checked })
-                            }} checked = {theme.showTwitch} /><br />
-                            Use Metric Units <input type="checkbox" name="useMetric" id="useMetric" onChange = {(e) => {
-                                setTheme({ ...theme, useMetric: e.target.checked })
-                            }} checked = {theme.useMetric} /><br />
-                            Show Team Names in Standings <input type="checkbox" name="useMetric" id="useMetric" onChange = {(e) => {
-                                setTheme({ ...theme, teamNames: e.target.checked })
-                            }} checked = {theme.teamNames} />
+                            }} className="mt-2 rounded-lg bg-light-card-handle dark:bg-dark-card-handle transition duration-200" />
                         </Card>
                     </div>
 
-                    <div className = "mt-8 break-after-column">
+                    <div className = "mt-8 break-before-avoid">
                         <Card title="Track Map">
                             <svg width="100%" height="auto" viewBox="0 0 111 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path id="track" d="M92.6857 5.93787H17.6857C10.7821 5.93787 5.18567 11.5343 5.18567 18.4379C5.18567 25.3414 10.7821 30.9379 17.6857 30.9379H92.6857C99.5892 30.9379 105.186 25.3414 105.186 18.4379C105.186 11.5343 99.5892 5.93787 92.6857 5.93787Z" stroke="white" stroke-width="1" />

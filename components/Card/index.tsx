@@ -24,7 +24,7 @@ const Card = (props:any) => {
 				</span>
 			</div>
 			{open ? (
-				<div className = {`transition duration-300 drop-shadow-lg backdrop-blur-sm px-8 pb-8 pt-4 rounded-b-lg bg-light-card-body dark:bg-dark-card-body origin-top ${open ? "" : "invisible"}`}>
+				<div className = {`transition duration-300 drop-shadow-lg px-8 pb-8 pt-4 rounded-b-lg bg-light-card-body dark:bg-dark-card-body ${open ? "" : "invisible"}`}>
 					{ props.children }
 				</div>
 			) : ""}
