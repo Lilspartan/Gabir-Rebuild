@@ -44,7 +44,7 @@ const Button = (props) => {
 
   if (props.link) {
     return (
-      <a href = {props.link} target = "_new" 
+      <a href = {props.link}
         className = {classNames(buttonStyles)}>{ props.children }</a>
     )
   } else {
