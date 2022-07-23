@@ -57,7 +57,9 @@ export default function Channels() {
               <div className = "lg:w-1/2 lg:border-l-2">
                 <h2 className = "text-4xl font-extrabold text-center mb-20">DRIVER</h2>
 
-                <div className = "w-full text-center italic font-extrabold text-gray-500 text-xl">Driver Client Coming Soon</div>
+                <div className = " p-8">
+                  <Button link = {`/download`} block = {true}>Download Driver Client</Button>  
+                </div>
               </div>
             </div>
           </div>
