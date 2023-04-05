@@ -18,6 +18,10 @@ const LoadingIcon = ({ loading }: {loading:boolean}) => {
     }
 
     useEffect(() => {
+        setTimeout(() => {
+            setDone(true);
+        }, 2000)
+
         targetElement = document.querySelector('body');
         disableBodyScroll(targetElement);
         setTimeout(() => {
@@ -30,27 +34,15 @@ const LoadingIcon = ({ loading }: {loading:boolean}) => {
             fadeOut();
             // console.log(loading)
         }
-    })
+    }, [loading, done])
 
     if (show) {
         return (
-            <div className={`
-                background-c
-                min-h-screen
-                h-full
-                absolute 
-                z-50 
-                overflow-hidden 
-                ${(fade ? "fade-out " : "")}
+            <div className={`background-carbon_fiber min-h-screen h-full absolute z-50 overflow-hidden ${(fade ? "fade-out" : "")}
             `}>  
                 <div className={`grid place-items-center h-screen text-center w-screen`}>
                     {showLogo ? (
-                        <SVG className = "w-screen mb-16 md:mb-0 p-16 md:w-1/2 h-1/2" onAnimationEnd = {() => { 
-                            setDone(true);
-                            if (loading === undefined) {
-                                fadeOut()
-                            } 
-                        }} />
+                        <SVG className = "w-screen mb-16 md:mb-0 p-16 md:w-1/2 h-1/2" />
                     ) : ""}
                 </div>
             </div>
