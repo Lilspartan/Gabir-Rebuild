@@ -7,6 +7,7 @@ import { File, Folder } from '../utils/interfaces';
 import axios from 'axios';
 import { BsGridFill, BsListUl } from 'react-icons/bs';
 import { AiFillFolder, AiFillFolderOpen, AiOutlineFileImage, AiOutlineFileText } from 'react-icons/ai';
+import Image from 'next/image';
 
 const client = new Client();
 
@@ -46,7 +47,7 @@ const Teams = ()  => {
         return (
             <div style = {{ marginTop: "20px", padding: "20px" }} className = {``}>
                 <div className="flex place-content-center">
-                    <a href = {`https://i.gabirmotors.com${file.path.replace('public', '')}`} target = "_blank"><img src={`https://i.gabirmotors.com${file.path.replace('public', '')}`} alt="" style = {{ maxHeight: "150px" }} /></a>
+                    <a style = {{ maxHeight: "150px" }} href = {`https://i.gabirmotors.com${file.path.replace('public', '')}`} target = "_blank"><Image width = "150px" height = "150px" objectFit='contain' src={`https://i.gabirmotors.com${file.path.replace('public', '')}`} alt="" /></a>
                 </div>
             </div>
         )
@@ -121,7 +122,7 @@ const Teams = ()  => {
                             { assets !== null && <GalleryFolderElement folder = { assets } /> }
                         </div>
                     ) : (
-                        <div className = "w-1/3 mx-auto flex flex-col">
+                        <div className = "lg:w-1/3 mx-auto flex flex-col">
                             <FolderElement folder = { assets } depth = { 0 } />
                         </div>
                     )}
