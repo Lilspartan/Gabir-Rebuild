@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO , CalendarRow} from '../components';
+import { Button, Loading, SEO , CalendarRow, Navbar } from '../components';
 import classnames from 'classnames';
 import { Calendar, Event } from '../utils/interfaces';
 import { Client } from "gabir-motors";
@@ -49,6 +49,8 @@ const Calendar = ()  => {
 			<SEO title = "Gabir Motors | Calendar" />
 
 			<Loading loading = { loading } />
+
+			<Navbar />
 
 			{ modalOpen && modalEvent !== null ? (
                 <>
