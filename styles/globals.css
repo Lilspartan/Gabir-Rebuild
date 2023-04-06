@@ -75,7 +75,7 @@ html {
   border: 2px solid white;
   font: inherit;
   line-height: 1;
-  padding: 1em 2em;
+  padding: .75em 1.25em;
   transition: all;
   transition-duration: 0.4s;
   font-size: 1.1rem;

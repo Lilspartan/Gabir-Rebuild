@@ -24,3 +24,24 @@ export interface Content {
 	name: string;
 	paid: string;
 }
+
+export interface Driver {
+	name:      string;
+	username:  string | null;
+	team?:     Team;
+	car_number: string;
+}
+
+export interface Team {
+	name:               string;
+	abbr:               string;
+	social_media_links: Link[];
+	logo:               string;
+	team_leader:        string;
+	drivers:            Driver[];
+}
+
+export interface Link {
+	type: string;
+	link:  string;
+}

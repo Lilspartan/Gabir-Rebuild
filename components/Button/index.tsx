@@ -3,7 +3,15 @@ import classNames from 'classnames';
 
 const Button = (props) => {
   let buttonStyles = [
-    "cta-button"
+    // "border-2",
+    // "p-2",
+    // "text-xl",
+    // "hover:bg-white",
+    // "hover:text-black",
+    // "cursor-pointer",
+    // "transition",
+    // "duration-200",
+    "cta-button rounded-md"
   ]
 
   if (props.link) {
