@@ -74,22 +74,35 @@ const Calendar = ()  => {
 
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
                 <div className = "flex flex-col content-center min-h-screen background-carbon_fiber w-full text-center">
-                    <div><h1 className = "text-2xl mt-4">Gabir Motors Cup, Season { calendar && calendar.season }</h1></div>
-                    <table className = "text-left text-xl mt-6">
-						<thead>
-							<tr style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
-								<th className = "p-4">Date</th>
-								<th>Track</th>
-								<th>Car</th>
-								<th>Notes</th>
-							</tr>
-						</thead>
-						<tbody>
+                    <div><h1 className = "md:text-2xl text-4xl mt-4">Gabir Motors Cup, Season { calendar && calendar.season }</h1></div>
+                    <div className="hidden md:block w-screen">
+						<table className = "text-left text-xl mt-6 w-full">
+							<thead>
+								<tr style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
+									<th className = "p-4">Date</th>
+									<th>Track</th>
+									<th>Car</th>
+									<th>Notes</th>
+								</tr>
+							</thead>
+							<tbody>
+							{ calendar && calendar.events.map((event, index) => (
+								<CalendarRow index = {index} event = {event} openModal = {openCalendarModal} />
+							)) }
+							</tbody>
+						</table>
+					</div>
+					
+					<div className="visible md:invisible text-left text-2xl mt-6">
 						{ calendar && calendar.events.map((event, index) => (
-							<CalendarRow index = {index} event = {event} openModal = {openCalendarModal} />
+							<div data-m = "bounce-up" data-m-delay = {(index * 0.1) + 1.5} data-m-duration = "0.5" className = " flex flex-col gap-2 py-6" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
+								<span className = "px-4 font-bold">{ event.date } { event.hasPassed && <span className = "italic font-bold opacity-50">COMPLETED</span> }</span>
+								<span className="px-4">{ event.track.paid && <span className = "text-green-500 font-extrabold">$</span> } { event.track.name }</span>
+								<span className="px-4">{ event.cars[0].paid && <span className = "text-green-500 font-extrabold">$</span> } { event.cars[0].name }</span>
+								{ event.notes !== null && <span className="px-4"><span className="font-bold">NOTES:</span> { event.notes }</span> }
+							</div>
 						)) }
-						</tbody>
-					</table>
+					</div>
                 </div>
 			</div>
 		</>
