@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO, Navbar } from '../components';
+import { Button, Loading, SEO, Navbar, Alert } from '../components';
 import classnames from 'classnames';
 import { Event } from '../utils/interfaces';
 import { Client } from "gabir-motors";
@@ -56,6 +56,13 @@ export default function Channels() {
 			<Loading loading = { loading } />
 
 			<Navbar />
+
+			{/* TODO: convert "AlertSection" to a component */}
+			<div className = "pointer-events-none fixed z-40 w-screen flex flex-row justify-center">
+				<div className = "flex flex-col gap-2 mt-2 justify-start">
+					<Alert type = "warning" id = "beta-warning" permaDismiss>This is the <strong>beta</strong> version of the Gabir Motors site, you may notice some features are missing. If there is something missing that you need, return to the <a href = "https://gabirmotors.com" className = "font-bold">main site</a></Alert>
+				</div>
+			</div>
 
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full">
 				<section id="hero" className = "min-h-screen background-mike_racecar bg-center">
