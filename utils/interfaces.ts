@@ -45,3 +45,19 @@ export interface Link {
 	type: string;
 	link:  string;
 }
+
+export interface File {
+    path: string;
+    name: string;
+    size: number;
+    extension: string;
+    type: "file";
+}
+
+export interface Folder {
+    path: string;
+    name: string;
+    children:(File | Folder)[];
+    size: Number;
+    type: "directory";
+}
