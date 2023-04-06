@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { Calendar, Event } from '../utils/interfaces';
 import { Client } from "gabir-motors";
 import { google, outlook, yahoo, ics } from "calendar-link";
+import { AiFillCalendar } from 'react-icons/ai';
 
 const client = new Client();
 
@@ -100,6 +101,9 @@ const Calendar = ()  => {
 								<span className="px-4">{ event.track.paid && <span className = "text-green-500 font-extrabold">$</span> } { event.track.name }</span>
 								<span className="px-4">{ event.cars[0].paid && <span className = "text-green-500 font-extrabold">$</span> } { event.cars[0].name }</span>
 								{ event.notes !== null && <span className="px-4"><span className="font-bold">NOTES:</span> { event.notes }</span> }
+								<span className = "px-4 mt-2 text-sm"><a className = "cursor-pointer" onClick = {() => {
+									openCalendarModal(event, index);
+								}}>Add to Calendar <AiFillCalendar className = "inline" /></a></span>
 							</div>
 						)) }
 					</div>
