@@ -1,6 +1,8 @@
 entrypoint = "pages/index.tsx"
 
-run = "npm run start"
+run = "npm run dev"
+hidden = [".build", ".config"]
+compile = "./.config/build.sh"
 
 [nix]
 channel = "stable-21_11"
@@ -65,3 +67,6 @@ support = true
       sourceMaps = true
       stopOnEntry = false
       type = "pwa-node"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".config"]

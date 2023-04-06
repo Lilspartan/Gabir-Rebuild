@@ -129,3 +129,7 @@ html {
 .link:hover::before {
   transform: scaleX(1);
 }
+
+.alert-body-inner > a {
+	@apply font-bold link;
+}

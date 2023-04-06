@@ -4,15 +4,17 @@ import Alert from './Alert';
 import SEO from './SEO';
 import Tooltip from './Tooltip';
 import Navbar from './Navbar';
+import CarFrame from './CarFrame';
 
 import CalendarRow from './CalendarRow';
 
 export {
-  Button,
-  Loading,
-  Alert, 
-  SEO,
-  Tooltip,
-  Navbar,
-  CalendarRow,
+	Button,
+	Loading,
+	Alert,
+	SEO,
+	Tooltip,
+	Navbar,
+	CalendarRow,
+	CarFrame,
 }

@@ -17,6 +17,7 @@ type Props = {
     id: string;
     open?: boolean;
     type?: Type;
+		closeable?: boolean;
 }
 
 const colors = {
@@ -50,6 +51,8 @@ const Alert = (props: Props) => {
         if (localDismissed !== null) setOpen(false);
     }, [])
 
+		let { closeable=true } = props
+	
     const close = () => {
         setOpen(false);
 
@@ -58,7 +61,7 @@ const Alert = (props: Props) => {
 
     if (open) {
         return (
-            <div className = {`lg:text-lg text-sm pointer-events-auto lg:mx-auto p-4 backdrop-blur-sm ${colors[props.type].background} ${colors[props.type].border} ${colors[props.type].text} bg-opacity-80 border-2 0 lg:w-2/3 mx-4 rounded-lg flex flex-row drop-shadow-lg transition duration-500`}>
+            <div className = {`alert lg:text-lg text-sm pointer-events-auto lg:mx-auto p-4 backdrop-blur-sm ${colors[props.type].background} ${colors[props.type].border} ${colors[props.type].text} bg-opacity-80 border-2 mx-4 rounded-lg flex flex-row drop-shadow-lg transition duration-500`}>
                 <div className = "my-auto lg:text-3xl text-xl mr-4">
                     { props.type === "warning" && <AiOutlineWarning /> }
                     { props.type === "error" && <BiErrorAlt /> }
@@ -66,13 +69,15 @@ const Alert = (props: Props) => {
                     { props.type === "success" && <AiOutlineCheckCircle /> }
                 </div>
                 
-                <div>
-                    <span>{ props.children }</span>
+                <div className = "alert-body">
+                    <span className = "alert-body-inner">{ props.children }</span>
                 </div>
 
-                <div>
+							{ closeable ? (
+								<div>
                     <a className = "cursor-pointer" onClick = {close} ><AiOutlineClose className = "inline ml-4" /></a>
                 </div>
+							) : <div className = ""></div>}
             </div>
         )
     } else return <></>;

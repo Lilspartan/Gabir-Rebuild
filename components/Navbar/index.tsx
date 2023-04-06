@@ -34,7 +34,7 @@ const Navbar = () => {
                 <span className = "text-2xl font-semibold"><Link href = "/tools/specmapping"><span className = "link cursor-pointer">Spec Mapping</span></Link></span>
                 <span className = "text-2xl font-semibold"><Link href = "/assets"><span className = "link cursor-pointer">Assets</span></Link></span>
                 <span className = "text-2xl font-semibold"><Link href = "/teams"><span className = "link cursor-pointer">Teams</span></Link></span>
-                <span className = "text-2xl font-semibold"><Link href = "/tools/specmapping"><span className = "link cursor-pointer">Tutorials</span></Link></span>
+                <span className = "text-2xl font-semibold"><Link href = "/tutorials"><span className = "link cursor-pointer">Tutorials</span></Link></span>
                 <span className = "text-2xl font-semibold"><a href = "https://pitwall.gabirmotors.com" target = "_blank"><span className = "link cursor-pointer">The Pitwall</span></a></span>
               </div>
             </div>

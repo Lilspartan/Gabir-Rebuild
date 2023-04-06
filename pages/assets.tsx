@@ -110,7 +110,7 @@ const Teams = ()  => {
             </div>
 
             <div className = "pointer-events-none fixed z-40 w-screen flex flex-row justify-center">
-				<div className = "flex flex-col gap-2 mt-2 justify-start">
+				<div className = "flex flex-col gap-2 mt-2 justify-start lg:w-2/3">
 					<Alert type = "tip" id = "slow-connections" permaDismiss>If you have a slow connection or just trouble loading all the images, <span onClick = {() => { setGalleryMode(false) }} className = "cursor-pointer font-bold">turn off gallery mode</span></Alert>
 				</div>
 			</div>
