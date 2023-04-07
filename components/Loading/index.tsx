@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import SVG from './icon';
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 let targetElement = null;
 
 const LoadingIcon = ({ loading }: {loading:boolean}) => {
@@ -13,7 +12,6 @@ const LoadingIcon = ({ loading }: {loading:boolean}) => {
         setFade(true)
         setTimeout(() => {
             setShow(false);
-            enableBodyScroll(targetElement);
         }, 750)
     }
 
@@ -23,7 +21,6 @@ const LoadingIcon = ({ loading }: {loading:boolean}) => {
         }, 2000)
 
         targetElement = document.querySelector('body');
-        disableBodyScroll(targetElement);
         setTimeout(() => {
             setShowLogo(true);
         }, 500)

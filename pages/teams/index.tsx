@@ -25,7 +25,7 @@ const Teams = ()  => {
 
 	return (
 		<>
-			<SEO title = "Gabir Motors | Calendar" />
+			<SEO title = "Gabir Motors | Teams" />
 
 			<Loading loading = { loading } />
  

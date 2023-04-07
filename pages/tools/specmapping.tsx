@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react'
-import { CarFrame, Alert, Navbar } from '../../components'
+import { CarFrame, Alert, Navbar, SEO } from '../../components'
 
 const links = [
 	{ name: "GR86", link: "https://spec-mapping-images.gabekrahulik.repl.co" },
@@ -83,6 +83,12 @@ const SpecMap = (props: any) => {
 
 	return (
 		<>
+			<SEO
+				title = "Gabir Motors Spec Map Previsualization Tool" 
+				description = "The Gabir Motors Spec Map Previsualization Tool can help you to refine your spec maps and make your car look just how you want, no more guessing how certain colors will affect the look of your new livery, just try them out in this helpful tool!" 
+				url = "tools/specmapping"
+			/>
+
 			<Navbar />
 			
 			<div className="min-h-screen absolute overflow-hidden text-white max-w-full w-screen">

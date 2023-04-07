@@ -22,6 +22,19 @@
 	background-size: cover;
 }
 
+.background-ss1 {
+  background-color: black;
+  background-image: url("/1.jpg");
+  background-attachment: fixed;
+	background-size: cover;
+}
+
+.bg-gradient {
+  position: absolute;
+  background-color: black;
+  @apply w-screen h-screen;
+  opacity: 30%;
+}
 
 html {
   background-color: black;
