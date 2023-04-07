@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Button, Loading, SEO, Navbar, Alert } from '../components';
-import classnames from 'classnames';
 import { Client } from "gabir-motors";
 import Link from "next/link";
 import { File, Folder } from '../utils/interfaces';
@@ -99,7 +98,11 @@ const Teams = ()  => {
 
 	return (
 		<>
-			<SEO title = "Gabir Motors | Calendar" />
+			<SEO 
+                title = "Gabir Motors | Assets" 
+                description = "Gabir Motors and PA League related assets, this page is a helpful repository of images for your liveries!" 
+                url = "assets"
+            />
 
 			<Loading loading = { loading } />
  

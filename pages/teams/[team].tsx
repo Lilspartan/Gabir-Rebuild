@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Button, Loading, SEO, Navbar } from '../../components';
-import classnames from 'classnames';
 import { Client } from "gabir-motors";
 import { Team, Driver } from '../../utils/interfaces';
 import Link from "next/link";

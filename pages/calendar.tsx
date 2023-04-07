@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Button, Loading, SEO , CalendarRow, Navbar } from '../components';
-import classnames from 'classnames';
 import { Calendar, Event } from '../utils/interfaces';
 import { Client } from "gabir-motors";
 import { google, outlook, yahoo, ics } from "calendar-link";
 import { AiFillCalendar } from 'react-icons/ai';
+import { motion } from 'framer-motion';
 
 const client = new Client();
 
@@ -47,7 +47,11 @@ const Calendar = ()  => {
 
 	return (
 		<>
-			<SEO title = "Gabir Motors | Calendar" />
+			<SEO 
+				title = "Gabir Motors | Calendar" 
+				description = "View the schedule for the Gabir Motors Cup" 
+				url = "calendar"
+			/>
 
 			<Loading loading = { loading } />
 
@@ -96,7 +100,7 @@ const Calendar = ()  => {
 					
 					<div className="block md:hidden text-left text-2xl mt-6">
 						{ calendar && calendar.events.map((event, index) => (
-							<div data-m = "bounce-up" data-m-delay = {(index * 0.1) + 1.5} data-m-duration = "0.5" className = " flex flex-col gap-2 py-6" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
+							<motion.div initial = {{ opacity: 0 }} animate = {{ opacity: 1 }} transition = {{ delay: 2 + (0.1 * index), duration: 2 }} className = " flex flex-col gap-2 py-6" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
 								<span className = "px-4 font-bold">{ event.date } { event.hasPassed && <span className = "italic font-bold opacity-50">COMPLETED</span> }</span>
 								<span className="px-4">{ event.track.paid && <span className = "text-green-500 font-extrabold">$</span> } { event.track.name }</span>
 								<span className="px-4">{ event.cars[0].paid && <span className = "text-green-500 font-extrabold">$</span> } { event.cars[0].name }</span>
@@ -104,7 +108,7 @@ const Calendar = ()  => {
 								<span className = "px-4 mt-2 text-sm"><a className = "cursor-pointer" onClick = {() => {
 									openCalendarModal(event, index);
 								}}>Add to Calendar <AiFillCalendar className = "inline" /></a></span>
-							</div>
+							</motion.div>
 						)) }
 					</div>
                 </div>
