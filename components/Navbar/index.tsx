@@ -12,11 +12,10 @@ const Navbar = () => {
       <div onClick = {() => { setOpen(false) }} className = {`cursor-pointer transition duration-500 fixed w-screen h-screen bg-black z-40 ${open ? "opacity-60 pointer-events-auto" : "opacity-0 pointer-events-none"}`}></div>
 
       <nav id = "nav" className = {`fixed z-40 bg-dark-card-handle h-screen transition duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}>
-        <div className = "pt-1 pl-1 fixed"><AiOutlineClose onClick = {() => { setOpen(false) }} className = "cursor-pointer text-3xl text-white"/></div>
         <div id="innerNav" className = "flex flex-col justify-center h-screen">
           <div className = "flex flex-col text-white">
             <div className = "flex flex-row justify-center mt-4 mx-16">
-              <Link href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "cursor-pointer w-32" src="https://i.gabirmotors.com/assets/teams/GM/main.png" alt="Gabir Motors logo" /></Link>
+              <Link href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "cursor-pointer w-48" src="https://i.gabirmotors.com/assets/teams/GM/main.png" alt="Gabir Motors logo" /></Link>
             </div>
 
             {/* <div className = "flex flex-row ml-4 my-2">
@@ -29,19 +28,19 @@ const Navbar = () => {
             <hr className = "mx-4 mt-4 border-zinc-500" />
 
             <div className="flex flex-col px-2">
-              <div className="flex flex-col gap-2 ml-4 py-2 justify-center">
-                <span className = "text-2xl font-semibold"><Link href = "/calendar"><span className = "link cursor-pointer">Calendar</span></Link></span>
-                <span className = "text-2xl font-semibold"><Link href = "/tools/specmapping"><span className = "link cursor-pointer">Spec Mapping</span></Link></span>
-                <span className = "text-2xl font-semibold"><Link href = "/assets"><span className = "link cursor-pointer">Assets</span></Link></span>
-                <span className = "text-2xl font-semibold"><Link href = "/teams"><span className = "link cursor-pointer">Teams</span></Link></span>
-                <span className = "text-2xl font-semibold"><Link href = "/tutorials"><span className = "link cursor-pointer">Tutorials</span></Link></span>
-                <span className = "text-2xl font-semibold"><a href = "https://pitwall.gabirmotors.com" target = "_blank"><span className = "link cursor-pointer">The Pitwall</span></a></span>
+              <div className="flex flex-col gap-3 ml-4 py-2 justify-center">
+                <span className = "text-2xl font-"><Link href = "/calendar"><span className = "link cursor-pointer">Calendar</span></Link></span>
+                <span className = "text-2xl font-"><Link href = "/tools/specmapping"><span className = "link cursor-pointer">Spec Mapping</span></Link></span>
+                <span className = "text-2xl font-"><Link href = "/assets"><span className = "link cursor-pointer">Assets</span></Link></span>
+                <span className = "text-2xl font-"><Link href = "/teams"><span className = "link cursor-pointer">Teams</span></Link></span>
+                <span className = "text-2xl font-"><Link href = "/tutorials"><span className = "link cursor-pointer">Tutorials</span></Link></span>
+                <span className = "text-2xl font-"><a href = "https://pitwall.gabirmotors.com" target = "_blank"><span className = "link cursor-pointer">The Pitwall</span></a></span>
               </div>
             </div>
 
             <hr className = "mx-4 border-zinc-500" />
 
-            <div className = "flex flex-row justify-center mx-4 text-black text-xl gap-2 mt-4 ml-4">
+            <div className = "flex flex-row justify-center mx-4 text-black text-2xl gap-2 mt-4 ml-4">
               <a href = "https://discord.gabirmotors.com" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-discord hover:text-white"><FaDiscord /></div></a>
               <a href = "https://twitter.com/@GabirMotors" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-twitter hover:text-white"><FaTwitter /></div></a>
               <a href = "https://twitch.com/PennyArcade" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-twitch hover:text-white"><FaTwitch /></div></a>
@@ -50,16 +49,16 @@ const Navbar = () => {
             </div>
 
             <div className = "text-center mx-4 mt-4">
-              <a className = "font-semibold link opacity-60" href = "https://gabekrahulk.dev">Made by Gabe Krahulik</a>
+              <a className = "font-semibold link opacity-60" href = "https://gabekrahulik.dev" target='_blank'>Made by Gabe Krahulik</a>
             </div>
           </div>
         </div>
       </nav>
 
-      <div className = "fixed z-[35] top-0 flex flex-row">
+      <div className = "fixed z-40 top-0 flex flex-row">
         <div className = "p-1">
           <AiOutlineMenu className = "text-white text-3xl cursor-pointer" onClick = {() => {
-            setOpen(true);
+            setOpen(!open);
           }} />
         </div>
       </div>

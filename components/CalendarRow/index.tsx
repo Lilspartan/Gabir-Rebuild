@@ -9,9 +9,9 @@ interface Props {
 const EventComponent = ({ event, openModal, index }) => {
   return (
     <tr data-m = "bounce-up" data-m-delay = {(index * 0.1) + 1.5} data-m-duration = "0.5" className="hover:bg-[#66666655] transition duration-200" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
-      <td className = "p-4">{ event.date } { event.hasPassed && <span className = "italic font-bold opacity-50">COMPLETED</span> }</td>
-      <td className = "">{ event.track.paid && <span className = "text-green-500 font-extrabold">$</span> } { event.track.name }</td>
-      <td className = "">
+      <td className = "text-2xl px-4 py-6 font-bold">{ event.date } { event.hasPassed && <span className = "italic font-bold opacity-50">COMPLETED</span> }</td>
+      <td className = "text-2xl">{ event.track.paid && <span className = "text-green-500 font-extrabold">$</span> } { event.track.name }</td>
+      <td className = "text-2xl">
         { event.cars.map((car, index) => (
           <>
             { car.paid && <span className = "text-green-500 font-extrabold">$</span> }
@@ -19,7 +19,7 @@ const EventComponent = ({ event, openModal, index }) => {
           </>
         )) }
       </td>
-      <td className = "">{ event.notes }</td>
+      <td className = "text-2xl">{ event.notes }</td>
       <td><a className = "cursor-pointer opacity-50 hover:opacity-100 transition duration-200" onClick = {() => {
         openModal(event, index);
       }}><AiFillCalendar className = "inline" /></a></td>

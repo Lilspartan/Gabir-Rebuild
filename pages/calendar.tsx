@@ -79,11 +79,11 @@ const Calendar = ()  => {
                     <div className="hidden md:block w-screen">
 						<table className = "text-left text-xl mt-6 w-full">
 							<thead>
-								<tr style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
-									<th className = "p-4">Date</th>
-									<th>Track</th>
-									<th>Car</th>
-									<th>Notes</th>
+								<tr className = "text-zinc-400 text-sm" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
+									<th className = "px-4 py-6 font-normal">DATE</th>
+									<th className = "font-normal">TRACK</th>
+									<th className = "font-normal">CAR</th>
+									<th className = "font-normal">NOTES</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -94,7 +94,7 @@ const Calendar = ()  => {
 						</table>
 					</div>
 					
-					<div className="visible md:invisible text-left text-2xl mt-6">
+					<div className="block md:hidden text-left text-2xl mt-6">
 						{ calendar && calendar.events.map((event, index) => (
 							<div data-m = "bounce-up" data-m-delay = {(index * 0.1) + 1.5} data-m-duration = "0.5" className = " flex flex-col gap-2 py-6" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
 								<span className = "px-4 font-bold">{ event.date } { event.hasPassed && <span className = "italic font-bold opacity-50">COMPLETED</span> }</span>
