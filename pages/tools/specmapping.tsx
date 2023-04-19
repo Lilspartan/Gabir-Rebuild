@@ -140,8 +140,8 @@ const SpecMap = (props: any) => {
 									</div>
 
 									<div className = "my-4 flex flex-col gap-2">
-										<Alert id = "slow-loading-spec-map" permaDismiss = {false} type = "warning" closeable = {false}>Some images may take a while to load</Alert>
-										<Alert id = "thank-you-zach!" permaDismiss = {true} type = "success" closeable = {false}>Huge thank you to <a href = "https://www.tradingpaints.com/profile/666793/Zach-C-Miller" target = "_blank">Bracket (Zach M.)</a> for the images and code help!</Alert>
+										<Alert backgroundVisible = {false} id = "slow-loading-spec-map" permaDismiss = {false} type = "warning" closeable = {false}>Some images may take a while to load</Alert>
+										<Alert backgroundVisible = {false} id = "thank-you-zach!" permaDismiss = {true} type = "success" closeable = {false}>Huge thank you to <a href = "https://www.tradingpaints.com/profile/666793/Zach-C-Miller" target = "_blank">Bracket (Zach M.)</a> for the images and code help!</Alert>
 									</div>
 
 								</div>

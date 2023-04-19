@@ -5,6 +5,7 @@ import { Client } from "gabir-motors";
 import { google, outlook, yahoo, ics } from "calendar-link";
 import { AiFillCalendar } from 'react-icons/ai';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router'
 
 const client = new Client();
 
@@ -14,6 +15,15 @@ const Calendar = ()  => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [modalEvent, setModalEvent] = useState<{ event: Event, raceNumber: number } | null>(null);
 	const [calendarEvents, setCalendarEvents] = useState({ 'google': null, 'outlook': null, 'yahoo': null, 'ics': null });
+	const [highlighted, setHighlighted] = useState(null);
+
+	const router = useRouter()
+
+	useEffect(() => {
+		if (router.query.highlight !== undefined) {
+			setHighlighted(router.query.highlight)
+		}
+	}, [ router.query ])
 
 	useEffect(() => {
 		(async () => {
@@ -92,7 +102,7 @@ const Calendar = ()  => {
 							</thead>
 							<tbody>
 							{ calendar && calendar.events.map((event, index) => (
-								<CalendarRow index = {index} event = {event} openModal = {openCalendarModal} />
+								<CalendarRow highlighted = {highlighted} index = {index} event = {event} openModal = {openCalendarModal} />
 							)) }
 							</tbody>
 						</table>
@@ -100,7 +110,7 @@ const Calendar = ()  => {
 					
 					<div className="block md:hidden text-left text-2xl mt-6">
 						{ calendar && calendar.events.map((event, index) => (
-							<motion.div initial = {{ opacity: 0 }} animate = {{ opacity: 1 }} transition = {{ delay: 2 + (0.1 * index), duration: 2 }} className = " flex flex-col gap-2 py-6" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
+							<motion.div initial = {{ opacity: 0 }} animate = {{ opacity: 1 }} transition = {{ delay: 2 + (0.1 * index), duration: 2 }} className = {`flex flex-col gap-2 py-6 ${Number(highlighted) === event.timestamp && "bg-[#66666677]"}`} style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
 								<span className = "px-4 font-bold">{ event.date } { event.hasPassed && <span className = "italic font-bold opacity-50">COMPLETED</span> }</span>
 								<span className="px-4">{ event.track.paid && <span className = "text-green-500 font-extrabold">$</span> } { event.track.name }</span>
 								<span className="px-4">{ event.cars[0].paid && <span className = "text-green-500 font-extrabold">$</span> } { event.cars[0].name }</span>

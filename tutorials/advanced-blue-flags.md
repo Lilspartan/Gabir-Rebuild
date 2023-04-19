@@ -1,6 +1,6 @@
 # Advanced Everything Blue Flags
 
-#### *Edited 6/18/21*
+###### *Edited 6/18/21*
 
 ## What should I do if I am shown the Blue Flag?
 **ROAD Single Class:** If in doubt stay on your normal racing line and let the faster car choose how and where to make the pass. If you feel more comfortable you can consider yielding the line to the faster driver by making a slower, much later entry to a corner or by pulling off line on a straight and briefly lifting off the throttle to facilitate the pass. Use your Relative F3 to be aware if there is more than one car making a pass.

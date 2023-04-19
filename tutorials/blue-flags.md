@@ -1,6 +1,7 @@
-# Everything Blue Flags
-
-#### *Edited 6/18/21*
+---
+title: 'Everything Blue Flags'
+edited: "6/18/21"
+---
 
 ## What is a Blue Flag?
 In auto racing, the Blue Flag (with the yellow diagonal stripe) informs a driver that they are being caught by a faster car and are about to be lapped. Blue flags generally come out when the faster car is within about 2 seconds of the car that’s about to be lapped.
