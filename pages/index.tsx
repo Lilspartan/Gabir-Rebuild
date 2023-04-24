@@ -131,7 +131,7 @@ export default function Channels() {
 
 						<div className = "place-self-center lg:w-1/2 lg:mx-0 mx-4 mb-8 lg:mb-0">
 							<motion.h1 
-							viewport = {{ once: true, amount: "all", margin: "-10px" }} 
+							viewport = {{ once: true, margin: "-10px" }} 
 							initial = {{ opacity: 0, y: "-15%" }} whileInView = {{ opacity: 1, y: 0 }} transition = {{ duration: 0.5 }}
 							className = "text-5xl font-bold text-center">
 								Upcoming Events
@@ -176,12 +176,11 @@ export default function Channels() {
 										viewport = {{ once: true, amount: "all", margin: "-10px" }} 
 										initial = {{ opacity: 0, y: "-15%" }} whileInView = {{ opacity: 1, y: 0 }} transition = {{ duration: 0.5 }}>
 										<div className = "p-4 rounded-lg flex flex-col gap-2 mx-auto lg:w-2/3 bg-dark-card-body backdrop-blur-md">
+											<h2 className = "acumin text-4xl font-semibold text-center tracking-wide">{ team_member.name }</h2>
 											<div className="flex lg:flex-row flex-col justify-around">
 												<img src={ team_member.image } alt="" className = "shadow-2xl background-carbon_fiber my-auto mx-auto object-cover h-32 aspect-square object-top rounded-lg" />
-												<div className = "px-4">
-													<h2 className = "acumin text-4xl font-semibold text-center tracking-wide">{ team_member.name }</h2>
-
-													<p className = "text-sm font-semibold">{ team_member.bio }</p>
+												<div className = "px-4 my-auto">
+													<p className = "text-md font-semibold">{ team_member.bio }</p>
 												</div>
 											</div>
 
