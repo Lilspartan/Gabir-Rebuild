@@ -4,9 +4,21 @@ import { Event, Calendar } from '../utils/interfaces';
 import { Client } from "gabir-motors";
 import { motion } from 'framer-motion';
 import { BiLinkExternal } from 'react-icons/bi';
+import { BsFillCircleFill } from 'react-icons/bs';
 import Link from "next/link";
+import axios from 'axios';
 
 const client = new Client();
+
+interface DiscordWidget {
+	totalMemberCount:  number;
+	onlineMemberCount: number;
+	icon:              string;
+	name:              string;
+	timestamp:         number;
+}
+
+let firstIndex = 0;
 
 export default function Channels() {
 	const [loading, setLoading] = useState(true);
@@ -14,6 +26,7 @@ export default function Channels() {
 	const [timeLeft, setTimeLeft] = useState<null | { days:number;hours:number;minutes:number;seconds:number }>(null);
 	const [nOpen, setNOpen] = useState(false);
 	const [calendar, setCalendar] = useState<Calendar>();
+	const [discordWidget, setDiscordWidget] = useState<null | DiscordWidget>(null);
 
 	const calculateTimeRemaining = (countdownTo) => {
 		const difference = +new Date(countdownTo * 1000) - +new Date();
@@ -37,8 +50,12 @@ export default function Channels() {
 			let calendar = await client.getCalendar();
 			setCalendar(calendar);
 			let nextEvent = calendar.getNext();
-			console.log(calendar)
 			setNext({ ...nextEvent, timestamp: nextEvent.timestamp });
+			let widgetResponse = await axios.get('https://spottedlowsales.gabekrahulik.repl.co/widget/data');
+			let widgetData = widgetResponse.data;
+			setDiscordWidget(widgetData as DiscordWidget);
+
+			console.log(widgetData)
 		})()
 
 		setTimeout(() => {
@@ -109,23 +126,34 @@ export default function Channels() {
 						</div>
 					</div>
 
-					<div id = "upcoming-events" className = "z-30 w-full py-8 flex lg:flex-row flex-col-reverse justify-evenly gap-4 lg:mx-8 mx-4">
+					<div id = "upcoming-events" className = "z-30 w-full py-8 flex lg:flex-row flex-col-reverse justify-evenly gap-4 lg:mx-8">
 						<div className = "place-self-center lg:w-1/2">
 							{ calendar && calendar.events.map((event, index) => {
-								if (!event.hasPassed) {
+								if (!event.hasPassed && index <= firstIndex + 2) {
 									return (
 										<Link href = {`/calendar?highlight=${event.timestamp}`}>
 											<motion.div 
 												viewport = {{ once: true, amount: "all", margin: "-10px" }} 
 												initial = {{ opacity: 0, y: "-15%" }} whileInView = {{ opacity: 1, y: 0 }} transition = {{ duration: 0.5 }}
-												className = "transition duration-200 hover:backdrop-blur-none cursor-pointer px-8 py-4 rounded-lg flex flex-row justify-between gap-2 mx-auto bg-dark-card-body backdrop-blur-md my-2"
+												whileHover={{
+													// y: "-10%",
+													scale: 1.05,
+													transition: { 
+														duration: 0.2,
+														type: "spring",
+														delay: 0,
+													},
+												}}
+												className = "hover:backdrop-blur-none cursor-pointer px-8 py-4 rounded-lg flex flex-row justify-between gap-2 mx-auto bg-dark-card-body backdrop-blur-md my-2"
 											>
 												<span><span className = "font-bold">{ event.date }</span> - { event.track.name }</span>
 												<div><BiLinkExternal className = "text-xl my-auto"/></div>
 											</motion.div>
 										</Link>
 									)
-								}	
+								} else {
+									firstIndex = index;
+								}
 							}) }
 						</div>
 
@@ -142,9 +170,9 @@ export default function Channels() {
 					<div id = "join-the-discord" className = "z-30 w-full py-8 flex lg:flex-row flex-col justify-evenly gap-4 mt-16">
 						<div className = "place-self-center lg:w-1/2 lg:mx-0 mx-4 mb-8 lg:mb-0">
 							<motion.h1 
-							viewport = {{ once: true, amount: "all", margin: "-10px" }} 
-							initial = {{ opacity: 0, y: "-15%" }} whileInView = {{ opacity: 1, y: 0 }} transition = {{ duration: 0.5 }}
-							className = "text-5xl font-bold text-center">
+								viewport = {{ once: true, margin: "-10px" }} 
+								initial = {{ opacity: 0, y: "-15%" }} whileInView = {{ opacity: 1, y: 0 }} transition = {{ duration: 0.5, delay: 0.25 }}
+								className = "mx-4 text-5xl font-bold text-center">
 								Join the <br />
 								<div className = "inline-block mt-2"><img className = "aspect-auto" src="https://i.gabirmotors.com/assets/league/pa_league_horizontal.png" alt="The PA League Logo" /></div>
 								<br />on Discord
@@ -152,7 +180,32 @@ export default function Channels() {
 						</div>
 
 						<div className = "place-self-center">
-							<iframe src="https://discord.com/widget?id=715683569959174215&theme=dark" width="350" height="500" allowTransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+							{/* <iframe src="https://discord.com/widget?id=715683569959174215&theme=dark" width="350" height="500" allowTransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe> */}
+							
+							{ discordWidget !== null && (
+								<motion.div 
+									viewport = {{ once: true, margin: "-10px" }} 
+									initial = {{ opacity: 0, y: "-15%" }} whileInView = {{ opacity: 1, y: 0 }} transition = {{ duration: 0.5 }}
+									className = "bg-dark-card-body p-4 rounded-lg backdrop-blur-lg flex flex-col mx-4">
+									<div className="flex lg:flex-row flex-col gap-4 my-auto text-center">
+										<img className = "rounded-3xl w-1/5 self-center" src={`https://cdn.discordapp.com/icons/715683569959174215/${discordWidget.icon}.webp?size=256`} alt="" />
+										<h2 className = "text-3xl font-bold self-center">{ discordWidget.name }</h2>
+									</div>
+
+									<div className = "flex flex-row gap-8 mt-8 lg:mt-0 justify-center">
+										<span>
+											<span className="font-extrabold">{ discordWidget.onlineMemberCount }</span> Members Online
+										</span>
+										<span>
+											<span className="font-extrabold">{ discordWidget.totalMemberCount }</span> Total Members
+										</span>
+									</div>
+
+									<div className = "mt-4 w-1/2 self-center">
+										<Button block target = "_blank" link = "https://discord.gabirmotors.com">Join</Button>
+									</div>
+								</motion.div>
+							) }
 						</div>
 					</div>
 
@@ -179,7 +232,7 @@ export default function Channels() {
 											<h2 className = "acumin text-4xl font-semibold text-center tracking-wide">{ team_member.name }</h2>
 											<div className="flex lg:flex-row flex-col justify-around">
 												<img src={ team_member.image } alt="" className = "shadow-2xl background-carbon_fiber my-auto mx-auto object-cover h-32 aspect-square object-top rounded-lg" />
-												<div className = "px-4 my-auto">
+												<div className = "px-4 my-auto mt-4 lg:mt-0">
 													<p className = "text-md font-semibold">{ team_member.bio }</p>
 												</div>
 											</div>

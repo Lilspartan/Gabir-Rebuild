@@ -11,12 +11,13 @@ const Button = (props) => {
     // "cursor-pointer",
     // "transition",
     // "duration-200",
-    "cta-button rounded-md"
+    "cta-button rounded-md",
+    props.block && "w-full"
   ]
 
   if (props.link) {
     return (
-      <a href = {props.link}
+      <a href = {props.link} target = {props.target || "_self"} 
         className = {classNames(buttonStyles)}>{ props.children }</a>
     )
   } else {
