@@ -36,7 +36,7 @@ const Teams = ()  => {
 
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
                 <div className = "content-center min-h-screen background-carbon_fiber w-full text-center">
-                    <div className = "grid place-items-center min-h-screen">
+                    <div className = "grid place-items-center min-h-screen mx-4 my-8">
                         { team !== null && (
                             <>
                                 <div className = "bg-dark-card-handle p-16 flex flex-col lg:w-1/3">

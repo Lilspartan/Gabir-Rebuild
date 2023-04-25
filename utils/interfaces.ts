@@ -61,3 +61,17 @@ export interface Folder {
     size: Number;
     type: "directory";
 }
+
+export interface Standing {
+	points:       Array<"-" | number>;
+	pos:          string;
+	name:         string;
+	team:         StandingTeam;
+	totalPoints:  number;
+	seasonPoints: number;
+	podiums:      number;
+	wins:         number;
+	accountId:    number;
+}
+
+type StandingTeam = "Hive Mind Alliance" | "Jabir Motors" | "Lone Wolf Pack" | "G.L.H.F." | "Future War Cult" | "S.E.N.D.I.T." | "Team CHOSEN" | "A.S.S." | "Gabir Motors"

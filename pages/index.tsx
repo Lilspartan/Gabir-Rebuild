@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO, Navbar, Alert } from '../components';
+import { Button, Loading, SEO, Navbar, Alert, Modal, AlertArea } from '../components';
 import { Event, Calendar } from '../utils/interfaces';
 import { Client } from "gabir-motors";
 import { motion } from 'framer-motion';
 import { BiLinkExternal } from 'react-icons/bi';
-import { BsFillCircleFill } from 'react-icons/bs';
 import Link from "next/link";
 import axios from 'axios';
+import CountUp from 'react-countup';
 
 const client = new Client();
 
@@ -81,28 +81,21 @@ export default function Channels() {
 
 			<Navbar />
 
-			{/* TODO: convert "AlertSection" to a component */}
-			<div className = "pointer-events-none fixed z-40 w-screen flex flex-row justify-center">
-				<div className = "flex flex-col gap-2 mt-2 justify-start lg:w-2/3">
-					<Alert type = "warning" id = "beta-warning" permaDismiss>This is a <strong>beta</strong> version of the Gabir Motors site, you may notice some features are missing. If there is something missing that you need, return to the <a href = "https://gabirmotors.com">main site</a></Alert>
-				</div>
-			</div>
+			<AlertArea>
+				<Alert type = "warning" id = "beta-warning" permaDismiss>This is a <strong>beta</strong> version of the Gabir Motors site, you may notice some features are missing. If there is something missing that you need, return to the <a href = "https://gabirmotors.com">main site</a></Alert>
+			</AlertArea>
 
-			{ nOpen && (
-				<div onClick = {() => { setNOpen(false); }} className = "fixed bg-black bg-opacity-50 cursor-pointer z-40 text-white top-0 left-0 w-screen h-screen grid place-items-center" id = "northern-harbor-offer">
-					<div className = "bg-dark-card-handle p-4 rounded-md lg:w-1/3">
-						<img className = "mx-auto mb-4" src="https://i.gabirmotors.com/assets/other/northern_harbor.png" alt="Northern Harbor Logo" />
+			<Modal open = {nOpen} setOpen = {setNOpen} id = "northern-harbor">
+				<img className = "mx-auto mb-4" src="https://i.gabirmotors.com/assets/other/northern_harbor.png" alt="Northern Harbor Logo" />
 
-						<h2 className = "acumin text-3xl">Get <strong>20%</strong> your next order at Northern Harbor!</h2>
+				<h2 className = "acumin text-3xl text-center">Get <strong>20%</strong> your next order at Northern Harbor!</h2>
 
-						<p className = "font-semibold">Use code <code className = "bg-zinc-700 font-mono p-0.5 rounded-md">NOTLAST</code> at checkout for 20% off any of Northern Harbor's beef based seafood products.</p>
-						<blockquote className = "opacity-70 italic mx-2">
-							Northern Harbor is the world's premier provider of meat-based fish substitutes. With mouth-watering favorites like our Bone-In Fysh Wyngz, our succulent Fishey Mignon, and our new You'll Swear It's Beef line of Shramp and Crobb crostini, we've got something for every person who wants to ask for fish but actually get beef.
-							<cite className = "block ml-4">- Northern Harbor</cite>
-						</blockquote>
-					</div>
-				</div>
-			) }
+				<p className = "font-semibold text-center mb-4">Use code <code className = "bg-zinc-700 font-mono p-0.5 rounded-md">NOTLAST</code> at checkout for 20% off any of Northern Harbor's beef based seafood products.</p>
+				<blockquote className = "opacity-70 italic mx-2">
+					Northern Harbor is the world's premier provider of meat-based fish substitutes. With mouth-watering favorites like our Bone-In Fysh Wyngz, our succulent Fishey Mignon, and our new You'll Swear It's Beef line of Shramp and Crobb crostini, we've got something for every person who wants to ask for fish but actually get beef.
+					<cite className = "block ml-4">- Northern Harbor</cite>
+				</blockquote>
+			</Modal>
 
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full">
 				<section id="hero" className = "min-h-screen background-mike_racecar bg-center">
@@ -120,7 +113,7 @@ export default function Channels() {
 					<div className = "grid place-items-center h-screen text-center w-screen">
 						<div className = "mt-16">
 							<motion.img onClick = {() => { setNOpen(true); }} transition={{ delay: 2, duration: 1 }} initial = {{ y: "15%", opacity: 0 }} animate = {{ y: 0, opacity: 1 }} className = "md:w-1/2 mx-auto" src="/logo_with_text.png" alt="Gabir Motors logo with the text GABIR MOTORS written at the bottom" />
-							<motion.div transition={{ delay: 2.2, duration: 1 }} initial = {{ y: "15%", opacity: 0 }} animate = {{ y: 0, opacity: 1 }} className = "flex flex-row gap-8 justify-center">
+							<motion.div transition={{ delay: 2.5, duration: 1 }} initial = {{ scale: 1.1, y: "-15%", opacity: 0 }} animate = {{ scale: 1, y: 0, opacity: 1 }} className = "flex flex-row gap-8 justify-center">
 								<Button link = "#join-the-discord">Learn More</Button>
 							</motion.div>
 						</div>
@@ -187,23 +180,27 @@ export default function Channels() {
 									viewport = {{ once: true, margin: "-10px" }} 
 									initial = {{ opacity: 0, y: "-15%" }} whileInView = {{ opacity: 1, y: 0 }} transition = {{ duration: 0.5 }}
 									className = "bg-dark-card-body p-4 rounded-lg backdrop-blur-lg flex flex-col mx-4">
-									<div className="flex lg:flex-row flex-col gap-4 my-auto text-center">
-										<img className = "rounded-3xl w-1/5 self-center" src={`https://cdn.discordapp.com/icons/715683569959174215/${discordWidget.icon}.webp?size=256`} alt="" />
-										<h2 className = "text-3xl font-bold self-center">{ discordWidget.name }</h2>
+									<div className="flex lg:flex-row flex-col my-auto text-center">
+										<img className = "rounded-3xl w-2/5 mb-4 lg:mb-0 lg:w-1/5 self-center" src={`https://cdn.discordapp.com/icons/715683569959174215/${discordWidget.icon}.webp?size=256`} alt="" />
+										<div className="flex flex-col">
+											<h2 className = "text-3xl font-bold self-center lg:w-5/6">{ discordWidget.name }</h2>
+										
+											<div className = "flex flex-row gap-8 mt-4 lg:mt-4 justify-center">
+												<span>
+													<span className="font-extrabold"><CountUp end = {discordWidget.onlineMemberCount} enableScrollSpy scrollSpyOnce scrollSpyDelay={100} /></span> Members Online
+												</span>
+												<span>
+													<span className="font-extrabold"><CountUp end = {discordWidget.totalMemberCount} enableScrollSpy scrollSpyOnce scrollSpyDelay={100} /></span> Total Members
+												</span>
+											</div>
+
+											<div className = "mt-4 w-1/2 self-center">
+												<Button block target = "_blank" link = "https://discord.gabirmotors.com">Join</Button>
+											</div>
+										</div>
 									</div>
 
-									<div className = "flex flex-row gap-8 mt-8 lg:mt-0 justify-center">
-										<span>
-											<span className="font-extrabold">{ discordWidget.onlineMemberCount }</span> Members Online
-										</span>
-										<span>
-											<span className="font-extrabold">{ discordWidget.totalMemberCount }</span> Total Members
-										</span>
-									</div>
-
-									<div className = "mt-4 w-1/2 self-center">
-										<Button block target = "_blank" link = "https://discord.gabirmotors.com">Join</Button>
-									</div>
+									
 								</motion.div>
 							) }
 						</div>
