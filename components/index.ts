@@ -5,6 +5,8 @@ import SEO from './SEO';
 import Tooltip from './Tooltip';
 import Navbar from './Navbar';
 import CarFrame from './CarFrame';
+import Modal from './Modal';
+import AlertArea from './AlertArea';
 
 import CalendarRow from './CalendarRow';
 
@@ -17,4 +19,6 @@ export {
 	Navbar,
 	CalendarRow,
 	CarFrame,
+	Modal,
+	AlertArea
 }
