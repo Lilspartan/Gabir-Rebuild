@@ -86,33 +86,33 @@ const Standings = ()  => {
                 </table>
 
                 { standingHighlight !== null && (
-                            <Line
-                                datasetIdKey='id'
-                                data={{
-                                    labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12"],
-                                    datasets: [
-                                        {
-                                            id: 1,
-                                            label: standingHighlight.name,
-                                            data: standingHighlight.points.map((point, index) => {
-                                                if (point === "-") return null;
-                                                else return point;  
-                                            }),
-                                            backgroundColor: "#FF830066",
-                                            borderColor: "#FF8300"
-                                        },
-                                    ],
-                                }}
-                                options = {{
-                                    scales: {
-                                        y: {
-                                            min: 0,
-                                            max: 50
-                                        }
-                                    }
-                                }}
-                            />
-                        ) }
+                    <Line
+                        datasetIdKey='id'
+                        data={{
+                            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12"],
+                            datasets: [
+                                {
+                                    id: 1,
+                                    label: standingHighlight.name,
+                                    data: standingHighlight.points.map((point, index) => {
+                                        if (point === "-") return null;
+                                        else return point;  
+                                    }),
+                                    backgroundColor: "#FF830066",
+                                    borderColor: "#FF8300"
+                                },
+                            ],
+                        }}
+                        options = {{
+                            scales: {
+                                y: {
+                                    min: 0,
+                                    max: 50
+                                }
+                            }
+                        }}
+                    />
+                ) }
             </Modal>
 
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
@@ -170,6 +170,10 @@ const Standings = ()  => {
 							</tbody>
 						</table>
 					</div>
+
+                    <div className="visible md:hidden w-screen mt-16">
+                        The page is not designed for small screens
+                    </div>
                 </div>
 			</div>
 		</>
