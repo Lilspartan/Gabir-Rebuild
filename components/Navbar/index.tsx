@@ -32,6 +32,7 @@ const Navbar = () => {
                 <span className = "text-2xl font-"><Link href = "/calendar"><span className = "link cursor-pointer">Calendar</span></Link></span>
                 <span className = "text-2xl font-"><Link href = "/tools/specmapping"><span className = "link cursor-pointer">Spec Mapping</span></Link></span>
                 <span className = "text-2xl font-"><Link href = "/assets"><span className = "link cursor-pointer">Assets</span></Link></span>
+                <span className = "text-2xl font-"><Link href = "/standings"><span className = "link cursor-pointer">Standings</span></Link></span>
                 <span className = "text-2xl font-"><Link href = "/teams"><span className = "link cursor-pointer">Teams</span></Link></span>
                 <span className = "text-2xl font-"><Link href = "/tutorials"><span className = "link cursor-pointer">Tutorials</span></Link></span>
                 <span className = "text-2xl font-"><a href = "https://pitwall.gabirmotors.com" target = "_blank"><span className = "link cursor-pointer">The Pitwall</span></a></span>

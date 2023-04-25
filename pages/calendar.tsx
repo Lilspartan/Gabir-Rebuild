@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO , CalendarRow, Navbar } from '../components';
+import { Button, Loading, SEO , CalendarRow, Navbar, Modal } from '../components';
 import { Calendar, Event } from '../utils/interfaces';
 import { Client } from "gabir-motors";
 import { google, outlook, yahoo, ics } from "calendar-link";
@@ -66,26 +66,17 @@ const Calendar = ()  => {
 			<Loading loading = { loading } />
 
 			<Navbar />
-
-			{ modalOpen && modalEvent !== null ? (
-                <>
-                    <div onClick = {() => { setModalOpen(false); setModalEvent(null); }} className="grid place-items-center fixed w-screen h-screen bg-black bg-opacity-50 top-0 left-0 z-40"></div>
-
-					<div className="grid place-items-center fixed w-screen h-screen pointer-events-none top-0 left-0 z-50 text-white">
-						<div className = "fixed z-50 p-6 rounded-lg bg-dark-card-handle pointer-events-auto" id = "calendarprompt">
-							<h1 className = "text-2xl"><span className="font-bold">Add Event to Calendar:</span> Gabir Motors Cup, Season { calendar.season } Race { modalEvent.raceNumber + 1 }</h1>
+			
+			<Modal closeButton open = {modalOpen && modalEvent !== null} setOpen = {setModalOpen} id = "calendar-event">
+				{ modalEvent !== null && <h1 className = "text-2xl"><span className="font-bold">Add Event to Calendar:</span> Gabir Motors Cup, Season { calendar.season } Race { modalEvent.raceNumber + 1 }</h1> }
 						
-							<div className="flex flex-col p-4 gap-2">
-								<a className = "font-bold opacity-50 hover:opacity-100 transition duration-200" href = {calendarEvents['google']} target = "_blank">Add to Google Calendar</a>
-								<a className = "font-bold opacity-50 hover:opacity-100 transition duration-200" href = {calendarEvents['outlook']} target = "_blank">Add to Outlook</a>
-								<a className = "font-bold opacity-50 hover:opacity-100 transition duration-200" href = {calendarEvents['yahoo']} target = "_blank">Add to Yahoo</a>
-								<a className = "font-bold opacity-50 hover:opacity-100 transition duration-200" href = {calendarEvents['ics']} target = "_blank">Download .ics File</a>
-							</div>
-						</div>
-					</div>
-                </>
-            ) : "" }
- 
+				<div className="flex flex-col p-4 gap-2">
+					<a className = "font-bold opacity-50 hover:opacity-100 transition duration-200" href = {calendarEvents['google']} target = "_blank">Add to Google Calendar</a>
+					<a className = "font-bold opacity-50 hover:opacity-100 transition duration-200" href = {calendarEvents['outlook']} target = "_blank">Add to Outlook</a>
+					<a className = "font-bold opacity-50 hover:opacity-100 transition duration-200" href = {calendarEvents['yahoo']} target = "_blank">Add to Yahoo</a>
+					<a className = "font-bold opacity-50 hover:opacity-100 transition duration-200" href = {calendarEvents['ics']} target = "_blank">Download .ics File</a>
+				</div>
+			</Modal>
 
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
                 <div className = "flex flex-col content-center min-h-screen background-carbon_fiber w-full text-center">

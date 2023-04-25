@@ -35,7 +35,7 @@ const LoadingIcon = ({ loading }: {loading:boolean}) => {
 
     if (show) {
         return (
-            <div className={`background-carbon_fiber min-h-screen h-full absolute z-50 overflow-hidden ${(fade ? "fade-out" : "")}
+            <div className={`background-carbon_fiber min-h-screen h-full fixed top-0 right-0 z-50 overflow-hidden ${(fade ? "fade-out" : "")}
             `}>  
                 <div className={`grid place-items-center h-screen text-center w-screen`}>
                     {showLogo ? (

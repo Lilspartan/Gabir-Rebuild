@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO, Navbar, Alert } from '../components';
+import { Button, Loading, SEO, Navbar, Alert, AlertArea } from '../components';
 import { Client } from "gabir-motors";
 import Link from "next/link";
 import { File, Folder } from '../utils/interfaces';
@@ -112,11 +112,9 @@ const Teams = ()  => {
                 { galleryMode ? <BsGridFill /> : <BsListUl /> }
             </div>
 
-            <div className = "pointer-events-none fixed z-40 w-screen flex flex-row justify-center">
-				<div className = "flex flex-col gap-2 mt-2 justify-start lg:w-2/3">
-					<Alert type = "tip" id = "slow-connections" permaDismiss>If you have a slow connection or just trouble loading all the images, <span onClick = {() => { setGalleryMode(false) }} className = "cursor-pointer font-bold">turn off gallery mode</span></Alert>
-				</div>
-			</div>
+            <AlertArea>
+                <Alert type = "tip" id = "slow-connections" permaDismiss>If you have a slow connection or just trouble loading all the images, <span onClick = {() => { setGalleryMode(false) }} className = "cursor-pointer font-bold">turn off gallery mode</span></Alert>
+            </AlertArea>
 
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
                 <div className = "content-center min-h-screen background-carbon_fiber w-full text-center">
