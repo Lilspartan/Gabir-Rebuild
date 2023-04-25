@@ -94,9 +94,9 @@ export default function Channels() {
 				localStorage.setItem("visited", "true");
 			}} id = "new-website">
 				<h1 className = "font-bold text-3xl">Welcome to the new Gabir Motors Site!</h1>
-				<p>A few things have changed, here's a list of some changes you'll find in no particular order:</p>
+				<p>A few things have changed, here's a list of some changes you'll find:</p>
 				<ul className = "pl-4 mt-4">
-					<li>- A new <Link href = "/calendar"><span className="link">calendar page</span></Link> that lets you add events to your personal calendar</li>
+					<li>- A new <Link href = "/calendar"><span className="link">calendar page</span></Link> that lets you add events to your calendar app of choice</li>
 					<li>- A working <Link href = "/standings"><span className="link">standings page</span></Link> to see how the drivers are doing throughout the season</li>
 					<li>- An <Link href = "/assets"><span className="link">assets page</span></Link> that lets people with slow internet connections turn off gallery mode</li>
 					<li>- A redesigned home page that shows off the PA League discord server</li>
