@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO , CalendarRow, Navbar, Modal } from '../components';
+import { Button, Loading, SEO , CalendarRow, Navbar, Modal, Alert, AlertArea } from '../components';
 import { Standing } from '../utils/interfaces';
 import { motion } from 'framer-motion';
 import axios from 'axios';
@@ -63,6 +63,10 @@ const Standings = ()  => {
 			<Loading loading = { loading } />
 
 			<Navbar />
+
+            <AlertArea>
+                <Alert type = "tip" permaDismiss id = "click-for-more-info"><span className="font-bold">Tip:</span> Click on a driver to see more in-depth information</Alert>
+            </AlertArea>
 			
             <Modal open = {modalOpen && standingHighlight !== null} setOpen={setModalOpen} closeButton id = "standings-highlight">
                 { standingHighlight !== null && <h1 className = "text-2xl"><span className="font-bold">Standings Overview:</span> { standingHighlight.name }</h1> }
