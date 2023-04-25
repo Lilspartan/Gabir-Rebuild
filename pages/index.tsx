@@ -28,6 +28,8 @@ export default function Channels() {
 	const [calendar, setCalendar] = useState<Calendar>();
 	const [discordWidget, setDiscordWidget] = useState<null | DiscordWidget>(null);
 
+	const [firstVisit, setFirstVisit] = useState(false);
+
 	const calculateTimeRemaining = (countdownTo) => {
 		const difference = +new Date(countdownTo * 1000) - +new Date();
 
@@ -61,6 +63,9 @@ export default function Channels() {
 		setTimeout(() => {
 			setLoading(false);
 		}, 500)
+
+		let visited = localStorage.getItem("visited");
+		if (visited === null) setFirstVisit(true);
 	}, [])
 
 	useEffect(() => {
@@ -84,6 +89,19 @@ export default function Channels() {
 			<AlertArea>
 				<Alert type = "warning" id = "beta-warning" permaDismiss>This is a <strong>beta</strong> version of the Gabir Motors site, you may notice some features are missing. If there is something missing that you need, return to the <a href = "https://gabirmotors.com">main site</a></Alert>
 			</AlertArea>
+
+			<Modal open = {firstVisit} setOpen = {setFirstVisit} closeButton onClose = {() => {
+				localStorage.setItem("visited", "true");
+			}} id = "new-website">
+				<h1 className = "font-bold text-3xl">Welcome to the new Gabir Motors Site!</h1>
+				<p>A few things have changed, here's a list of some changes you'll find in no particular order:</p>
+				<ul className = "pl-4 mt-4">
+					<li>- A new <Link href = "/calendar"><span className="link">calendar page</span></Link> that lets you add events to your personal calendar</li>
+					<li>- A working <Link href = "/standings"><span className="link">standings page</span></Link> to see how the drivers are doing throughout the season</li>
+					<li>- An <Link href = "/assets"><span className="link">assets page</span></Link> that lets people with slow internet connections turn off gallery mode</li>
+					<li>- A redesigned home page that shows off the PA League discord server</li>
+				</ul>
+			</Modal>
 
 			<Modal open = {nOpen} setOpen = {setNOpen} id = "northern-harbor">
 				<img className = "mx-auto mb-4" src="https://i.gabirmotors.com/assets/other/northern_harbor.png" alt="Northern Harbor Logo" />

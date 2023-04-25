@@ -124,6 +124,7 @@ html {
 .link {
   position: relative;
   text-decoration: none;
+  @apply cursor-pointer font-bold
 }
 
 .link::before {

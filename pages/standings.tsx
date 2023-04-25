@@ -126,7 +126,7 @@ const Standings = ()  => {
 						<table className = "text-left text-xl mt-6 w-full">
 							<thead>
 								<tr className = "text-zinc-400 text-sm" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
-									<th className = "px-4 py-6 font-normal">TEAM</th>
+									<th className = "px-4 py-4 font-normal">TEAM</th>
 									<th className = "font-normal">POS.</th>
 									<th className = "font-normal">NAME</th>
 									<th className = "font-normal">POINTS</th>
