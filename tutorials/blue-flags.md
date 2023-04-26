@@ -1,6 +1,9 @@
 ---
 title: 'Everything Blue Flags'
+subtitle: 'Learn about what blue flags are and how they work'
 edited: "6/18/21"
+date: "6/18/21"
+authorID: 557730
 ---
 
 ## What is a Blue Flag?

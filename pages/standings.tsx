@@ -111,7 +111,7 @@ const Standings = ()  => {
                             scales: {
                                 y: {
                                     min: 0,
-                                    max: 50
+                                    max: 40
                                 }
                             }
                         }}

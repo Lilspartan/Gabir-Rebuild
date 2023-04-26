@@ -1,6 +1,11 @@
-# Everything Black Flags
+---
+title: 'Everything Black Flags'
+subtitle: 'Learn about what black flags are and how they work'
+edited: "6/19/21"
+date: "6/18/21"
+authorID: 557730
+---
 
-###### *Edited 6/19/21*
 
 ## What is a Black Flag?
 In auto racing, the Black Flag means the racing driver has a penalty for a rules infraction. This infraction can be a one time event or an accumulation of multiple, smaller events.
