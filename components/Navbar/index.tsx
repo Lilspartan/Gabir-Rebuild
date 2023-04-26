@@ -34,7 +34,7 @@ const Navbar = () => {
                 <span className = "text-2xl font-"><Link href = "/assets"><span className = "link cursor-pointer">Assets</span></Link></span>
                 <span className = "text-2xl font-"><Link href = "/standings"><span className = "link cursor-pointer">Standings</span></Link></span>
                 <span className = "text-2xl font-"><Link href = "/teams"><span className = "link cursor-pointer">Teams</span></Link></span>
-                <span className = "text-2xl font-"><Link href = "/tutorials"><span className = "link cursor-pointer">Tutorials</span></Link></span>
+                {/* <span className = "text-2xl font-"><span className = "font-bold opacity-40">Tutorials</span><span className = "bg-white rounded-lg text-sm font-bold text-black px-2 py-1 ml-2">SOON</span></span> */}
                 <span className = "text-2xl font-"><a href = "https://pitwall.gabirmotors.com" target = "_blank"><span className = "link cursor-pointer">The Pitwall</span></a></span>
               </div>
             </div>
