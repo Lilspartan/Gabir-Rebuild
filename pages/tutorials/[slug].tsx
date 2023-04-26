@@ -57,7 +57,7 @@ const SocialLink = ({ link }: { link: {type: string, text: string} }) => {
 } 
 
 export const getServerSideProps = async (props) => {
-    const folder = "tutorials/";
+    const folder = "public/posts/";
     const file = `${folder}${props.query.slug}.md`;
     const content = fs.readFileSync(file, "utf8");
 

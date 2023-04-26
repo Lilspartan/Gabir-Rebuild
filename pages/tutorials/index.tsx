@@ -39,7 +39,7 @@ const Tutorials = (props)  => {
 }
 
 export const getServerSideProps = () => {
-    const folder = "tutorials/";
+    const folder = "public/posts/";
     const files = fs.readdirSync(folder);
     const markdownPosts = files.filter((file) => file.endsWith(".md"));
     const posts = markdownPosts.map((fileName) => {
