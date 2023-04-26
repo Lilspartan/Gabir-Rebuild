@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import fs from 'fs';
 import Link from 'next/link';
 import matter from 'gray-matter';
+import path from 'path';
 
 const Tutorials = (props)  => {
 	return (
@@ -39,7 +40,7 @@ const Tutorials = (props)  => {
 }
 
 export const getServerSideProps = () => {
-    const folder = "public/posts/";
+    const folder = path.join(process.cwd(), 'posts/');
     const files = fs.readdirSync(folder);
     const markdownPosts = files.filter((file) => file.endsWith(".md"));
     const posts = markdownPosts.map((fileName) => {

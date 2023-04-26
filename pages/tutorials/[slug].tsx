@@ -10,6 +10,7 @@ import matter from 'gray-matter';
 import axios from 'axios'
 import { AiOutlineTwitter } from 'react-icons/ai';
 import { BsTwitch } from 'react-icons/bs';
+import path from 'path';
 
 const Tutorials = (props)  => {
     const router = useRouter();
@@ -57,7 +58,7 @@ const SocialLink = ({ link }: { link: {type: string, text: string} }) => {
 } 
 
 export const getServerSideProps = async (props) => {
-    const folder = "public/posts/";
+    const folder = path.join(process.cwd(), 'posts/');
     const file = `${folder}${props.query.slug}.md`;
     const content = fs.readFileSync(file, "utf8");
 
