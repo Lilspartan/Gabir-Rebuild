@@ -14,6 +14,8 @@ import { HiArrowLeft, HiArrowUp } from 'react-icons/hi';
 import path from 'path';
 import { ArticleMetaData, Driver } from '../../utils/interfaces';
 import DefaultTemplate from '../../templates/Default';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark as DarkStyle, oneLight as LightStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 interface Props {
     metadata: ArticleMetaData;
@@ -35,6 +37,26 @@ const Tutorials = (props: Props)  => {
             setDarkMode(localTheme === "dark");
         }
     }, [])
+
+    const CodeBlock = ({className, children}) => {
+        let lang = 'text'; // default monospaced text
+        if (className && className.startsWith('lang-')) {
+          lang = className.replace('lang-', '');
+        }
+        return (
+          <SyntaxHighlighter language={lang} style={darkMode ? DarkStyle : LightStyle}>
+            {children}
+          </SyntaxHighlighter>
+        );
+      }
+      
+      // markdown-to-jsx uses <pre><code/></pre> for code blocks.
+      const PreBlock = ({children, ...rest}) => {
+        if ('type' in children && children ['type'] === 'code') {
+          return CodeBlock(children['props']);
+        }
+        return <pre {...rest}>{children}</pre>;
+      };
 
 	return (
 		<>
@@ -85,7 +107,11 @@ const Tutorials = (props: Props)  => {
                     {/* <ShareButton metadata = { props.metadata } author = { props.author } /> */}
 
                     <article className = "prose prose-sm lg:prose-xl dark:prose-invert">
-                        <Markdown>{ content }</Markdown>
+                        <Markdown options={{
+                            overrides: {
+                                pre: PreBlock,
+                            },
+                        }}>{ content }</Markdown>
                     </article>
                 </section>
                 
