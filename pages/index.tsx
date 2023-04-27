@@ -96,7 +96,8 @@ export default function Channels() {
 					<li>- A new <Link href = "/calendar"><span className="link">calendar page</span></Link> that lets you add events to your calendar app of choice</li>
 					<li>- A working <Link href = "/standings"><span className="link">standings page</span></Link> to see how the drivers are doing throughout the season</li>
 					<li>- An <Link href = "/assets"><span className="link">assets page</span></Link> that lets people with slow internet connections turn off gallery mode</li>
-					<li>- A redesigned home page that shows off the PA League discord server</li>
+					<li>- A new <Link href = "/tutorials"><span className="link">tutorials page</span></Link> with usefull tips to get better at racing</li>
+					<li>- A redesigned home page that shows off some of what the site has to offer</li>
 				</ul>
 			</Modal>
 
