@@ -83,9 +83,9 @@ export default function Channels() {
 
 			<Navbar />
 
-			<AlertArea>
+			{/* <AlertArea>
 				<Alert type = "warning" id = "beta-warning" permaDismiss>This is a <strong>beta</strong> version of the Gabir Motors site, you may notice some features are missing. If there is something missing that you need, return to the <a href = "https://gabirmotors.com">main site</a></Alert>
-			</AlertArea>
+			</AlertArea> */}
 
 			<Modal open = {firstVisit} setOpen = {setFirstVisit} closeButton onClose = {() => {
 				localStorage.setItem("visited", "true");
