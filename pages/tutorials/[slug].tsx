@@ -45,6 +45,8 @@ const Tutorials = (props: Props)  => {
                                 <span className="link"><HiArrowLeft className = "inline text-xl" /> Go Back</span>
                             </Link>
                         </div>
+                        
+                        <img className = "my-8 rounded-lg" src = { props.metadata.headerImg } alt = { props.metadata.headerAlt } />
 
                         <h1 className = "lg:text-5xl text-3xl font-extrabold mb-4">{ props.metadata.title }</h1>
                         <span className = "italic opacity-60 block">Last Edit: { props.metadata.edited }</span>
@@ -53,9 +55,6 @@ const Tutorials = (props: Props)  => {
                             <SocialLink link = { link } />
                         )) }
                         <ShareButton metadata = { props.metadata } author = { props.author } />
-
-                        <img className = "mt-8 mb-2 rounded-lg" src = { props.metadata.headerImg } alt = { props.metadata.headerAlt } />
-                        <span className = "text-lg ml-4 text-zinc-100">{ props.metadata.headerAlt }</span>
 
                         <article className = "prose prose-sm lg:prose-xl prose-invert">
                             <Markdown>{ content }</Markdown>
@@ -100,6 +99,7 @@ export const getServerSideProps = async (props) => {
                 date: matterResults.data.date,
                 headerImg: matterResults.data.headerImg || null,
                 headerAlt: matterResults.data.headerAlt || null,
+                tags: matterResults.data.tags,
             },
             author
         }
