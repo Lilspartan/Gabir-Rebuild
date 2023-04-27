@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FaDiscord, FaTwitter, FaTwitch } from 'react-icons/fa';
 import { VscSourceControl } from 'react-icons/vsc';
 
-const Navbar = () => {
+const Navbar = ({ invertOpenButton=false }) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -58,7 +58,7 @@ const Navbar = () => {
 
       <div className = "fixed z-40 top-0 flex flex-row">
         <div className = "p-1">
-          <AiOutlineMenu className = "text-white text-3xl cursor-pointer" onClick = {() => {
+          <AiOutlineMenu className = {`${invertOpenButton ? "text-black" : "text-white"} text-3xl cursor-pointer`} onClick = {() => {
             setOpen(!open);
           }} />
         </div>

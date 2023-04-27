@@ -83,9 +83,9 @@ export default function Channels() {
 
 			<Navbar />
 
-			<AlertArea>
+			{/* <AlertArea>
 				<Alert type = "warning" id = "beta-warning" permaDismiss>This is a <strong>beta</strong> version of the Gabir Motors site, you may notice some features are missing. If there is something missing that you need, return to the <a href = "https://gabirmotors.com">main site</a></Alert>
-			</AlertArea>
+			</AlertArea> */}
 
 			<Modal open = {firstVisit} setOpen = {setFirstVisit} closeButton onClose = {() => {
 				localStorage.setItem("visited", "true");
@@ -96,7 +96,8 @@ export default function Channels() {
 					<li>- A new <Link href = "/calendar"><span className="link">calendar page</span></Link> that lets you add events to your calendar app of choice</li>
 					<li>- A working <Link href = "/standings"><span className="link">standings page</span></Link> to see how the drivers are doing throughout the season</li>
 					<li>- An <Link href = "/assets"><span className="link">assets page</span></Link> that lets people with slow internet connections turn off gallery mode</li>
-					<li>- A redesigned home page that shows off the PA League discord server</li>
+					<li>- A new <Link href = "/tutorials"><span className="link">tutorials page</span></Link> with useful tips to get better at racing</li>
+					<li>- A redesigned home page that shows off some of what the site has to offer</li>
 				</ul>
 			</Modal>
 

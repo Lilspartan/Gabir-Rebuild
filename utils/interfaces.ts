@@ -91,6 +91,14 @@ export interface ArticleMetaData {
 	authorID:  number;
 	headerImg: string | null;
 	headerAlt: string | null;
-	tags:      string[];
+	tags:      ArticleTag[];
 	slug?:     string;
+	hidden:    boolean;
+}
+
+export type ArticleTag = "Lseague" | "Rules" | "Track Guide"
+
+export interface Preferences {
+	theme: "dark" | "light";
+	solidBackground: boolean;
 }

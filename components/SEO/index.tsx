@@ -16,7 +16,7 @@ const index = ({
   return (
     <Head>
         <title>{ title }</title>
-        <link rel="icon" href="/beta_logo.png" />
+        <link rel="icon" href="/small_logo.png" />
         <link rel="stylesheet" href="https://use.typekit.net/mzl0gsb.css" />
 
         <meta name="author" content = "Gabe Krahulik" />
