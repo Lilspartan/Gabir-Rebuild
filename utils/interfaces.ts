@@ -93,6 +93,7 @@ export interface ArticleMetaData {
 	headerAlt: string | null;
 	tags:      ArticleTag[];
 	slug?:     string;
+	hidden:    boolean;
 }
 
 export type ArticleTag = "Lseague" | "Rules" | "Track Guide"

@@ -6,6 +6,7 @@ date: "6/18/21"
 authorID: 388499
 headerImg: "/2.png"
 tags: [ "Rules" ]
+hidden: false
 ---
 
 ## What should I do if I am shown the Blue Flag?

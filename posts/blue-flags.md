@@ -7,6 +7,7 @@ authorID: 388499
 headerImg: "/1.jpg"
 headerAlt: 'Two racecars drifting around a corner, the one if front is running a PA League livery'
 tags: [ "Rules" ]
+hidden: false
 ---
 
 ## What is a Blue Flag?
