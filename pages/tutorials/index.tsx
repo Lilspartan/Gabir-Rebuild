@@ -12,8 +12,8 @@ const Tutorials = (props)  => {
 		<>
 			<SEO 
 				title = "Gabir Motors | Tutorials" 
-				description = "View the schedule for the Gabir Motors Cup" 
-				url = "calendar"
+				description = "" 
+				url = "tutorials"
 			/>
 
 			<Navbar />
