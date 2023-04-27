@@ -26,15 +26,13 @@ const Tutorials = (props: Props)  => {
     const slug = router.query.slug;
     const content = props.content;
 
-    console.log(props.author)
-
 	return (
 		<>
 			<SEO 
 				title = {`Gabir Motors | ${props.metadata.title}`} 
 				description = {`${props.metadata.subtitle}\n\nWritten By ${props.author.name}`}
 				url = {"tutorials/" + slug} 
-                headerImg = {props.metadata.headerImg || "/header.jpg"}
+                headerImg = {props.metadata.headerImg !== null ? props.metadata.headerImg : '/header.jpg'}
 			/>
 
 			<Navbar />
