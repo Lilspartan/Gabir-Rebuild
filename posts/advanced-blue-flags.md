@@ -4,7 +4,8 @@ subtitle: 'Go more in depth and learn more about blue flags'
 edited: "6/18/21"
 date: "6/18/21"
 authorID: 388499
-tags: [ "rules", "tutorial" ]
+headerImg: "/2.png"
+tags: [ "Rules" ]
 ---
 
 ## What should I do if I am shown the Blue Flag?

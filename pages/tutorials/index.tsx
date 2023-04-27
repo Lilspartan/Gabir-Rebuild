@@ -7,6 +7,7 @@ import Link from 'next/link';
 import matter from 'gray-matter';
 import path from 'path';
 import { ArticleMetaData } from '../../utils/interfaces';
+import { HiArrowRight } from 'react-icons/hi';
 
 interface Props {
     posts: ArticleMetaData[];
@@ -29,15 +30,17 @@ const Tutorials = (props: Props)  => {
                         { props.posts.map(post => (
                             <div>
                                 <Link href = {`/tutorials/${post.slug}`}>
-                                    <div className = "bg-dark-card-body p-4 cursor-pointer">
-                                        { post.headerImg !== null && <img className = "my-8 rounded-lg" src = { post.headerImg } alt = { post.headerAlt } /> }
+                                    <div className = "bg-dark-card-body px-4 py-4 cursor-pointer h-full flex flex-col transition duration-200 hover:bg-dark-card-handle">
+                                        { post.headerImg !== null && <img className = "mb-8 rounded-lg" src = { post.headerImg } alt = { post.headerAlt } /> }
                                         <h2 className = "text-3xl font-bold">{ post.title }</h2>
                                         <span className = "italic opacity-60">{ post.date }</span>
-                                        <h3 className="text-xl">{ post.subtitle }</h3>
-                                        <div className="flex flex-row gap-2 mt-2">
+                                        <h3 className="text-xl mb-2">{ post.subtitle }</h3>
+                                        <div className="flex flex-row gap-2 mt-auto">
                                             { post.tags.map(tag => (
                                                 <span className = "bg-white px-2 py-0.5 rounded-lg text-black text-sm font-bold">{ tag }</span>
                                             )) }
+
+                                            {/* <span className = "ml-auto font-extrabold link">Read <HiArrowRight className = "inline" /></span> */}
                                         </div>
                                     </div>
                                 </Link>
