@@ -33,7 +33,7 @@ const Tutorials = (props)  => {
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
                 <div className = "flex flex-col content-center min-h-screen background-carbon_fiber w-full">
                     <section className="lg:mx-auto mt-16 mx-4">
-                        <h1 className = "lg:text-5xl text-3xl font-bold mb-4">{ props.metadata.title }</h1>
+                        <h1 className = "lg:text-5xl text-3xl font-extrabold mb-4">{ props.metadata.title }</h1>
                         <span className = "italic opacity-60 block">Last Edit: { props.metadata.edited }</span>
                         { props.author !== null && <h3 className = "font-bold inline">Written By: <span className = "font-normal">{ props.author.name } { props.author.username !== undefined && <span>({ props.author.username })</span> }</span></h3> }
                         { props.author.links !== undefined && props.author.links.map((link) => (
@@ -92,7 +92,7 @@ const ShareButton = (props) => {
             navigator
                 .share({
                     title: `Gabir Motors | ${props.metadata.title}`,
-                    text: `${props.metadata.subtitle}\n\nWritten By ${props.metadata.name}`,
+                    text: `${props.metadata.subtitle}\n\nWritten By ${props.author.name}`,
                     url: document.location.href,
                 })
                 .then(() => {
