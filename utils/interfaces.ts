@@ -26,10 +26,17 @@ export interface Content {
 }
 
 export interface Driver {
-	name:      string;
-	username:  string | null;
-	team?:     Team;
-	car_number: string;
+	name:        string;
+	username:    string | null;
+	team?:       Team;
+	car_number:  string;
+	links?:    	 ProfileLink[];
+	account_id?: string;  
+}
+
+export interface ProfileLink {
+	type: string;
+	text: string;
 }
 
 export interface Team {
@@ -75,3 +82,13 @@ export interface Standing {
 }
 
 type StandingTeam = "Hive Mind Alliance" | "Jabir Motors" | "Lone Wolf Pack" | "G.L.H.F." | "Future War Cult" | "S.E.N.D.I.T." | "Team CHOSEN" | "A.S.S." | "Gabir Motors"
+
+export interface ArticleMetaData {
+	title: string;
+	subtitle: string;
+	edited: string;
+	date: string;
+	authorID: number;
+	headerImg: string | null;
+	headerAlt: string | null;
+}

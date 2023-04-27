@@ -4,12 +4,14 @@ type Props = {
     title?: string,
     description?: string,
     url?: string,
+    headerImg?: string,
 }
 
 const index = ({
     title = "Gabir Motors",
     description = "The world's premiere, pretend Motorsports Company. Proud sponsor of Mike Racecar and the Penny Arcade iRacing league.",
-    url = ""
+    url = "",
+    headerImg = "/header.jpg"
 }: Props) => {
   return (
     <Head>
@@ -27,13 +29,13 @@ const index = ({
         <meta property="og:url" content={`https://gabirmotors.com/${url}`} />
         <meta property="og:title" content={ title } />
         <meta property="og:description" content={ description } />
-        <meta property="og:image" content="/header.jpg" />
+        <meta property="og:image" content={ headerImg } />
 
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content={`https://gabirmotors.com/${url}`} />
         <meta property="twitter:title" content={ title } />
         <meta property="twitter:description" content={ description } />
-        <meta property="twitter:image" content="/header.jpg"></meta>
+        <meta property="twitter:image" content={ headerImg }></meta>
     </Head>
   )
 }

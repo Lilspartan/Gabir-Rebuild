@@ -12,8 +12,15 @@ import { AiOutlineTwitter } from 'react-icons/ai';
 import { BsTwitch } from 'react-icons/bs';
 import { HiArrowLeft } from 'react-icons/hi';
 import path from 'path';
+import { ArticleMetaData, Driver } from '../../utils/interfaces';
 
-const Tutorials = (props)  => {
+interface Props {
+    metadata: ArticleMetaData;
+    author:   Driver;
+    content:  string;
+}
+
+const Tutorials = (props: Props)  => {
     const router = useRouter();
 
     const slug = router.query.slug;
@@ -26,14 +33,15 @@ const Tutorials = (props)  => {
 			<SEO 
 				title = {`Gabir Motors | ${props.metadata.title}`} 
 				description = {`${props.metadata.subtitle}\n\nWritten By ${props.author.name}`}
-				url = {"tutorials/" + slug}
+				url = {"tutorials/" + slug} 
+                headerImg = {props.metadata.headerImg || "/header.jpg"}
 			/>
 
 			<Navbar />
 
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
                 <div className = "flex flex-col content-center min-h-screen background-carbon_fiber w-full">
-                    <section className="lg:mx-auto mt-16 mx-4">
+                    <section className="lg:mx-auto mt-16 mx-4 lg:w-1/2">
                         <div className = "w-full flex flex-row justify-start mb-8">
                             <Link href = "/tutorials">
                                 <span className="link"><HiArrowLeft className = "inline text-xl" /> Go Back</span>
@@ -47,6 +55,10 @@ const Tutorials = (props)  => {
                             <SocialLink link = { link } />
                         )) }
                         <ShareButton metadata = { props.metadata } author = { props.author } />
+
+                        <img className = "mt-8 mb-2 rounded-lg" src = { props.metadata.headerImg } alt = { props.metadata.headerAlt } />
+                        <span className = "text-lg ml-4 text-zinc-100">{ props.metadata.headerAlt }</span>
+
                         <article className = "prose prose-sm lg:prose-xl prose-invert">
                             <Markdown>{ content }</Markdown>
                         </article>
@@ -71,10 +83,11 @@ export const getServerSideProps = async (props) => {
 
     const matterResults = matter(content);
 
-    let author = await axios.get('https://api.gabirmotors.com/driver/accountid/' + matterResults.data.authorID);
+    let data = await axios.get('https://api.gabirmotors.com/driver/accountid/' + matterResults.data.authorID);
+    let author: Driver | null;
 
-    if (author.data.length) {
-        author = author.data[0];
+    if (data.data.length) {
+        author = data.data[0];
     } else {
         author = null;
     }
@@ -87,6 +100,8 @@ export const getServerSideProps = async (props) => {
                 subtitle: matterResults.data.subtitle,
                 edited: matterResults.data.edited,
                 date: matterResults.data.date,
+                headerImg: matterResults.data.headerImg || null,
+                headerAlt: matterResults.data.headerAlt || null,
             },
             author
         }
