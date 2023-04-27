@@ -135,7 +135,15 @@ const Standings = ()  => {
 								</tr>
 							</thead>
 							<tbody>
-                                { standings && standings.map((standing, index) => {
+                                { standings && standings.sort((a, b) => {
+                                    let pos1 = a.pos;
+                                    let pos2 = b.pos;
+
+                                    if (pos1[0] === "C") pos1 = "500";
+                                    if (pos2[0] === "C") pos2 = "500";
+
+                                    return Number(pos1) - Number(pos2);
+                                }).map((standing, index) => {
                                     let teamAbbr = "";
 
                                     switch (standing.team) {
