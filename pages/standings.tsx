@@ -94,7 +94,7 @@ const Standings = ()  => {
                         <span>Week</span>
                         <span>Points</span>
                     </div>
-                    { standingHighlight.points.map((point, index) => (
+                    { standingHighlight !== null && standingHighlight.points.map((point, index) => (
                         <div className="flex flex-row justify-between text-lg px-8" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
                             <span>{ index + 1 }</span>
                             <span>{ point }</span>
