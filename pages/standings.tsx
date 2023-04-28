@@ -200,7 +200,7 @@ const Standings = ()  => {
 
                     <div className="visible md:hidden w-screen mt-16">
                         <div className="flex flex-col">
-                            { standings.sort((a, b) => {
+                            { standings && standings.sort((a, b) => {
                                 let pos1 = a.pos;
                                 let pos2 = b.pos;
 
