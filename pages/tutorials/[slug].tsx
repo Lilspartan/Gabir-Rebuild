@@ -3,7 +3,6 @@ import { Button, Loading, SEO , CalendarRow, Navbar, Modal } from '../../compone
 import { Client } from "gabir-motors";
 import { motion } from 'framer-motion';
 import fs from 'fs';
-import Link from 'next/link';
 import { useRouter } from 'next/router'
 import Markdown from 'markdown-to-jsx';
 import matter from 'gray-matter';
@@ -71,9 +70,7 @@ const Tutorials = (props: Props)  => {
             >
                 <section className="lg:mx-auto mt-16 mx-4 lg:w-1/2">
                     <div className = "w-full flex flex-row justify-start mb-8">
-                        <Link href = "/tutorials">
-                            <span className="link"><HiArrowLeft className = "inline text-xl" /> Go Back</span>
-                        </Link>
+                        <a href = "/tutorials" className="link"><HiArrowLeft className = "inline text-xl" /> Go Back</a>
                     </div>
                     
                     { props.metadata.headerImg !== null ? (

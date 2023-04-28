@@ -3,7 +3,6 @@ import { Button, Loading, SEO , CalendarRow, Navbar, Modal } from '../../compone
 import { Client } from "gabir-motors";
 import { motion } from 'framer-motion';
 import fs from 'fs';
-import Link from 'next/link';
 import matter from 'gray-matter';
 import path from 'path';
 import { ArticleMetaData } from '../../utils/interfaces';
@@ -31,8 +30,8 @@ const Tutorials = (props: Props)  => {
                             if (post.hidden) return <></>
                             else return (
                                 <div>
-                                    <Link href = {`/tutorials/${post.slug}`}>
-                                        <div className = "bg-dark-card-body px-4 py-4 cursor-pointer h-full flex flex-col transition duration-200 hover:bg-dark-card-handle">
+                                    <a href = {`/tutorials/${post.slug}`}>
+                                        <div className = "bg-dark-card-body px-4 py-4 h-full flex flex-col transition duration-200 hover:bg-dark-card-handle">
                                             { post.headerImg !== null && <img className = "mb-8 rounded-lg" src = { post.headerImg } alt = { post.headerAlt } /> }
                                             <h2 className = "text-3xl font-bold">{ post.title }</h2>
                                             <span className = "italic opacity-60">{ post.date }</span>
@@ -45,7 +44,7 @@ const Tutorials = (props: Props)  => {
                                                 {/* <span className = "ml-auto font-extrabold link">Read <HiArrowRight className = "inline" /></span> */}
                                             </div>
                                         </div>
-                                    </Link>
+                                    </a>
                                 </div>
                             )
                         }) }

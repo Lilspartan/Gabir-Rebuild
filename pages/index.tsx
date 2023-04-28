@@ -4,8 +4,8 @@ import { Event, Calendar } from '../utils/interfaces';
 import { Client } from "gabir-motors";
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { BiLinkExternal } from 'react-icons/bi';
-import Link from "next/link";
 import axios from 'axios';
+import Link from 'next/link';
 
 const client = new Client();
 
@@ -93,10 +93,10 @@ export default function Channels() {
 				<h1 className = "font-bold text-3xl">Welcome to the new Gabir Motors Site!</h1>
 				<p>A few things have changed, here's a list of some changes you'll find:</p>
 				<ul className = "pl-4 mt-4">
-					<li>- A new <Link href = "/calendar"><span className="link">calendar page</span></Link> that lets you add events to your calendar app of choice</li>
-					<li>- A working <Link href = "/standings"><span className="link">standings page</span></Link> to see how the drivers are doing throughout the season</li>
-					<li>- An <Link href = "/assets"><span className="link">assets page</span></Link> that lets people with slow internet connections turn off gallery mode</li>
-					<li>- A new <Link href = "/tutorials"><span className="link">tutorials page</span></Link> with useful tips to get better at racing</li>
+					<li>- A new <a href = "/calendar" className="link">calendar page</a> that lets you add events to your calendar app of choice</li>
+					<li>- A working <a href = "/standings" className="link">standings page</a> to see how the drivers are doing throughout the season</li>
+					<li>- An <a href = "/assets" className="link">assets page</a> that lets people with slow internet connections turn off gallery mode</li>
+					<li>- A new <a href = "/tutorials" className="link">tutorials page</a> with useful tips to get better at racing</li>
 					<li>- A redesigned home page that shows off some of what the site has to offer</li>
 				</ul>
 			</Modal>
@@ -117,7 +117,7 @@ export default function Channels() {
 				<section id="hero" className = "min-h-screen background-mike_racecar bg-center">
 					{timeLeft !== null ? (
 						<>
-							<motion.h1 transition={{ delay: 0.9, duration: 1 }} initial = {{ y: "-15%", opacity: 0 }} animate = {{ y: 0, opacity: 1 }} className = "text-center top-4 absolute w-full acumin text-5xl"><Link href = {`/calendar?highlight=${next.timestamp}`}>NEXT RACE IN</Link></motion.h1>
+							<motion.h1 transition={{ delay: 0.9, duration: 1 }} initial = {{ y: "-15%", opacity: 0 }} animate = {{ y: 0, opacity: 1 }} className = "text-center top-4 absolute w-full acumin text-5xl"><a href = {`/calendar?highlight=${next.timestamp}`}>NEXT RACE IN</a></motion.h1>
 							<div className = "absolute flex flex-row w-full justify-center lg:gap-16 gap-4 lg:text-8xl text-5xl acumin text-center top-16">
 								<motion.div transition={{ delay: 1, duration: 1 }} initial = {{ y: "-15%", opacity: 0 }} animate = {{ y: 0, opacity: 1 }} id="days">{ timeLeft.days } <span className = "lg:text-3xl text-2xl block text-center">DAYS</span></motion.div>
 								<motion.div transition={{ delay: 1.1, duration: 1 }} initial = {{ y: "-15%", opacity: 0 }} animate = {{ y: 0, opacity: 1 }} id="hours">{ timeLeft.hours } <span className = "lg:text-3xl text-2xl block text-center">HOURS</span></motion.div>

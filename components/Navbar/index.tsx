@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
-import { AiOutlineClose, AiOutlineMenu, AiFillShopping } from 'react-icons/ai';
-import Link from "next/link";
+import { useState } from 'react'
+import { AiOutlineMenu, AiFillShopping } from 'react-icons/ai';
 import { FaDiscord, FaTwitter, FaTwitch } from 'react-icons/fa';
 import { VscSourceControl } from 'react-icons/vsc';
 
@@ -15,7 +14,7 @@ const Navbar = ({ invertOpenButton=false }) => {
         <div id="innerNav" className = "flex flex-col justify-center h-screen">
           <div className = "flex flex-col text-white">
             <div className = "flex flex-row justify-center mt-4 mx-16">
-              <Link href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "cursor-pointer w-48" src="https://i.gabirmotors.com/assets/teams/GM/main.png" alt="Gabir Motors logo" /></Link>
+              <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="https://i.gabirmotors.com/assets/teams/GM/main.png" alt="Gabir Motors logo" /></a>
             </div>
 
             {/* <div className = "flex flex-row ml-4 my-2">
@@ -29,13 +28,13 @@ const Navbar = ({ invertOpenButton=false }) => {
 
             <div className="flex flex-col px-2">
               <div className="flex flex-col gap-3 ml-4 py-2 justify-center">
-                <span className = "text-2xl font-"><Link href = "/calendar"><span className = "link cursor-pointer">Calendar</span></Link></span>
-                <span className = "text-2xl font-"><Link href = "/tools/specmapping"><span className = "link cursor-pointer">Spec Mapping</span></Link></span>
-                <span className = "text-2xl font-"><Link href = "/assets"><span className = "link cursor-pointer">Assets</span></Link></span>
-                <span className = "text-2xl font-"><Link href = "/standings"><span className = "link cursor-pointer">Standings</span></Link></span>
-                <span className = "text-2xl font-"><Link href = "/tutorials"><span className = "link cursor-pointer">Tutorials</span></Link></span>
-                <span className = "text-2xl font-"><Link href = "/teams"><span className = "link cursor-pointer">Teams</span></Link></span>
-                <span className = "text-2xl font-"><a href = "https://pitwall.gabirmotors.com" target = "_blank"><span className = "link cursor-pointer">The Pitwall</span></a></span>
+                <span className = "text-2xl font-"><a href = "/calendar" className = "link">Calendar</a></span>
+                <span className = "text-2xl font-"><a href = "/tools/specmapping" className = "link">Spec Mapping</a></span>
+                <span className = "text-2xl font-"><a href = "/assets"className = "link">Assets</a></span>
+                <span className = "text-2xl font-"><a href = "/standings" className = "link">Standings</a></span>
+                <span className = "text-2xl font-"><a href = "/tutorials" className = "link">Tutorials</a></span>
+                <span className = "text-2xl font-"><a href = "/teams" className = "link">Teams</a></span>
+                <span className = "text-2xl font-"><a href = "https://pitwall.gabirmotors.com" target = "_blank" className = "link">The Pitwall</a></span>
               </div>
             </div>
 

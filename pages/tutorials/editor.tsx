@@ -1,17 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Loading, SEO , CalendarRow, Navbar, Modal } from '../../components';
-import { Client } from "gabir-motors";
-import { motion } from 'framer-motion';
-import fs from 'fs';
-import Link from 'next/link';
-import { useRouter } from 'next/router'
 import Markdown from 'markdown-to-jsx';
-import matter from 'gray-matter';
-import axios from 'axios'
-import { AiOutlineTwitter } from 'react-icons/ai';
-import { BsTwitch } from 'react-icons/bs';
-import { HiArrowLeft } from 'react-icons/hi';
-import path from 'path';
 import { ArticleMetaData, Driver } from '../../utils/interfaces';
 
 const Editor = ()  => {
@@ -23,7 +12,8 @@ const Editor = ()  => {
         date: "",
         edited: "N/A",
         authorID: -1,
-        tags: [ "" ]
+        tags: [ "" ],
+        hidden: false
     })
     const [content, setContent] = useState("## Write your article here\n\nYou have the full power of markdown at your disposal");
     const [previewMode, setPreviewMode] = useState(false);

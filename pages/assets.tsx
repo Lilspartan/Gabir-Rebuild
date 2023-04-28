@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Loading, SEO, Navbar, Alert, AlertArea } from '../components';
 import { Client } from "gabir-motors";
-import Link from "next/link";
 import { File, Folder } from '../utils/interfaces';
 import axios from 'axios';
 import { BsGridFill, BsListUl } from 'react-icons/bs';

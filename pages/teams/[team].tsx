@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Button, Loading, SEO, Navbar } from '../../components';
 import { Client } from "gabir-motors";
 import { Team, Driver } from '../../utils/interfaces';
-import Link from "next/link";
 import { useRouter } from 'next/router'
 
 const client = new Client();

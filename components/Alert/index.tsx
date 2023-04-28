@@ -78,11 +78,11 @@ const Alert = (props: Props) => {
                     <span className = "alert-body-inner">{ props.children }</span>
                 </div>
 
-							{ closeable ? (
-								<div>
-                    <a className = "cursor-pointer" onClick = {close} ><AiOutlineClose className = "inline ml-4" /></a>
-                </div>
-							) : <div className = ""></div>}
+                { closeable ? (
+                    <div>
+                        <a className = "cursor-pointer" onClick = {close} ><AiOutlineClose className = "inline ml-4" /></a>
+                    </div>
+                ) : <div className = ""></div>}
             </div>
         )
     } else return <></>;
