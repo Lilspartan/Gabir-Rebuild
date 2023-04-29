@@ -35,6 +35,8 @@ SOSSRS serves to provide a more advanced racing series for those who are looking
 
 **When:** Mondays at 8:00 PM PST / 11:00 PM EST
 
+The Oval Series is a haven for those who enjoy turning left. Repeatedly. And only left. Running a variety of oval cars, this series is designed to teach the finer points of left turns, while racing at the same time
+
 ***
 
 ## The Super Truck Racing Association (STRASS)
