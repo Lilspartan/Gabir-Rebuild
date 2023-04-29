@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createElement } from 'react';
 import { Button, Loading, SEO , CalendarRow, Navbar, Modal } from '../../components';
 import { Client } from "gabir-motors";
 import { motion } from 'framer-motion';
@@ -15,11 +15,19 @@ import { ArticleMetaData, Driver } from '../../utils/interfaces';
 import DefaultTemplate from '../../templates/Default';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark as DarkStyle, oneLight as LightStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import slugify from 'slugify';
+import { MdOpenInFull, MdCloseFullscreen } from 'react-icons/md';
 
 interface Props {
     metadata: ArticleMetaData;
     author:   Driver;
     content:  string;
+}
+
+interface TOCType {
+    title: string;
+    id:    string;
+    level: number;
 }
 
 const Tutorials = (props: Props)  => {
@@ -57,18 +65,66 @@ const Tutorials = (props: Props)  => {
         return <pre {...rest}>{children}</pre>;
     };
 
+    const TableOfContents = () => {
+        const [TOC, setTOC] = useState<TOCType[]>([]);
+        const [open, setOpen] = useState(true);
+
+        let regex = /[*+~.()#'"!:@?]/g
+
+        useEffect(() => {
+            let splitContent = content.replaceAll('\r', '').split('\n');
+
+            setTOC(splitContent.map((currentLine) => {
+                if (currentLine.startsWith('######')) return { title: currentLine.replace('###### ', ''), id: slugify(currentLine.replace('###### ', ''), { lower: true, remove: regex }), level: 6 };
+                else if (currentLine.startsWith('#####')) return { title: currentLine.replace('##### ', ''), id: slugify(currentLine.replace('##### ', ''), { lower: true, remove: regex }), level: 5 };
+                else if (currentLine.startsWith('####')) return { title: currentLine.replace('#### ', ''), id: slugify(currentLine.replace('#### ', ''), { lower: true, remove: regex }), level: 4 };
+                else if (currentLine.startsWith('###')) return { title: currentLine.replace('### ', ''), id: slugify(currentLine.replace('### ', ''), { lower: true, remove: regex }), level: 3 };
+                else if (currentLine.startsWith('##')) return { title: currentLine.replace('## ', ''), id: slugify(currentLine.replace('## ', ''), { lower: true, remove: regex }), level: 2 };
+                else if (currentLine.startsWith('#')) return { title: currentLine.replace('# ', ''), id: slugify(currentLine.replace('# ', ''), { lower: true, remove: regex }), level: 1 };
+            }))
+        }, [])
+
+        return (
+            <div className = "hidden md:block fixed right-0 top-0 mt-24 h-screen w-1/3 lg:w-1/5 pointer-events-none flex flex-col p-4">
+                <div className = "dark:bg-[#333333] bg-[#eeeeee] p-4 rounded-lg pointer-events-auto">
+                    <div className="flex flex-row justify-between">
+                        <h1 className = "text-2xl font-bold">Table of Contents</h1>
+
+                        <div className = "self-center text-xl cursor-pointer" onClick = {() => { setOpen(!open) }}>
+                            { open ? <MdCloseFullscreen /> : <MdOpenInFull /> }
+                        </div>
+                    </div>
+
+                    { open && (
+                        <ul>
+                            { TOC.map((header) => {
+                                if (header && header.level >= 2) {
+                                    return (
+                                        <li className = "my-3"><a href = {`#${header.id}`} className = "hover:underline">{ header.title }</a></li>
+                                    )
+                                }
+                            }) }
+                        </ul>
+                    ) }
+                </div>
+            </div>
+        )
+    }
+
 	return (
 		<>
             <DefaultTemplate
                 doLoading = {false}
                 title = {`Gabir Motors | ${props.metadata.title}`} 
-				desc = {`${props.metadata.subtitle}\n\nWritten By ${props.author.name}`}
+				desc = {`${props.metadata.subtitle}\n\nWritten by ${props.author.name}`}
 				url = {"tutorials/" + slug} 
                 headerImg = {props.metadata.headerImg !== null ? props.metadata.headerImg : '/header.jpg'} 
                 solidBg = {true} 
                 darkMode = {darkMode}
             >
-                <section className="lg:mx-auto mt-16 mx-4 lg:w-1/2">
+                <TableOfContents />
+
+                <section className="lg:mx-auto mt-16 mx-4 md:w-2/3 md:pr-4 lg:pr-0 lg:w-1/2">
                     <div className = "w-full flex flex-row justify-start mb-8">
                         <a href = "/tutorials" className="link"><HiArrowLeft className = "inline text-xl" /> Go Back</a>
                     </div>
@@ -105,7 +161,7 @@ const Tutorials = (props: Props)  => {
                         <Markdown options={{
                             overrides: {
                                 pre: PreBlock,
-                            },
+                            }
                         }}>{ content }</Markdown>
                     </article>
                 </section>

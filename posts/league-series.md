@@ -1,6 +1,6 @@
 ---
-title: 'The Series of the League'
-subtitle: 'Learn about when and what different series in the League are'
+title: 'Penny Arcade Racing League Series Breakdown'
+subtitle: 'Learn about when and what the different series in the League are'
 edited: "4/29/23"
 date: "4/29/23"
 authorID: 557730
@@ -69,4 +69,4 @@ The purpose of this league is to take Off-Road trucks onto road courses with no 
 
 **When:** N/A
 
-UPARLTAC is a time attack competition that uses the existing iracing time attack features but allows for a variety of cars and an internal league scoring system to keep track of the fastest participants.
+UPARLTAC is a time attack competition that uses the existing iRacing time attack features but allows for a variety of cars and an internal league scoring system to keep track of the fastest participants.
