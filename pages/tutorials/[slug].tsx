@@ -166,9 +166,9 @@ const Tutorials = (props: Props)  => {
                     </article>
                 </section>
                 
-                <div className = "fixed bottom-0 right-0 text-xl flex flex-row dark:text-black text-white m-4">
-                    <a className = "rounded-l-xl px-2 cursor-pointer py-2 dark:bg-white bg-black transition duration-200 opacity-70 hover:opacity-100" onClick = { () => { setDarkMode(!darkMode); localStorage.setItem("reading-theme", !darkMode ? "dark" : "light") } }><span>{ darkMode ? <BsFillSunFill /> : <BsFillMoonFill /> }</span></a>
-                    <a className = "px-2 cursor-pointer py-2 dark:bg-white bg-black transition duration-200 opacity-70 hover:opacity-100" onClick = { () => { 
+                <div className = "fixed bottom-0 right-0 text-xl flex flex-row text-black dark:text-white m-4">
+                    <a className = "rounded-l-xl px-2 cursor-pointer py-2 bg-[#eeeeee] dark:bg-[#333333] transition duration-200 opacity-70 hover:opacity-100" onClick = { () => { setDarkMode(!darkMode); localStorage.setItem("reading-theme", !darkMode ? "dark" : "light") } }><span>{ darkMode ? <BsFillSunFill /> : <BsFillMoonFill /> }</span></a>
+                    <a className = "px-2 cursor-pointer py-2 bg-[#eeeeee] dark:bg-[#333333] transition duration-200 opacity-70 hover:opacity-100" onClick = { () => { 
                         if (navigator.share) {
                             navigator
                                 .share({
@@ -184,7 +184,7 @@ const Tutorials = (props: Props)  => {
                                 });
                         }
                      } }><BsShareFill /></a>
-                    <a className = "rounded-r-xl px-2 cursor-pointer py-2 dark:bg-white bg-black transition duration-200 opacity-70 hover:opacity-100" onClick = { () => { window.scrollTo(0, 0) } }><HiArrowUp /></a>
+                    <a className = "rounded-r-xl px-2 cursor-pointer py-2 bg-[#eeeeee] dark:bg-[#333333] transition duration-200 opacity-70 hover:opacity-100" onClick = { () => { window.scrollTo(0, 0) } }><HiArrowUp /></a>
                 </div>
             </DefaultTemplate>
 		</>
