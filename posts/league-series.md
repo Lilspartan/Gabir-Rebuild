@@ -41,7 +41,7 @@ SOSSRS serves to provide a more advanced racing series for those who are looking
 
 **Organizer:** WarDingo (David L Garvin)
 
-**When:** Alternates with IDC, Wednesdays, time TBD
+**When:** Alternates with IDC, Wednesdays at 7 pm PT
 
 The purpose of this league is to take Off-Road trucks onto road courses with no damage and no track limits. We will carve out new layouts that the track designers never thought possible. For the most part I view this as a casual league, but I do plan to count points.
 
@@ -51,7 +51,7 @@ The purpose of this league is to take Off-Road trucks onto road courses with no 
 
 **Organizer:** MrBananadile (Christopher Garvin)
 
-**When:** Alternates with STRASS, Wednesdays, time TBD
+**When:** Alternates with STRASS, Wednesdays at 7 pm PT
 
 ***
 
@@ -65,7 +65,7 @@ The purpose of this league is to take Off-Road trucks onto road courses with no 
 
 ## Unofficial Penny Arcade Racing League Time Attack Challenge (UPARLTAC)
 
-**Organizer:** Peter G. (Professor)
+**Organizer:** keyma5ter (Jake S.)
 
 **When:** N/A
 
