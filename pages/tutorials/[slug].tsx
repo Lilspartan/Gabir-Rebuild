@@ -47,15 +47,15 @@ const Tutorials = (props: Props)  => {
             {children}
           </SyntaxHighlighter>
         );
-      }
-      
-      // markdown-to-jsx uses <pre><code/></pre> for code blocks.
-      const PreBlock = ({children, ...rest}) => {
+    }
+    
+    // markdown-to-jsx uses <pre><code/></pre> for code blocks.
+    const PreBlock = ({children, ...rest}) => {
         if ('type' in children && children ['type'] === 'code') {
-          return CodeBlock(children['props']);
+            return CodeBlock(children['props']);
         }
         return <pre {...rest}>{children}</pre>;
-      };
+    };
 
 	return (
 		<>
@@ -99,10 +99,8 @@ const Tutorials = (props: Props)  => {
                                 <SocialLink link = { link } />
                             )) }
                         </div>
-                ) }
+                     ) }
                    
-                    {/* <ShareButton metadata = { props.metadata } author = { props.author } /> */}
-
                     <article className = "prose prose-sm lg:prose-xl dark:prose-invert">
                         <Markdown options={{
                             overrides: {

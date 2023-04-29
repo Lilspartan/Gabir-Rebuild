@@ -71,7 +71,7 @@ const Standings = ()  => {
             <Modal open = {modalOpen && standingHighlight !== null} setOpen={setModalOpen} closeButton id = "standings-highlight">
                 { standingHighlight !== null && <h1 className = "text-2xl"><span className="font-bold">Standings Overview:</span> { standingHighlight.name }</h1> }
 
-                <table className = "mt-8 mb-4">
+                <table className = "hidden md:block mt-8 mb-4">
                     <thead>
                         <tr className = "text-zinc-400 text-sm" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
                             {standingHighlight !== null && standingHighlight.points.map((point, index) => (
@@ -89,33 +89,48 @@ const Standings = ()  => {
                     </tbody>
                 </table>
 
+                <div className="md:hidden flex flex-col w-2/3 mx-auto mt-4">
+                    <div className="flex flex-row justify-between text-lg px-4 font-bold" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
+                        <span>Week</span>
+                        <span>Points</span>
+                    </div>
+                    { standingHighlight !== null && standingHighlight.points.map((point, index) => (
+                        <div className="flex flex-row justify-between text-lg px-8" style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
+                            <span>{ index + 1 }</span>
+                            <span>{ point }</span>
+                        </div>
+                    )) }
+                </div>
+
                 { standingHighlight !== null && (
-                    <Line
-                        datasetIdKey='id'
-                        data={{
-                            labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12"],
-                            datasets: [
-                                {
-                                    id: 1,
-                                    label: standingHighlight.name,
-                                    data: standingHighlight.points.map((point, index) => {
-                                        if (point === "-") return null;
-                                        else return point;  
-                                    }),
-                                    backgroundColor: "#FF830066",
-                                    borderColor: "#FF8300"
-                                },
-                            ],
-                        }}
-                        options = {{
-                            scales: {
-                                y: {
-                                    min: 0,
-                                    max: 40
+                    <div className="hidden md:block">
+                        <Line
+                            datasetIdKey='id'
+                            data={{
+                                labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12"],
+                                datasets: [
+                                    {
+                                        id: 1,
+                                        label: standingHighlight.name,
+                                        data: standingHighlight.points.map((point, index) => {
+                                            if (point === "-") return null;
+                                            else return point;  
+                                        }),
+                                        backgroundColor: "#FF830066",
+                                        borderColor: "#FF8300"
+                                    },
+                                ],
+                            }}
+                            options = {{
+                                scales: {
+                                    y: {
+                                        min: 0,
+                                        max: 40
+                                    }
                                 }
-                            }
-                        }}
-                    />
+                            }}
+                        />
+                    </div>
                 ) }
             </Modal>
 
@@ -184,7 +199,29 @@ const Standings = ()  => {
 					</div>
 
                     <div className="visible md:hidden w-screen mt-16">
-                        The page is not designed for small screens
+                        <div className="flex flex-col">
+                            { standings && standings.sort((a, b) => {
+                                let pos1 = a.pos;
+                                let pos2 = b.pos;
+
+                                if (pos1[0] === "C") pos1 = "500";
+                                if (pos2[0] === "C") pos2 = "500";
+
+                                return Number(pos1) - Number(pos2);
+                            }).map((standing, index) => (
+                                <div className = "flex flex-col p-4" onClick = {() => {
+                                    highlight(standing);
+                                }} style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
+                                    <h2 className = "text-left text-2xl"><span className = "font-bold">{ standing.pos }.</span> { standing.name }</h2>
+                                
+                                    <div className = "flex flex-row gap-4">
+                                        <span className = "font-bold text-lg">Points: <span className="font-normal">{ standing.seasonPoints }</span></span>
+                                        <span className = "font-bold text-lg">Wins: <span className="font-normal">{ standing.wins }</span></span>
+                                        <span className = "font-bold text-lg">Podiums: <span className="font-normal">{ standing.podiums }</span></span>
+                                    </div>
+                                </div>
+                            )) }
+                        </div>
                     </div>
                 </div>
 			</div>
