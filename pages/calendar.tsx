@@ -40,7 +40,14 @@ const Calendar = ()  => {
 		setModalEvent({ raceNumber: index, event });
 		setModalOpen(true);
 
-		const calendarEvent = {
+		interface CalendarEvent {
+			title: string;
+			description: string;
+			start: Date;
+			duration: [number, "hour" | "minute" | "day"]
+		}
+
+		const calendarEvent: CalendarEvent = {
 			title: `Gabir Motors Cup, Season ${calendar.season} Race ${index + 1}`,
 			description: `Track: ${event.track.name}\nCar: ${event.cars[0].name}`,
 			start: new Date(event.timestamp * 1000),

@@ -100,3 +100,21 @@ export interface Preferences {
 	theme: "dark" | "light";
 	solidBackground: boolean;
 }
+
+export type DownforceValue = 
+	"UNKNOWN" | 
+	"MINIMUM" | 
+	"LOW" | 
+	"LOW or MEDIUM" | 
+	"MEDIUM" | 
+	"MEDIUM or HIGH" |
+	"HIGH" |
+	"MAXIMUM"
+
+export type DownforceCar = "F3" | "GT3" | "LMP2"
+
+export interface DownforceGuide {
+	[key: string]: {
+		[key in DownforceCar]: DownforceValue;
+	}
+}
