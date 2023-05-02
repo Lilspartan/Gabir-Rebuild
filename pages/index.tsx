@@ -20,15 +20,23 @@ interface DiscordWidget {
 let firstIndex = 0;
 
 export default function Channels() {
+	// Show the loading screen?
 	const [loading, setLoading] = useState(true);
-	const [next, setNext] = useState<Event>();
-	const [timeLeft, setTimeLeft] = useState<null | { days:number;hours:number;minutes:number;seconds:number }>(null);
-	const [nOpen, setNOpen] = useState(false);
-	const [calendar, setCalendar] = useState<Calendar>();
-	const [discordWidget, setDiscordWidget] = useState<null | DiscordWidget>(null);
 
+	// JSON object that contains the next race
+	const [next, setNext] = useState<Event>();
+
+	// time amounts for the countdown timer
+	const [timeLeft, setTimeLeft] = useState<null | { days:number;hours:number;minutes:number;seconds:number }>(null);
+
+	// Norther Harbor easter egg modal open?
+	const [nOpen, setNOpen] = useState(false);
+
+	// Is this the user's first visit to the new site? used to show a "changes" modal
 	const [firstVisit, setFirstVisit] = useState(false);
 
+
+	// calculates the times to show in the countdown at the top of the page
 	const calculateTimeRemaining = (countdownTo) => {
 		const difference = +new Date(countdownTo * 1000) - +new Date();
 
@@ -48,24 +56,24 @@ export default function Channels() {
 
 	useEffect(() => {
 		(async () => {
+			// Get the next race
 			let calendar = await client.getCalendar();
-			setCalendar(calendar);
 			let nextEvent = calendar.getNext();
 			setNext({ ...nextEvent, timestamp: nextEvent.timestamp });
-			// let widgetResponse = await axios.get('https://spottedlowsales.gabekrahulik.repl.co/widget/data');
-			// let widgetData = widgetResponse.data;
-			// setDiscordWidget(widgetData as DiscordWidget);
 		})()
 
+		// toggle loading screen
 		setTimeout(() => {
 			setLoading(false);
 		}, 500)
 
+		// check localstorage to see if the user has visited the page before
 		let visited = localStorage.getItem("visited");
 		if (visited === null) setFirstVisit(true);
 	}, [])
 
 	useEffect(() => {
+		// Update the countdown timer
 		const timer = setInterval(() => {
 			if (next !== undefined) setTimeLeft(calculateTimeRemaining(next.timestamp));
 		}, 1000);
@@ -83,10 +91,7 @@ export default function Channels() {
 
 			<Navbar />
 
-			{/* <AlertArea>
-				<Alert type = "warning" id = "beta-warning" permaDismiss>This is a <strong>beta</strong> version of the Gabir Motors site, you may notice some features are missing. If there is something missing that you need, return to the <a href = "https://gabirmotors.com">main site</a></Alert>
-			</AlertArea> */}
-
+			{/* Modal with information about changes with the rebuild */}
 			<Modal open = {firstVisit} setOpen = {setFirstVisit} closeButton onClose = {() => {
 				localStorage.setItem("visited", "true");
 			}} id = "new-website">
@@ -101,6 +106,7 @@ export default function Channels() {
 				</ul>
 			</Modal>
 
+			{/* Northern Harbor easter egg (you just spoiled the surprise!) */}
 			<Modal open = {nOpen} setOpen = {setNOpen} id = "northern-harbor">
 				<img className = "mx-auto mb-4" src="https://i.gabirmotors.com/assets/other/northern_harbor.png" alt="Northern Harbor Logo" />
 
@@ -140,10 +146,11 @@ export default function Channels() {
 					{ 
 						[ 
 							{ title: "The Gabir Motors Spec Map Previsualization Tool", link: "/tools/specmapping", imageSide: "left", image: "/pages/spec_mapping.png", id: "spec-mapping", visitText: "VISUALIZE YOUR SPEC MAPS" },
-							{ title: "The Gabir Motors Cup Calendar", link: "/calendar", imageSide: "right", image: "/pages/calendar.png", id: "calendar", visitText: "CHECK THE CALENDAR" },
-							{ title: "The Gabir Motors Cup Standings", link: "/standings", imageSide: "left", image: "/pages/standings.png", id: "standings", visitText: "SEE THE STANDINGS" },
-							{ title: "Joining the PA League", link: "/tutorials/joining-the-league", imageSide: "right", image: "/pages/joining_the_league.png", id: "joining-the-league", visitText: "JOIN THE LEAGUE" },
-							{ title: "The Assets Page", link: "/assets", imageSide: "left", image: "/pages/assets.png", id: "assets", visitText: "AQUIRE SOME ASSETS" },
+							{ title: "The PA League Discord", link: "https://discord.gabirmotors.com", imageSide: "right", image: "/screenshot1.png", id: "discord", visitText: "JOIN THE DISCORD" },
+							{ title: "The Gabir Motors Cup Calendar", link: "/calendar", imageSide: "left", image: "/pages/calendar.png", id: "calendar", visitText: "CHECK THE CALENDAR" },
+							{ title: "The Gabir Motors Cup Standings", link: "/standings", imageSide: "right", image: "/pages/standings.png", id: "standings", visitText: "SEE THE STANDINGS" },
+							{ title: "Joining the PA League", link: "/tutorials/joining-the-league", imageSide: "left", image: "/pages/joining_the_league.png", id: "joining-the-league", visitText: "JOIN THE LEAGUE" },
+							{ title: "The Assets Page", link: "/assets", imageSide: "right", image: "/pages/assets.png", id: "assets", visitText: "AQUIRE SOME ASSETS" },
 							
 						].map((page, index) => <PageShowoff page = {page} />)
 					}
@@ -151,41 +158,6 @@ export default function Channels() {
 					<footer className = "sticky bottom-0 w-screen flex flex-row justify-center mt-16">
 						<span className = "p-4 text-lg font-bold">Gabir Motors &bull; { (new Date()).getFullYear() }</span>
 					</footer>
-
-					{/* <div id = "join-the-discord" className = "z-30 w-full py-8 flex flex-col justify-evenly gap-16 mt-16">
-						<div>
-							<h1 className = "text-center text-6xl font-extrabold">Join the Discord</h1>
-						</div>
-
-						{ discordWidget !== null && (
-							<motion.div 
-								viewport = {{ once: true, margin: "-10px" }} 
-								initial = {{ opacity: 0, y: "-15%" }} whileInView = {{ opacity: 1, y: 0 }} transition = {{ duration: 0.5 }}
-								className = "bg-dark-card-body px-8 py-6 rounded-lg backdrop-blur-lg flex flex-col mx-4 lg:w-1/2 lg:mx-auto">
-								<div className="flex lg:flex-row flex-col my-auto text-center">
-									<img className = "rounded-3xl w-2/5 mb-4 lg:mb-0 lg:w-1/5 self-center" src={`https://cdn.discordapp.com/icons/715683569959174215/${discordWidget.icon}.webp?size=256`} alt="" />
-									<div className="flex flex-col">
-										<h2 className = "text-3xl font-bold self-center lg:w-5/6">{ discordWidget.name }</h2>
-									
-										<div className = "flex flex-row gap-8 mt-4 lg:mt-4 justify-center">
-											<span>
-												<span className="font-extrabold">{discordWidget.onlineMemberCount}</span> Members Online
-											</span>
-											<span>
-												<span className="font-extrabold">{discordWidget.totalMemberCount}</span> Total Members
-											</span>
-										</div>
-
-										<div className = "mt-4 w-1/2 self-center">
-											<Button block target = "_blank" link = "https://discord.gabirmotors.com">Join</Button>
-										</div>
-									</div>
-								</div>
-
-								
-							</motion.div>
-						) }
-					</div> */}
 				</section>
 			</div>
 		</>
@@ -195,6 +167,7 @@ export default function Channels() {
 const PageShowoff = ({ page }) => {
 	return (
 		<>
+			{/* Desktop Version */}
 			<section id = {page.id} className = "py-16 hidden lg:block">
 				<motion.div 
 					className="flex flex-row justify-evenly"
@@ -263,6 +236,7 @@ const PageShowoff = ({ page }) => {
 				</motion.div>
 			</section> 
 		
+			{/* Mobile Version */}
 			<section id = {page.id} className = "py-16 block lg:hidden">
 				<motion.div 
 					className="flex flex-col mx-4"

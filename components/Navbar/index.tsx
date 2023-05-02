@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AiOutlineMenu, AiFillShopping } from 'react-icons/ai';
 import { FaDiscord, FaTwitter, FaTwitch } from 'react-icons/fa';
+import { HiOutlineStatusOnline } from 'react-icons/hi';
 import { VscSourceControl } from 'react-icons/vsc';
 
 const Navbar = ({ invertOpenButton=false }) => {
@@ -14,7 +15,7 @@ const Navbar = ({ invertOpenButton=false }) => {
         <div id="innerNav" className = "flex flex-col justify-center h-screen">
           <div className = "flex flex-col text-white">
             <div className = "flex flex-row justify-center mt-4 mx-16">
-              <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="https://i.gabirmotors.com/assets/teams/GM/main.png" alt="Gabir Motors logo" /></a>
+              <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="/main.png" alt="Gabir Motors logo" /></a>
             </div>
 
             {/* <div className = "flex flex-row ml-4 my-2">
@@ -41,11 +42,12 @@ const Navbar = ({ invertOpenButton=false }) => {
             <hr className = "mx-4 border-zinc-500" />
 
             <div className = "flex flex-row justify-center mx-4 text-black text-2xl gap-2 mt-4 ml-4">
-              <a href = "https://discord.gabirmotors.com" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-discord hover:text-white"><FaDiscord /></div></a>
-              <a href = "https://twitter.com/@GabirMotors" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-twitter hover:text-white"><FaTwitter /></div></a>
-              <a href = "https://twitch.com/PennyArcade" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-twitch hover:text-white"><FaTwitch /></div></a>
-              <a href = "https://store.penny-arcade.com/collections/gabir-motors" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-green-500 hover:text-white"><AiFillShopping /></div></a>
-              <a href = "https://github.com/LilSpartan/Gabir-Rebuild" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-github hover:text-white"><VscSourceControl /></div></a>
+              <a title = "PA League Discord" href = "https://discord.gabirmotors.com" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-discord hover:text-white"><FaDiscord /></div></a>
+              <a title = "Gabir Motors Twitter" href = "https://twitter.com/@GabirMotors" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-twitter hover:text-white"><FaTwitter /></div></a>
+              <a title = "PA Twitch" href = "https://twitch.com/PennyArcade" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-twitch hover:text-white"><FaTwitch /></div></a>
+              <a title = "Gabir Motors Merch" href = "https://store.penny-arcade.com/collections/gabir-motors" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-green-500 hover:text-white"><AiFillShopping /></div></a>
+              <a title = "Source Code" href = "https://github.com/LilSpartan/Gabir-Rebuild" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-github hover:text-white"><VscSourceControl /></div></a>
+              <a title = "Status Page" href = "https://stats.uptimerobot.com/p9AxGf9VMk" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-orange-500 hover:text-white"><HiOutlineStatusOnline /></div></a>
             </div>
 
             <div className = "text-center mx-4 mt-4">

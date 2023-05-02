@@ -85,7 +85,7 @@ const Tutorials = (props: Props)  => {
         }, [])
 
         return (
-            <div className = "hidden md:block fixed right-0 top-0 mt-24 h-screen w-1/3 lg:w-1/5 pointer-events-none flex flex-col p-4">
+            <div className = "hidden md:flex fixed right-0 top-0 mt-4 h-screen w-1/3 lg:w-1/5 pointer-events-none flex-col p-4">
                 <div className = "dark:bg-[#333333] bg-[#eeeeee] p-4 rounded-lg pointer-events-auto">
                     <div className="flex flex-row justify-between">
                         <h1 className = "text-2xl font-bold">Table of Contents</h1>
@@ -98,7 +98,7 @@ const Tutorials = (props: Props)  => {
                     { open && (
                         <ul>
                             { TOC.map((header) => {
-                                if (header && header.level >= 2) {
+                                if (header && header.level <= 2) {
                                     return (
                                         <li className = "my-3"><a href = {`#${header.id}`} className = "hover:underline">{ header.title }</a></li>
                                     )

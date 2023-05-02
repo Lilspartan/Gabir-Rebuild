@@ -26,7 +26,9 @@ const Tutorials = (props: Props)  => {
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
                 <div className = "flex flex-col content-center min-h-screen background-carbon_fiber w-full">
                    <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mx-4 lg:mx-8 my-16 gap-4">
-                        { props.posts.map(post => {
+                        { props.posts.sort((a, b) => {
+                            return new Date(b.date).getTime() - new Date(a.date).getTime();
+                        }).map(post => {
                             if (post.hidden) return <></>
                             else return (
                                 <div>
