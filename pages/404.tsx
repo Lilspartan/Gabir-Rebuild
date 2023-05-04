@@ -4,7 +4,7 @@ const Page404 = ()  => {
 	return (
 		<>
 			<SEO 
-				title = "Gabir Motors | Calendar" 
+				title = "Gabir Motors | 404" 
 				description = "View the schedule for the Gabir Motors Cup" 
 				url = "calendar"
 			/>
