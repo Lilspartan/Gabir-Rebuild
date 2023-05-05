@@ -4,7 +4,7 @@ subtitle: 'Go more in depth and learn more about blue flags'
 edited: "6/18/21"
 date: "6/18/21"
 authorID: 388499
-headerImg: "/2.png"
+headerImg: "/2.jpg"
 tags: [ "Rules" ]
 hidden: false
 ---

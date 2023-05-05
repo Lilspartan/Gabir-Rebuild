@@ -4,7 +4,7 @@ subtitle: 'Learn about when and what the different series in the League are'
 edited: "4/29/23"
 date: "4/29/23"
 authorID: 557730
-headerImg: '/posts/league-series/header.png'
+headerImg: '/posts/league-series/header.jpg'
 tags: [ "League" ]
 hidden: false
 ---

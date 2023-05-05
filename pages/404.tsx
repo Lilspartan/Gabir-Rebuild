@@ -14,7 +14,7 @@ const Page404 = ()  => {
 			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
                 <div className = "grid place-items-center min-h-screen background-carbon_fiber w-full text-center">
                     <div className = "w-1/2">
-                        <img src="https://gabirmotors.com/2.png" alt="" className = "rounded-lg mx-auto" />
+                        <img src="https://gabirmotors.com/2.jpg" alt="" className = "rounded-lg mx-auto" />
 
                         <h2 className = "text-7xl font-extrabold mt-4">404</h2>
                         <h3 className = "text-4xl">They say you cut the course!</h3>

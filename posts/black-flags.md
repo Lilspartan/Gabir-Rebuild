@@ -4,7 +4,7 @@ subtitle: 'Learn about what black flags are and how they work'
 edited: "6/19/21"
 date: "6/18/21"
 authorID: 388499
-headerImg: "/3.png"
+headerImg: "/3.jpg"
 tags: [ "Rules" ]
 hidden: false
 ---

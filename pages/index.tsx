@@ -134,7 +134,7 @@ export default function Channels() {
 					) : ""}
 					<div className = "grid place-items-center h-screen text-center w-screen">
 						<div className = "mt-16">
-							<motion.img onClick = {() => { setNOpen(true); }} transition={{ delay: 2, duration: 1 }} initial = {{ y: "15%", opacity: 0 }} animate = {{ y: 0, opacity: 1 }} className = "md:w-1/2 mx-auto" src="/logo_with_text.png" alt="Gabir Motors logo with the text GABIR MOTORS written at the bottom" />
+							<motion.img onClick = {() => { setNOpen(true); }} transition={{ delay: 2, duration: 1 }} initial = {{ y: "15%", opacity: 0 }} animate = {{ y: 0, opacity: 1 }} className = "md:w-1/2 mx-auto" src="/logo_with_text.webp" alt="Gabir Motors logo with the text GABIR MOTORS written at the bottom" />
 							<motion.div transition={{ delay: 2.5, duration: 1 }} initial = {{ scale: 1.1, y: "-15%", opacity: 0 }} animate = {{ scale: 1, y: 0, opacity: 1 }} className = "flex flex-row gap-8 justify-center">
 								<Button link = "#pages">Learn More</Button>
 							</motion.div>
@@ -145,12 +145,12 @@ export default function Channels() {
 
 					{ 
 						[ 
-							{ title: "The Gabir Motors Spec Map Previsualization Tool", link: "/tools/specmapping", imageSide: "left", image: "/pages/spec_mapping.png", id: "spec-mapping", visitText: "VISUALIZE YOUR SPEC MAPS" },
-							{ title: "The PA League Discord", link: "https://discord.gabirmotors.com", imageSide: "right", image: "/screenshot1.png", id: "discord", visitText: "JOIN THE DISCORD" },
-							{ title: "The Gabir Motors Cup Calendar", link: "/calendar", imageSide: "left", image: "/pages/calendar.png", id: "calendar", visitText: "CHECK THE CALENDAR" },
-							{ title: "The Gabir Motors Cup Standings", link: "/standings", imageSide: "right", image: "/pages/standings.png", id: "standings", visitText: "SEE THE STANDINGS" },
-							{ title: "Joining the PA League", link: "/tutorials/joining-the-league", imageSide: "left", image: "/pages/joining_the_league.png", id: "joining-the-league", visitText: "JOIN THE LEAGUE" },
-							{ title: "The Assets Page", link: "/assets", imageSide: "right", image: "/pages/assets.png", id: "assets", visitText: "AQUIRE SOME ASSETS" },
+							{ title: "The Gabir Motors Spec Map Previsualization Tool", link: "/tools/specmapping", imageSide: "left", image: "/pages/spec_mapping.jpg", id: "spec-mapping", visitText: "VISUALIZE YOUR SPEC MAPS" },
+							{ title: "The PA League Discord", link: "https://discord.gabirmotors.com", imageSide: "right", image: "/screenshot1.jpg", id: "discord", visitText: "JOIN THE DISCORD" },
+							{ title: "The Gabir Motors Cup Calendar", link: "/calendar", imageSide: "left", image: "/pages/calendar.jpg", id: "calendar", visitText: "CHECK THE CALENDAR" },
+							{ title: "The Gabir Motors Cup Standings", link: "/standings", imageSide: "right", image: "/pages/standings.jpg", id: "standings", visitText: "SEE THE STANDINGS" },
+							{ title: "Joining the PA League", link: "/tutorials/joining-the-league", imageSide: "left", image: "/pages/joining_the_league.jpg", id: "joining-the-league", visitText: "JOIN THE LEAGUE" },
+							{ title: "The Assets Page", link: "/assets", imageSide: "right", image: "/pages/assets.jpg", id: "assets", visitText: "AQUIRE SOME ASSETS" },
 							
 						].map((page, index) => <PageShowoff page = {page} />)
 					}
