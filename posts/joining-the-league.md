@@ -4,7 +4,7 @@ subtitle: 'Learn how to join the PA league, on and off the track'
 edited: "4/26/23"
 date: "4/26/23"
 authorID: 557730
-headerImg: '/screenshot1.png'
+headerImg: '/screenshot1.jpg'
 tags: [ "League" ]
 hidden: false
 ---
