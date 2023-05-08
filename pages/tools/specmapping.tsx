@@ -120,7 +120,7 @@ const SpecMap = (props: any) => {
 											<label htmlFor="clearcoat">Clear coat</label> <span id="clearcoat-container"><input type="range" min="0" max="100" value={toSetValues.clearcoat} id="clearcoat" onChange={(e) => { setToSetValues({ ...toSetValues, clearcoat: parseInt(e.target.value) }) }} /> {toSetValues.clearcoat}%</span><br />
 											<span>Spec Map Color: </span>
 											<span className="">
-												<input className="px-1 rounded-md" type="text" placeholder="Spec Map Hex" value={3`#${toHex(Math.ceil(metal * 2.55)) + toHex(Math.ceil(roughness * 2.55)) + toHex(Math.ceil(clearcoat * 2.55))}`} disabled />
+												<input className="px-1 rounded-md" type="text" placeholder="Spec Map Hex" value={`#${toHex(Math.ceil(metal * 2.55)) + toHex(Math.ceil(roughness * 2.55)) + toHex(Math.ceil(clearcoat * 2.55))}`} disabled />
 											</span>
 										</div>
 									</div>
