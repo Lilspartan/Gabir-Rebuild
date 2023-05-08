@@ -8,6 +8,7 @@ import CarFrame from './CarFrame';
 import Modal from './Modal';
 import AlertArea from './AlertArea';
 import Badge from './Badge';
+import Dropdown from './Dropdown';
 
 import CalendarRow from './CalendarRow';
 
@@ -23,4 +24,5 @@ export {
 	Modal,
 	AlertArea,
 	Badge,
+	Dropdown,
 }
