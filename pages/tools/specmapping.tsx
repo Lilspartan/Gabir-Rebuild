@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react'
-import { CarFrame, Alert, Navbar, SEO } from '../../components'
+import { CarFrame, Alert, Navbar, SEO, Dropdown } from '../../components'
 
 const links = [
 	{ name: "GR86", link: "https://spec-mapping-images.gabekrahulik.repl.co" },
@@ -100,21 +100,19 @@ const SpecMap = (props: any) => {
 								<div className="w-full lg:w-1/3">
 									<div className="">
 										<div className = "flex flex-row mb-4">
-											<h2 className="acumin text-3xl mr-4">Choose a Car</h2>
-											<div className="ml-4 my-auto">
-												<select onChange={(e) => {
+											<h2 className="acumin text-4xl mr-4 flex-shrink">Choose a Car</h2>
+											<div className="ml-2 my-auto flex-grow">
+												<Dropdown change = {(e) => {
 													setCarImagesLink(JSON.parse(e.target.value));
-												}} className="w-full text-black">
-													{links.map(link => (
-														<option value={`${JSON.stringify(link)}`}>{link.name}</option>
-													))}
-												</select>
+												}} options = {links.map(link => {
+													return { value: JSON.stringify(link), text: link.name };
+												})} />
 											</div>
 										</div>
 										<div className="w-full">
 											<label htmlFor="color">Choose a Color:</label> <input type="color" id="color" value={color} onChange={(e) => { setToSetValues({ ...toSetValues, color: e.target.value }) }} />
 											<span className="">
-												<input className="bg-dark-card-handle rounded-md ml-2" type="text" placeholder="Color Hex" value={toSetValues.color} onChange={(e) => { setToSetValues({ ...toSetValues, color: e.target.value }) }} />
+												<input className="bg-dark-card-handle rounded-md ml-2 px-1" type="text" placeholder="Color Hex" value={toSetValues.color} onChange={(e) => { setToSetValues({ ...toSetValues, color: e.target.value }) }} />
 											</span>
 											<br />
 											<label htmlFor="metallic">Metallic</label> <span id="metallic-container"><input type="range" min="0" max="100" value={toSetValues.metal} id="metallic" onChange={(e) => { setToSetValues({ ...toSetValues, metal: parseInt(e.target.value) }) }} /> {toSetValues.metal}%</span><br />
@@ -122,21 +120,18 @@ const SpecMap = (props: any) => {
 											<label htmlFor="clearcoat">Clear coat</label> <span id="clearcoat-container"><input type="range" min="0" max="100" value={toSetValues.clearcoat} id="clearcoat" onChange={(e) => { setToSetValues({ ...toSetValues, clearcoat: parseInt(e.target.value) }) }} /> {toSetValues.clearcoat}%</span><br />
 											<span>Spec Map Color: </span>
 											<span className="">
-												<input className="" type="text" placeholder="Spec Map Hex" value={`#${toHex(Math.ceil(metal * 2.55)) + toHex(Math.ceil(roughness * 2.55)) + toHex(Math.ceil(clearcoat * 2.55))}`} disabled />
+												<input className="px-1 rounded-md" type="text" placeholder="Spec Map Hex" value={3`#${toHex(Math.ceil(metal * 2.55)) + toHex(Math.ceil(roughness * 2.55)) + toHex(Math.ceil(clearcoat * 2.55))}`} disabled />
 											</span>
 										</div>
 									</div>
 
 									<div className = "flex flex-row mt-6">
-										<h2 className="acumin text-3xl mr-4">Or Use a Preset</h2>
-										<div className="ml-4 my-auto">
-												<select onChange={changePreset} className="w-full text-black">
-												<option value="0/0/0">Select One</option>
-												{presets.map(p => (
-													<option value={`${p.metal}/${p.rough}/${p.clearcoat}`}>{p.name}</option>
-												))}
-											</select>
-											</div>
+										<h2 className="acumin text-4xl mr-4 flex-shrink">Or Use a Preset</h2>
+										<div className="ml-2 my-auto flex-grow">
+											<Dropdown change = {changePreset} options = {[ { value: '0/0/0', text: "Select One "}, ...presets.map((p => {
+												return { value: `${p.metal}/${p.rough}/${p.clearcoat}`, text: p.name }
+											})) ]} />
+										</div>
 									</div>
 
 									<div className = "my-4 flex flex-col gap-2">
