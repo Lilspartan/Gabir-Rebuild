@@ -1,13 +1,9 @@
-import { useEffect } from 'react';
+import { Redirect } from '../components';
 
-const Redirect = () => {
-    useEffect(() => {
-        window.location.href = "/tools/specmapping"
-    }, [])
-
+const SpecmappingRedirect = () => {
     return (
-        <div>Redirecting...</div>
+        <Redirect to = "/tools/specmapping" />
     )
 }
 
-export default Redirect
+export default SpecmappingRedirect

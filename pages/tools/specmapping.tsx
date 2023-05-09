@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react'
 import { CarFrame, Alert, Navbar, SEO, Dropdown } from '../../components'
 
 const links = [
-	{ name: "GR86", link: "https://spec-mapping-images.gabekrahulik.repl.co" },
-	{ name: "Porsche 911", link: "https://carontrack.gabekrahulik.repl.co" },
+	{ name: "Toyota GR86", link: "toyotagr86" },
+	{ name: "BMW LMDh", link: "bmwlmdh" },
+	{ name: "Dallara F3", link: "dallaraf3" },
+	{ name: "Pro 2 Lite", link: "pro2lite" },
+	{ name: "Street Stock", link: "streetstock" }
 ]
 
 var updateTimeout = setTimeout(() => { }, 999999);
@@ -22,7 +25,7 @@ const SpecMap = (props: any) => {
 	const [loading, setLoading] = useState((props.loading !== undefined ? props.loading : true));
 
 	// The inputs, either from the url or the ui
-	const [color, setColor] = useState("#242fb3");
+	const [color, setColor] = useState("#6f38b2");
 	const [metal, setMetal] = useState(0);
 	const [roughness, setRoughness] = useState(0);
 	const [clearcoat, setClearcoat] = useState(0);
@@ -48,7 +51,7 @@ const SpecMap = (props: any) => {
 		metal: 0,
 		roughness: 0,
 		clearcoat: 0,
-		color: "#242fb3"
+		color,
 	})
 
 	useEffect(() => {
@@ -147,7 +150,7 @@ const SpecMap = (props: any) => {
 										metal={metal / 100}
 										roughness={roughness / 100}
 										color={color}
-										imgPath={carImagesLink.link} />
+										imgPath={`https://s.gabekrahulik.repl.co/${carImagesLink.link}`} />
 								</div>
 							</div>
 						</div>

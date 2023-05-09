@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO, Navbar, Alert, Modal, AlertArea } from '../components';
-import { Event, Calendar } from '../utils/interfaces';
+import { Button, Loading, SEO, Navbar, Modal } from '../components';
+import { Event } from '../utils/interfaces';
 import { Client } from "gabir-motors";
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { BiLinkExternal } from 'react-icons/bi';
-import axios from 'axios';
 import Link from 'next/link';
 
 const client = new Client();
