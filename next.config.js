@@ -14,4 +14,13 @@ module.exports = {
   images: {
     domains: ['i.gabirmotors.com'],
   },
+  async redirects() {
+    return [
+      {
+        source: '/specmapping',
+        destination: '/tools/specmapping',
+        permanent: true,
+      },
+    ];
+  },
 }

@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react'
 import { CarFrame, Alert, Navbar, SEO, Dropdown } from '../../components'
 
+// http://localhost:3000/tools/specmapping?metallic=70&roughness=40&clearcoat=80&car=dallaraf3
+
 const links = [
 	{ name: "Toyota GR86", link: "toyotagr86" },
 	{ name: "BMW LMDh", link: "bmwlmdh" },
@@ -22,17 +24,12 @@ type Preset = {
 const toHex = (value: number) => { return value.toString(16).padStart(2, "0") }
 
 const SpecMap = (props: any) => {
-	const [loading, setLoading] = useState((props.loading !== undefined ? props.loading : true));
-
 	// The inputs, either from the url or the ui
 	const [color, setColor] = useState("#6f38b2");
 	const [metal, setMetal] = useState(0);
 	const [roughness, setRoughness] = useState(0);
 	const [clearcoat, setClearcoat] = useState(0);
 	const [carImagesLink, setCarImagesLink] = useState(links[0]);
-
-	// If the user should continue to the tool on a smaller screen
-	const [continueWithSmallScreen, setContinueWithSmallScreen] = useState(false);
 
 	// eslint-disable-next-line
 	const [presets, setPresets] = useState<Preset[]>([
@@ -64,12 +61,6 @@ const SpecMap = (props: any) => {
 		}, 500)
 	}, [toSetValues])
 
-	useEffect(() => {
-		setTimeout(() => {
-			setLoading(false);
-		}, 1500)
-	}, [])
-
 	const changePreset = (e: any) => {
 		var values = e.target.value.split('/');
 		setToSetValues({
@@ -93,12 +84,12 @@ const SpecMap = (props: any) => {
 			/>
 
 			<Navbar />
-			
+
 			<div className="min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
 				<div className="content-center min-h-screen background-carbon_fiber w-full text-center">
 					<div className={`text-left grid place-items-center h-screen`}>
 						<div>
-							<div className="p-4 m-4 w-full mx-auto bg-dark-card-handle flex flex-row justify-end flex-wrap">
+							<div className="p-4 m-4 w-full mx-auto bg-dark-card-handle flex lg:flex-row flex-col-reverse justify-end flex-wrap">
 
 								<div className="w-full lg:w-1/3">
 									<div className="">

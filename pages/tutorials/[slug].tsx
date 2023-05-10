@@ -1,7 +1,4 @@
-import { useState, useEffect, createElement } from 'react';
-import { Button, Loading, SEO , CalendarRow, Navbar, Modal } from '../../components';
-import { Client } from "gabir-motors";
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import fs from 'fs';
 import { useRouter } from 'next/router'
 import Markdown from 'markdown-to-jsx';

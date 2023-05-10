@@ -1,12 +1,8 @@
-import { useState, useEffect } from 'react';
-import { Button, Loading, SEO , CalendarRow, Navbar, Modal } from '../../components';
-import { Client } from "gabir-motors";
-import { motion } from 'framer-motion';
+import { SEO, Navbar } from '../../components';
 import fs from 'fs';
 import matter from 'gray-matter';
 import path from 'path';
 import { ArticleMetaData } from '../../utils/interfaces';
-import { HiArrowRight } from 'react-icons/hi';
 
 interface Props {
     posts: ArticleMetaData[];

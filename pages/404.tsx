@@ -5,8 +5,6 @@ const Page404 = ()  => {
 		<>
 			<SEO 
 				title = "Gabir Motors | 404" 
-				description = "View the schedule for the Gabir Motors Cup" 
-				url = "calendar"
 			/>
 
 			<Navbar />

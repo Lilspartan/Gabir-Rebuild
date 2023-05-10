@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO, Navbar } from '../../components';
+import { Loading, SEO, Navbar } from '../../components';
 import { Client } from "gabir-motors";
 import { Team, Driver } from '../../utils/interfaces';
 import { useRouter } from 'next/router'
@@ -27,7 +27,7 @@ const Teams = ()  => {
 
 	return (
 		<>
-			<SEO title = "Gabir Motors | Calendar" />
+			<SEO title = {`Gabir Motors | Team ${team.name}`} />
 
 			<Loading loading = { loading } />
  
