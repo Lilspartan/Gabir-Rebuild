@@ -113,7 +113,7 @@ const Tutorials = (props: Props)  => {
             <DefaultTemplate
                 doLoading = {false}
                 title = {`Gabir Motors | ${props.metadata.title}`} 
-				desc = {`${props.metadata.subtitle}\n\nWritten by ${props.author.name}`}
+				desc = {`${props.metadata.subtitle}${props.author !== null && `\n\nWritten by ${props.author.name}`}`}
 				url = {"tutorials/" + slug} 
                 headerImg = {props.metadata.headerImg !== null ? props.metadata.headerImg : '/header.jpg'} 
                 solidBg = {true} 
@@ -138,7 +138,7 @@ const Tutorials = (props: Props)  => {
                                 <h1 className = "drop-shadow-xl lg:text-5xl text-3xl font-extrabold mb-4">{ props.metadata.title }</h1>
                                 <span className = "italic dark:opacity-60 opacity-80 block">Last Edit: { props.metadata.edited }</span>
                                 { props.author !== null && <h3 className = "font-bold inline">Written By: <span className = "font-normal">{ props.author.name } { props.author.username !== undefined && <span>({ props.author.username })</span> }</span></h3> }
-                                { props.author.links !== undefined && props.author.links.map((link) => (
+                                { (props.author!==null && props.author.links !== undefined) && props.author.links.map((link) => (
                                     <SocialLink link = { link } />
                                 )) }
                             </div>
@@ -148,7 +148,7 @@ const Tutorials = (props: Props)  => {
                             <h1 className = "drop-shadow-xl lg:text-5xl text-3xl font-extrabold mb-4">{ props.metadata.title }</h1>
                             <span className = "italic dark:opacity-60 opacity-80 block">Last Edit: { props.metadata.edited }</span>
                             { props.author !== null && <h3 className = "font-bold inline">Written By: <span className = "font-normal">{ props.author.name } { props.author.username !== undefined && <span>({ props.author.username })</span> }</span></h3> }
-                            { props.author.links !== undefined && props.author.links.map((link) => (
+                            { (props.author!==null && props.author.links !== undefined) && props.author.links.map((link) => (
                                 <SocialLink link = { link } />
                             )) }
                         </div>
@@ -211,6 +211,8 @@ export const getServerSideProps = async (props) => {
         author = null;
     }
 
+    // author = null;
+    
     return {
         props: {
             content: matterResults.content,
