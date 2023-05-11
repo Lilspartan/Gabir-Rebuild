@@ -24,12 +24,10 @@ hidden: true
 
 - Jon-P (intercede007)
 - red_stapler (Michael C)
-- Tom A. (Shifty Narwhal)
+- <Driver accountId = "492603" />
 - Fabio Castro
 - C. Dwyer
-- Chris Raftis (Gargos)
-
-<Driver accountId = "557730" />
+- <Driver accountId = "214406" />
 
 ### Red Shift
 
@@ -37,9 +35,9 @@ hidden: true
 **Start Time:** Friday @ 15:00 PT <br>
 **Drivers:**
 
-- keyma5ter (Jake Strait)
-- SKiggity (Scott L.)
-- Chris Decker
+- <Driver accountId = "622658" />
+- <Driver accountId = "18953" />
+- <Driver accountId = "360342" />
 - DiggityPrime (Adam D.)
-- Veevee (David M Meyer)
-- Ravenholm (Raven. They/Them)
+- <Driver accountId = "511940" />
+- <Driver accountId = "541051" />

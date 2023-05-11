@@ -43,13 +43,19 @@ const Driver = ({ accountId }: { accountId: string }) => {
 
     if (driver !== undefined) {
         return (
-            <div>{ driver.name }</div>
+            <span className = "font-bold">
+							{/* { driver.team !== undefined && (
+								<img className = "w-10 inline-block mr-2" src = {`https://i.gabirmotors.com/assets/teams/${driver.team.abbr}/main.png`} />
+							) } */}
+							
+							{ driver.name } { driver.username !== undefined && `(${driver.username})` }
+						</span>
         )
     } else {
         return (
-            <div>
-                error finding driver
-            </div>
+            <span className = "text-red-500">
+                Error
+            </span>
         )
     }
 }
