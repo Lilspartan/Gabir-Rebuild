@@ -14,6 +14,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark as DarkStyle, oneLight as LightStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import slugify from 'slugify';
 import { MdOpenInFull, MdCloseFullscreen } from 'react-icons/md';
+import { Modal } from '../../components';
 
 interface Props {
     metadata: ArticleMetaData;
@@ -27,43 +28,11 @@ interface TOCType {
     level: number;
 }
 
-const Driver = ({ accountId }: { accountId: string }) => {
-    const [driver, setDriver] = useState<Driver>();
-
-    useEffect(() => {
-        (async () => {
-            let res = await axios.get('https://api.gabirmotors.com/driver/accountid/' + accountId);
-            let data = res.data;
-
-            if (data.length) {
-                setDriver(data[0]);
-            }
-        })()
-    }, [])
-
-    if (driver !== undefined) {
-        return (
-            <span className = "font-bold">
-							{/* { driver.team !== undefined && (
-								<img className = "w-10 inline-block mr-2" src = {`https://i.gabirmotors.com/assets/teams/${driver.team.abbr}/main.png`} />
-							) } */}
-							
-							{ driver.name } { driver.username !== undefined && `(${driver.username})` }
-						</span>
-        )
-    } else {
-        return (
-            <span className = "text-red-500">
-                Error
-            </span>
-        )
-    }
-}
-
 const Tutorials = (props: Props)  => {
     const router = useRouter();
 
     const [darkMode, setDarkMode] = useState(true);
+    const [allDrivers, setAllDrivers] = useState<Driver[]>();
 
     const slug = router.query.slug;
     const content = props.content;
@@ -73,7 +42,79 @@ const Tutorials = (props: Props)  => {
         if (localTheme !== null) {
             setDarkMode(localTheme === "dark");
         }
+
+        (async () => {
+            let res = await axios.get('https://api.gabirmotors.com/drivers');
+            let data = res.data;
+
+            if (data.length) {
+                setAllDrivers(data);
+            }
+        })();
     }, [])
+
+    const Driver = ({ accountId }: { accountId: string }) => {
+        const [driver, setDriver] = useState<Driver | "error" | "fetching">("fetching");
+        const [open, setOpen] = useState(false);
+
+        useEffect(() => {
+            if (allDrivers) {
+                let foundDriver = allDrivers.filter(d => {
+                    return d.account_id === accountId; 
+                })
+                
+                if (foundDriver.length) {
+                    setDriver(foundDriver[0]);
+                } else {
+                    setDriver("error");
+                }
+            } else {
+                setDriver("error");
+            }
+        }, [])
+    
+        if (driver !== "error" && driver !== "fetching") {
+            return (
+                <>
+                    <Modal open = {open} setOpen = {setOpen} id = {`${driver.name}-inspector`}>
+                        <div>
+                            { driver.team !== undefined ? (
+                                <a href = {`/teams/${driver.team.abbr}`}>
+                                    <img src = {`https://i.gabirmotors.com/assets/teams/${driver.team.abbr}/main.png`} alt = {`${driver.team.name} logo`} className = "h-32 mx-auto" />
+                                </a>
+                            ) : (
+                                <img src = {`https://i.gabirmotors.com/assets/teams/LWP/main.png`} alt = {`Lone Wolf Pack logo`} className = "h-32 mx-auto" />
+                            ) }
+
+                            <h2 className = "text-xl text-white" style = {{ margin: "4px 4px" }}><span className = "bg-white px-2 py-1 rounded-lg text-black">#{ driver.car_number }</span> { driver.name } { driver.username !== undefined && `(${driver.username})` }</h2>
+                        
+                            <div className = "flex flex-row justify-center mt-4">
+                                { (driver !== null && driver.links !== undefined) && driver.links.map((link) => (
+                                    <span className="text-4xl mt-4"><SocialLink link = { link } dontDoDark /></span>
+                                )) }
+                            </div>
+                        </div>
+                    </Modal>
+
+                    <span className = "font-bold link" onClick = {() => { setOpen(true) }}>
+                        { driver.name } { driver.username !== undefined && `(${driver.username})` }
+                    </span>
+                </>
+            )
+        } else if (driver === "error") {
+            return (
+                <span className = "text-red-500 font-bold">
+                    Error Fetching Driver
+                </span>
+            )
+        } else {
+            return (
+                <span className = "font-bold">
+                    Fetching Driver
+                </span>
+            )
+        }
+    }
 
     const CodeBlock = ({className, children}) => {
         let lang = 'text'; // default monospaced text
@@ -178,7 +219,7 @@ const Tutorials = (props: Props)  => {
                                 <span className = "italic dark:opacity-60 opacity-80 block">Last Edit: { props.metadata.edited }</span>
                                 { props.author !== null && <h3 className = "font-bold inline">Written By: <span className = "font-normal">{ props.author.name } { props.author.username !== undefined && <span>({ props.author.username })</span> }</span></h3> }
                                 { (props.author!==null && props.author.links !== undefined) && props.author.links.map((link) => (
-                                    <SocialLink link = { link } />
+                                    <span className="text-xl"><SocialLink link = { link } /></span>
                                 )) }
                             </div>
                         </div>
@@ -188,7 +229,7 @@ const Tutorials = (props: Props)  => {
                             <span className = "italic dark:opacity-60 opacity-80 block">Last Edit: { props.metadata.edited }</span>
                             { props.author !== null && <h3 className = "font-bold inline">Written By: <span className = "font-normal">{ props.author.name } { props.author.username !== undefined && <span>({ props.author.username })</span> }</span></h3> }
                             { (props.author!==null && props.author.links !== undefined) && props.author.links.map((link) => (
-                                <SocialLink link = { link } />
+                                <span className="text-xl"><SocialLink link = { link } /></span>
                             )) }
                         </div>
                      ) }
@@ -230,10 +271,12 @@ const Tutorials = (props: Props)  => {
 	)
 }
 
-const SocialLink = ({ link }: { link: {type: string, text: string} }) => {
+const SocialLink = ({ link, dontDoDark=false }: { link: {type: string, text: string}, dontDoDark?: boolean }) => {
+    const classes = `inline mx-1 cursor-pointer transition duration-200 ${dontDoDark && "text-white"}`
+
     switch (link.type) {
-        case "twitter": return ( <a href = {`https://twitter.com/${link.text}`} target = "_blank"><AiOutlineTwitter className = "inline text-xl mx-1 cursor-pointer" /></a> );
-        case "twitch": return ( <a href = {`https://twitch.com/${link.text}`} target = "_blank"><BsTwitch className = "inline text-xl mx-1 cursor-pointer" /></a> );
+        case "twitter": return ( <a href = {`https://twitter.com/${link.text}`} target = "_blank"><AiOutlineTwitter className = {`${classes} hover:text-twitter`} /></a> );
+        case "twitch": return ( <a href = {`https://twitch.com/${link.text}`} target = "_blank"><BsTwitch className = {`${classes} hover:text-twitch`} /></a> );
     }
 } 
 

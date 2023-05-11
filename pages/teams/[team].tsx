@@ -14,16 +14,20 @@ const Teams = ()  => {
     const { team: teamAbbr } = router.query
 
 	useEffect(() => {
-		(async () => {
-			let t = await client.getTeam(teamAbbr);
-			setTeam(t);
-			console.log(t)
-		})()
-
 		setTimeout(() => {
 			setLoading(false);
 		}, 500)
 	}, [])
+
+    useEffect(() => {
+        (async () => {
+			if (teamAbbr) {
+                let t = await client.getTeam(teamAbbr);
+                setTeam(t);
+                console.log(t)
+            }
+		})()
+    }, [ teamAbbr ])
 
 	return (
 		<>
@@ -54,7 +58,7 @@ const Teams = ()  => {
                                             </tr>
 
                                             <tbody>
-                                                { team.drivers.map((driver, i) => (
+                                                { team && team.drivers.map((driver, i) => (
                                                     <tr key = { i }>
                                                         <td className = "mt-2">{ driver.name }</td>
                                                         <td>{ driver.car_number !== "-1" ? driver.car_number : "N/A" }</td>

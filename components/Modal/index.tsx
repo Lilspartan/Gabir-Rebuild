@@ -92,7 +92,7 @@ const Modal = ({
                             animate = {customOpenState} 
                             exit = {customClosedState} 
                             transition = {customTimings} 
-                            className = {`bg-dark-card-handle p-4 pointer-events-auto rounded-md lg:max-w-4xl mx-4 fixed z-40 ${closeButton && "pr-12"}`}
+                            className = {`bg-dark-card-handle text-white p-4 pointer-events-auto rounded-md lg:max-w-4xl mx-4 fixed z-40 ${closeButton && "pr-12"}`}
                         >
                             { (closeButton) && (
                                 <div id = {`${id}-close`} >
