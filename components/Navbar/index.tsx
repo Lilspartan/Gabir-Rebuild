@@ -3,6 +3,34 @@ import { AiOutlineMenu, AiFillShopping } from 'react-icons/ai';
 import { FaDiscord, FaTwitter, FaTwitch } from 'react-icons/fa';
 import { HiOutlineStatusOnline } from 'react-icons/hi';
 import { VscSourceControl } from 'react-icons/vsc';
+import { BsArrowRightShort } from 'react-icons/bs';
+import { motion } from 'framer-motion';
+
+const NavHighlight = ({ text, link }: { text: string, link: string }) => {
+  return (
+    <div className = "flex flex-row justify-center mt-2">
+      <motion.div 
+        whileHover = "hover" initial = "none" 
+        className = "text-green-400 text-xl"
+      >
+        <motion.a variants = {{
+            hover: { x: 0 },
+            none: { x: "5%" },
+          }} href = { link } className = "text-center inline-block font-bold">{ text }</motion.a>
+      
+        <motion.div 
+          variants = {{
+            hover: { opacity: 1, rotate: 360, scale: 1.2, transition: { duration: 0.2 } },
+            none: { opacity: 0, rotate: 300, scale: 0.8, transition: { duration: 0.2 } },
+          }}
+          className = "inline-block"
+        >
+          <BsArrowRightShort className = "inline-block text-3xl" />
+        </motion.div>
+      </motion.div>
+    </div>
+  )
+}
 
 const Navbar = ({ invertOpenButton=false }) => {
   const [open, setOpen] = useState(false);
@@ -10,7 +38,7 @@ const Navbar = ({ invertOpenButton=false }) => {
   return (
     <>
       <div onClick = {() => { setOpen(false) }} className = {`cursor-pointer transition duration-500 fixed w-screen h-screen bg-black z-40 ${open ? "opacity-60 pointer-events-auto" : "opacity-0 pointer-events-none"}`}></div>
-
+      
       <nav id = "nav" className = {`fixed z-40 bg-dark-card-handle h-screen transition duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}>
         <div id="innerNav" className = "flex flex-col justify-center h-screen">
           <div className = "flex flex-col text-white">
@@ -18,13 +46,8 @@ const Navbar = ({ invertOpenButton=false }) => {
               <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="/main.png" alt="Gabir Motors logo" /></a>
             </div>
 
-            {/* <div className = "flex flex-row ml-4 my-2">
-              <span className = "text-red-500">Watch Live</span>
-              <div className = "mt-2 ml-1">
-                <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-red-500 opacity-75"></span>
-                <span className="absolute inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-              </div>
-            </div> */}
+            <NavHighlight text = "The Nurburgring 24h" link = "/tutorials/nurburgring-24-2023" />
+            
             <hr className = "mx-4 mt-4 border-zinc-500" />
 
             <div className="flex flex-col px-2">
