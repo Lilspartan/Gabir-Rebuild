@@ -129,16 +129,16 @@ const SpecMap = (props: any) => {
 
 			<Navbar />
 
-			<div className="min-h-screen absolute overflow-hidden text-white max-w-full w-screen">
+			<div className="min-h-screen absolute text-white max-w-full w-screen">
 				<div className="content-center min-h-screen background-carbon_fiber w-full text-center">
-					<div className={`text-left grid place-items-center h-screen`}>
+					<div className={`text-left grid place-items-center min-h-screen`}>
 						<div>
-							<div className="p-4 m-4 w-full mx-auto bg-dark-card-handle flex lg:flex-row flex-col-reverse justify-end flex-wrap">
+							<div className="p-4 m-4 w-full mx-auto bg-dark-card-handle flex xl:flex-row flex-col-reverse justify-between flex-wrap rounded-lg gap-8">
 
-								<div className="w-full lg:w-1/3">
+								<div className="w-full xl:w-1/4 flex-grow flex flex-col justify-between py-2">
 									<div className="">
 										<div className = "flex flex-row mb-4">
-											<h2 className="acumin text-4xl mr-4 flex-shrink">Choose a Car</h2>
+											<h2 className="font-bold text-3xl mr-4 flex-shrink">Choose a Car</h2>
 											<div className="ml-2 my-auto flex-grow">
 												<Dropdown change = {(e) => {
 													setCarImagesLink(JSON.parse(e.target.value));
@@ -147,7 +147,7 @@ const SpecMap = (props: any) => {
 												})} />
 											</div>
 										</div>
-										<div className="w-full">
+										<div className="w-full text-lg">
 											<label htmlFor="color">Choose a Color:</label> <input type="color" id="color" value={color} onChange={(e) => { setToSetValues({ ...toSetValues, color: e.target.value }) }} />
 											<span className="">
 												<input className="bg-dark-card-handle rounded-md ml-2 px-1" type="text" placeholder="Color Hex" value={toSetValues.color} onChange={(e) => { setToSetValues({ ...toSetValues, color: e.target.value }) }} />
@@ -164,7 +164,7 @@ const SpecMap = (props: any) => {
 									</div>
 
 									<div className = "flex flex-row mt-6">
-										<h2 className="acumin text-4xl mr-4 flex-shrink">Or Use a Preset</h2>
+										<h2 className="font-bold text-3xl mr-4 flex-shrink">Or Use a Preset</h2>
 										<div className="ml-2 my-auto flex-grow">
 											<Dropdown change = {changePreset} options = {[ ...presets.map((p => {
 												return { value: `${p.metal}/${p.rough}/${p.clearcoat}`, text: p.name }
@@ -200,7 +200,7 @@ const SpecMap = (props: any) => {
 									</div>
 								</div>
 
-								<div className="py-2 w-full lg:w-2/3 pl-4">
+								<div className="py-2">
 									<CarFrame
 										clearcoat={clearcoat / 100}
 										metal={metal / 100}
