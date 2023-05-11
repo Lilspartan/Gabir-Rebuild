@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react'
-import { CarFrame, Alert, Navbar, SEO, Dropdown } from '../../components'
+import { CarFrame, Alert, Navbar, SEO, Dropdown, Button } from '../../components'
+import { useRouter } from 'next/router';
 
-// http://localhost:3000/tools/specmapping?metallic=70&roughness=40&clearcoat=80&car=dallaraf3
+// http://localhost:3000/tools/specmapping?metallic=70&roughness=40&clearcoat=80&car=dallaraf3&color=000000
 
 const links = [
 	{ name: "Toyota GR86", link: "toyotagr86" },
@@ -21,22 +22,27 @@ type Preset = {
 	clearcoat: number;
 }
 
+const DEFAULT_COLOR = "#6f38b2";
+
 const toHex = (value: number) => { return value.toString(16).padStart(2, "0") }
 
 const SpecMap = (props: any) => {
+	const router = useRouter();
+
 	// The inputs, either from the url or the ui
-	const [color, setColor] = useState("#6f38b2");
+	const [color, setColor] = useState(DEFAULT_COLOR);
 	const [metal, setMetal] = useState(0);
 	const [roughness, setRoughness] = useState(0);
 	const [clearcoat, setClearcoat] = useState(0);
 	const [carImagesLink, setCarImagesLink] = useState(links[0]);
+	const [shareLinkCopied, setShareLinkCopied] = useState(false);
 
 	// eslint-disable-next-line
 	const [presets, setPresets] = useState<Preset[]>([
+		{ name: "Gloss (Default)", metal: 0, rough: 0, clearcoat: 0 },
 		{ name: "Flat", metal: 0, rough: 80, clearcoat: 0 },
 		{ name: "Matte", metal: 0, rough: 50, clearcoat: 0 },
 		{ name: "Satin", metal: 0, rough: 20, clearcoat: 0 },
-		{ name: "Gloss", metal: 0, rough: 0, clearcoat: 0 },
 		{ name: "Chrome", metal: 100, rough: 0, clearcoat: 0 },
 		{ name: "Metallic", metal: 90, rough: 40, clearcoat: 0 },
 		{ name: "Candy", metal: 50, rough: 10, clearcoat: 0 },
@@ -61,6 +67,14 @@ const SpecMap = (props: any) => {
 		}, 500)
 	}, [toSetValues])
 
+	useEffect(() => {
+		if (shareLinkCopied) {
+			setTimeout(() => {
+				setShareLinkCopied(false);
+			}, 5000)
+		}
+	}, [ shareLinkCopied ])
+
 	const changePreset = (e: any) => {
 		var values = e.target.value.split('/');
 		setToSetValues({
@@ -73,6 +87,36 @@ const SpecMap = (props: any) => {
 		setMetal(values[0]);
 		setRoughness(values[1]);
 		setClearcoat(values[2]);
+	}
+
+	useEffect(() => {
+		if (router.query.color !== undefined) {
+			setToSetValues({ 
+				...toSetValues, 
+				color: "#" + router.query.color,
+				metal: Number(router.query.metallic),
+				roughness: Number(router.query.roughness),
+				clearcoat: Number(router.query.clearcoat),
+			})
+
+			let carFromUrl = links.filter((link) => {
+				return link.link === router.query.car;
+			});
+
+			if (carFromUrl.length) {
+				setCarImagesLink(carFromUrl[0]);
+			}
+		}
+	}, [ router.query ])
+
+	const getShareUrl = () => {
+		let url = `/tools/specmapping?metallic=${metal}&roughness=${roughness}&clearcoat=${clearcoat}&car=${carImagesLink.link}&color=${color.replace('#', '')}`;
+	
+		router.push(url)
+
+		if (navigator) {
+            navigator.clipboard.writeText("https://gabirmotors.com" + url);
+        }
 	}
 
 	return (
@@ -99,7 +143,7 @@ const SpecMap = (props: any) => {
 												<Dropdown change = {(e) => {
 													setCarImagesLink(JSON.parse(e.target.value));
 												}} options = {links.map(link => {
-													return { value: JSON.stringify(link), text: link.name };
+													return { value: JSON.stringify(link), text: link.name, selected: carImagesLink.link === link.link };
 												})} />
 											</div>
 										</div>
@@ -122,7 +166,7 @@ const SpecMap = (props: any) => {
 									<div className = "flex flex-row mt-6">
 										<h2 className="acumin text-4xl mr-4 flex-shrink">Or Use a Preset</h2>
 										<div className="ml-2 my-auto flex-grow">
-											<Dropdown change = {changePreset} options = {[ { value: '0/0/0', text: "Select One "}, ...presets.map((p => {
+											<Dropdown change = {changePreset} options = {[ ...presets.map((p => {
 												return { value: `${p.metal}/${p.rough}/${p.clearcoat}`, text: p.name }
 											})) ]} />
 										</div>
@@ -133,9 +177,30 @@ const SpecMap = (props: any) => {
 										<Alert backgroundVisible = {false} id = "thank-you-zach!" permaDismiss = {true} type = "success" closeable = {false}>Huge thank you to <a href = "https://www.tradingpaints.com/profile/666793/Zach-C-Miller" target = "_blank">Bracket (Zach M.)</a> for the images and code help!</Alert>
 									</div>
 
+									<div className = "flex flex-row gap-2">
+										<div className = "flex-grow">
+											<Button block click = {() => {
+												getShareUrl();
+												setShareLinkCopied(true);
+											}}>{ shareLinkCopied ? "Link Copied to Clipboard" : "Share Configuration" }</Button>
+										</div>
+
+										<div className = "flex-grow">
+											<Button block click = {() => {
+												setToSetValues({
+													metal: 0,
+													roughness: 0,
+													clearcoat: 0,
+													color: DEFAULT_COLOR
+												})
+
+												router.push('');
+											}}>Reset</Button>
+										</div>
+									</div>
 								</div>
 
-								<div className="py-2 w-full lg:w-2/3">
+								<div className="py-2 w-full lg:w-2/3 pl-4">
 									<CarFrame
 										clearcoat={clearcoat / 100}
 										metal={metal / 100}
