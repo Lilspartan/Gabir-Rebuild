@@ -27,7 +27,7 @@ const Teams = ()  => {
 
 	return (
 		<>
-			<SEO title = {`Gabir Motors | Team ${team.name}`} />
+			<SEO title = {`Gabir Motors | Team Overview`} />
 
 			<Loading loading = { loading } />
  

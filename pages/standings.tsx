@@ -68,7 +68,12 @@ const Standings = ()  => {
                 <Alert type = "tip" permaDismiss id = "click-for-more-info"><span className="font-bold">Tip:</span> Click on a driver to see more in-depth information</Alert>
             </AlertArea>
 			
-            <Modal open = {modalOpen && standingHighlight !== null} setOpen={setModalOpen} closeButton id = "standings-highlight">
+            <Modal 
+                open = {modalOpen && standingHighlight !== null} 
+                setOpen={setModalOpen} 
+                closeButton 
+                id = "standings-highlight"
+            >
                 { standingHighlight !== null && <h1 className = "text-2xl"><span className="font-bold">Standings Overview:</span> { standingHighlight.name }</h1> }
 
                 <table className = "hidden md:block mt-8 mb-4">
@@ -110,7 +115,6 @@ const Standings = ()  => {
                                 labels: ["Week 1", "Week 2", "Week 3", "Week 4", "Week 5", "Week 6", "Week 7", "Week 8", "Week 9", "Week 10", "Week 11", "Week 12"],
                                 datasets: [
                                     {
-                                        id: 1,
                                         label: standingHighlight.name,
                                         data: standingHighlight.points.map((point, index) => {
                                             if (point === "-") return null;
