@@ -44,8 +44,8 @@ const DefaultTemplate = ({ doLoading, title, desc, url, children, headerImg, sol
                 <motion.div 
                     key = {String(darkMode)} 
                     variants = {change} 
-                    initial = {darkMode ? "light" : "dark"} 
-                    animate = {darkMode ? "dark" : "light"} 
+                    initial = {!loading ? (darkMode ? "light" : "dark") : (darkMode ? "dark" : "light")} 
+                    animate = {!loading ? (darkMode ? "dark" : "light") : (darkMode ? "dark" : "light")} 
                     transition = {{ duration: 0.2 }}
                     className = {`flex flex-col content-center min-h-screen w-full`}>
                     { children }

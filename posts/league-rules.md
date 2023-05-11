@@ -8,7 +8,7 @@ tags: [ "Rules" ]
 hidden: true
 ---
 
-The PA Racing League was formed in May 2020 as an outlet for Mike Krahulik (aka Mike “Racecar” Krahulik, “Gabe” of Penny Arcade, Jim Darkmagic of the New Hampshire Darkmagics) to race with people who shared his interest and point of view on sim racing, while simultaneously avoiding the general toxicity of the public iRacing lobbies. PA Racing League strives to be a friendly, welcoming group for drivers of all abilities and experience levels.  Mike's founding rules, burned in smoking rubber into the asphalt on winner's circle, read:
+The PA Racing League was formed in May 2020 as an outlet for Mike Krahulik (aka <Driver accountId = "442497" />, “Gabe” of Penny Arcade, Jim Darkmagic of the New Hampshire Darkmagics) to race with people who shared his interest and point of view on sim racing, while simultaneously avoiding the general toxicity of the public iRacing lobbies. PA Racing League strives to be a friendly, welcoming group for drivers of all abilities and experience levels.  Mike's founding rules, burned in smoking rubber into the asphalt on winner's circle, read:
 
 - Don't be a jerk.
 - Hate speech won't be tolerated.
