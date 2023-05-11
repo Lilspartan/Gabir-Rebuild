@@ -78,33 +78,39 @@ const Tutorials = (props: Props)  => {
                 else if (currentLine.startsWith('###')) return { title: currentLine.replace('### ', ''), id: slugify(currentLine.replace('### ', ''), { lower: true, remove: regex }), level: 3 };
                 else if (currentLine.startsWith('##')) return { title: currentLine.replace('## ', ''), id: slugify(currentLine.replace('## ', ''), { lower: true, remove: regex }), level: 2 };
                 else if (currentLine.startsWith('#')) return { title: currentLine.replace('# ', ''), id: slugify(currentLine.replace('# ', ''), { lower: true, remove: regex }), level: 1 };
+            }).filter(item => {
+                return item !== undefined;
             }))
         }, [])
 
         return (
-            <div className = "hidden md:flex fixed right-0 top-0 mt-4 h-screen w-1/3 lg:w-1/5 pointer-events-none flex-col p-4">
-                <div className = "dark:bg-[#333333] bg-[#eeeeee] p-4 rounded-lg pointer-events-auto">
-                    <div className="flex flex-row justify-between">
-                        <h1 className = "text-2xl font-bold">Table of Contents</h1>
-
-                        <div className = "self-center text-xl cursor-pointer" onClick = {() => { setOpen(!open) }}>
-                            { open ? <MdCloseFullscreen /> : <MdOpenInFull /> }
+            <>
+                { TOC.length > 0 && (
+                    <div className = "hidden md:flex fixed right-0 top-0 mt-4 h-screen w-1/3 lg:w-1/5 pointer-events-none flex-col p-4">
+                        <div className = "dark:bg-[#333333] bg-[#eeeeee] p-4 rounded-lg pointer-events-auto">
+                            <div className="flex flex-row justify-between">
+                                <h1 className = "text-2xl font-bold">Table of Contents</h1>
+        
+                                <div className = "self-center text-xl cursor-pointer" onClick = {() => { setOpen(!open) }}>
+                                    { open ? <MdCloseFullscreen /> : <MdOpenInFull /> }
+                                </div>
+                            </div>
+        
+                            { open && (
+                                <ul>
+                                    { TOC.map((header) => {
+                                        if (header) {
+                                            return (
+                                                <li className = {`my-3`} style = {{ marginLeft: `${(header.level - 2) * 16 + 8}px` }}><a href = {`#${header.id}`} className = "hover:underline">{ header.title }</a></li>
+                                            )
+                                        }
+                                    }) }
+                                </ul>
+                            ) }
                         </div>
                     </div>
-
-                    { open && (
-                        <ul>
-                            { TOC.map((header) => {
-                                if (header && header.level <= 2) {
-                                    return (
-                                        <li className = "my-3"><a href = {`#${header.id}`} className = "hover:underline">{ header.title }</a></li>
-                                    )
-                                }
-                            }) }
-                        </ul>
-                    ) }
-                </div>
-            </div>
+                ) }
+            </>
         )
     }
 
