@@ -1,6 +1,5 @@
 import '../styles/globals.css';
 import 'movement.css';
-import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script'
 
 function MyApp({ Component, pageProps }) {
@@ -20,7 +19,6 @@ function MyApp({ Component, pageProps }) {
           }}
       />
       <Component {...pageProps} />
-      <Analytics />
     </>
   )
 }
