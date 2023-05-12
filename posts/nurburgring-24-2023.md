@@ -12,9 +12,7 @@ hidden: true
 
 This weekend the PA League is fielding two teams in the [Nurburgring 24h](https://www.iracing.com/this-week-iracing-nurburgring-24-special-event-2023/), below you'll find a list of the teams and their drivers. 
 
-## Teams
-
-### Anvil Night 
+## Anvil Night 
 
 **Car:** Porsche GT4 Cayman <br>
 **Start Time:** Friday @ 15:00 PT <br>
@@ -32,7 +30,7 @@ This weekend the PA League is fielding two teams in the [Nurburgring 24h](https:
 
 ***
 
-### Red Shift
+## Red Shift
 
 **Car:** BMW M4 GT3 <br>
 **Start Time:** Friday @ 15:00 PT <br>
