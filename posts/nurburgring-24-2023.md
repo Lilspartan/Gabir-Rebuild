@@ -64,6 +64,6 @@ This weekend the PA League is fielding two teams in the [Nurburgring 24h](https:
 - <Driver accountId = "334616" />
 - <Driver accountId = "192476" />
 - <Driver accountId = "567045" />
-- Tom DeSelms
+- <Driver accountId = "581642" />
 - <Driver accountId = "534619" />
-- James Lewis
+- <Driver accountId = "614434" />
