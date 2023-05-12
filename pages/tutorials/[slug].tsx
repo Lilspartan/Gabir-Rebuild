@@ -46,10 +46,46 @@ export interface TwitchStream {
     is_mature:     boolean;
 }
 
+function getTimezoneName() {
+    const today = new Date();
+    const short = today.toLocaleDateString(undefined);
+    const full = today.toLocaleDateString(undefined, { timeZoneName: 'short' });
+  
+    // Trying to remove date from the string in a locale-agnostic way
+    const shortIndex = full.indexOf(short);
+    if (shortIndex >= 0) {
+      const trimmed = full.substring(0, shortIndex) + full.substring(shortIndex + short.length);
+      
+      // by this time `trimmed` should be the timezone's name with some punctuation -
+      // trim it from both sides
+      return trimmed.replace(/^[\s,.\-:;]+|[\s,.\-:;]+$/g, '');
+  
+    } else {
+      // in some magic case when short representation of date is not present in the long one, just return the long one as a fallback, since it should contain the timezone's name
+      return full;
+    }
+  }
+
+const Time = ({ timestamp }: { timestamp: number | string }) => {
+    const dateToTime = date => date.toLocaleString('en-US', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        hour: 'numeric',
+        minute: 'numeric'
+    });
+
+    let localDate = new Date(Number(timestamp));
+
+    console.log(localDate)
+
+    return (
+        <span className = "ml-2 dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black px-2 py-1 rounded-lg">{ dateToTime(localDate) } { getTimezoneName() }</span>
+    )
+}
 
 const TwitchWidget = ({ channel }: { channel: string }) => {
     const [channelInfo, setChannelInfo] = useState<TwitchStream | null>(null);
-    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -302,6 +338,9 @@ const Tutorials = (props: Props)  => {
                                 },
                                 TwitchWidget: {
                                     component: TwitchWidget
+                                },
+                                Time: {
+                                    component: Time
                                 }
                             }
                         }}>{ content }</Markdown>
