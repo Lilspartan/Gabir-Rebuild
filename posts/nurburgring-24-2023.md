@@ -1,7 +1,7 @@
 ---
 title: 'The Nurburgring 24h'
 subtitle: 'The PA League hits the track at the Nurburgring'
-edited: "5/11/23"
+edited: "5/12/23"
 date: "5/11/23"
 authorID: 557730
 tags: [ "Event" ]
@@ -11,7 +11,7 @@ hidden: false
 
 ![image](/posts/nurburgring-24-2023/header.jpg)
 
-This weekend the PA League is fielding two teams in the [Nurburgring 24h](https://www.iracing.com/this-week-iracing-nurburgring-24-special-event-2023/), below you'll find a list of the teams and their drivers. 
+This weekend the PA League is fielding three teams in the [Nurburgring 24h](https://www.iracing.com/this-week-iracing-nurburgring-24-special-event-2023/), below you'll find a list of the teams and their drivers. 
 
 ## Anvil Night 
 
