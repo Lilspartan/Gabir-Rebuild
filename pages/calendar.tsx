@@ -29,6 +29,8 @@ const Calendar = ()  => {
 		(async () => {
 			let c = await client.getCalendar();
 			setCalendar(c);
+
+			console.log(c)
 		})()
 
 		setTimeout(() => {

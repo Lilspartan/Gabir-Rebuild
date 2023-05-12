@@ -15,6 +15,7 @@ import { oneDark as DarkStyle, oneLight as LightStyle } from 'react-syntax-highl
 import slugify from 'slugify';
 import { MdOpenInFull, MdCloseFullscreen } from 'react-icons/md';
 import { Modal } from '../../components';
+import Head from 'next/head';
 
 interface Props {
     metadata: ArticleMetaData;
@@ -193,7 +194,7 @@ const Tutorials = (props: Props)  => {
                                 <img src = {`https://i.gabirmotors.com/assets/teams/LWP/main.png`} alt = {`Lone Wolf Pack logo`} className = "h-32 mx-auto" />
                             ) }
 
-                            <h2 className = "text-xl text-white" style = {{ margin: "4px 4px" }}><span className = "bg-white px-2 py-1 rounded-lg text-black">#{ driver.car_number }</span> { driver.name } { driver.username !== undefined && `(${driver.username})` }</h2>
+                            <h2 className = "text-xl text-white" style = {{ margin: "4px 4px" }}>{ driver.car_number !== "" && <span className = "bg-white px-2 py-1 rounded-lg text-black">#{ driver.car_number }</span> } { driver.name } { driver.username !== undefined && `(${driver.username})` }</h2>
                         
                             <div className = "flex flex-row justify-center mt-4">
                                 { (driver !== null && driver.links !== undefined) && driver.links.map((link) => (
@@ -295,6 +296,22 @@ const Tutorials = (props: Props)  => {
         )
     }
 
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "headline": props.metadata.title,
+        "image": [
+          props.metadata.headerImg || "/header.jpg"
+        ],
+        "datePublished": new Date(props.metadata.date),
+        "dateModified": new Date(props.metadata.edited),
+        "author": [{
+            "@type": "Person",
+            "name": props.author.name,
+            "url": "https://gabirmotors.com"
+          }]
+      }
+
 	return (
 		<>
             <DefaultTemplate
@@ -306,6 +323,14 @@ const Tutorials = (props: Props)  => {
                 solidBg = {true} 
                 darkMode = {darkMode}
             >
+                <Head>
+                    <script
+                        key="structured-data"
+                        type="application/ld+json"
+                        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+                    />
+                </Head>
+
                 <TableOfContents />
 
                 <section className="lg:mx-auto mt-16 mx-4 md:w-2/3 md:pr-4 lg:pr-0 lg:w-1/2">
