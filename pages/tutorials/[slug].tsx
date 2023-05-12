@@ -5,7 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import matter from 'gray-matter';
 import axios from 'axios'
 import { AiOutlineTwitter } from 'react-icons/ai';
-import { BsFillMoonFill, BsFillSunFill, BsShareFill, BsTwitch } from 'react-icons/bs';
+import { BsFillMoonFill, BsFillSunFill, BsShareFill, BsTwitch, BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiArrowLeft, HiArrowUp } from 'react-icons/hi';
 import path from 'path';
 import { ArticleMetaData, Driver } from '../../utils/interfaces';
@@ -26,6 +26,65 @@ interface TOCType {
     title: string;
     id:    string;
     level: number;
+}
+
+export interface TwitchStream {
+    id:            string;
+    user_id:       string;
+    user_login:    string;
+    user_name:     string;
+    game_id:       string;
+    game_name:     string;
+    type:          string;
+    title:         string;
+    viewer_count:  number;
+    started_at:    string;
+    language:      string;
+    thumbnail_url: string;
+    tag_ids:       any[];
+    tags:          string[];
+    is_mature:     boolean;
+}
+
+
+const TwitchWidget = ({ channel }: { channel: string }) => {
+    const [channelInfo, setChannelInfo] = useState<TwitchStream | null>(null);
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetch("https://api.twitch.tv/helix/streams?user_login=" + channel, {
+                headers: {
+                    'Client-ID': 'v354nab7jsgctl2zww4ic69tc4l3hf',
+                    'Authorization': 'Bearer u26uz5iwqqe7o0flwqr517ww2r79oq'
+                }
+            });
+            const data = await res.json();
+            if (data.data.length) {
+                setChannelInfo(data.data[0]);
+            }
+        })()
+    }, [])
+
+    return (
+        <a href = {`https://twitch.tv/${channel}`} target = "_blank" className = "no-underline">
+            <div className = "dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black my-2 px-4 rounded-lg py-2 transition duration-200 hover:-translate-y-1 flex flex-row">
+                <div>
+                    <BsTwitch className = "text-xl inline mr-2" /> { channelInfo !== null ? channelInfo.user_name : channel }
+                </div>
+
+                { channelInfo !== null ? (
+                    <div className = "ml-auto text-red-500 flex flex-row">
+                        <BsEyeFill className = "text-xl inline self-center mr-1"/> { channelInfo.viewer_count }
+                    </div>
+                ) : (
+                    <div className = "ml-auto italic dark:text-zinc-400 text-zinc-500 flex flex-row">
+                        <BsEyeSlashFill className = "text-xl inline self-center mr-1"/> offline
+                    </div>
+                ) }
+            </div>
+        </a>
+    )
 }
 
 const Tutorials = (props: Props)  => {
@@ -240,6 +299,9 @@ const Tutorials = (props: Props)  => {
                                 pre: PreBlock,
                                 Driver: {
                                     component: Driver
+                                },
+                                TwitchWidget: {
+                                    component: TwitchWidget
                                 }
                             }
                         }}>{ content }</Markdown>
