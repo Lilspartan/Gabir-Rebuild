@@ -82,6 +82,20 @@ const Time = ({ timestamp }: { timestamp: number | string }) => {
     )
 }
 
+const PitwallWidget = ({ channel }: { channel: string }) => {
+    return (
+        <a href = {`https://pitwall.gabirmotors.com/user/${channel}`} target = "_blank" className = "no-underline">
+            <div className = "dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black my-2 px-4 rounded-lg py-2 transition duration-200 hover:-translate-y-1 flex flex-row">
+                <div>
+                    <img src = "/small_logo.png" alt = "Gabir Motors Logo" className = "w-12 inline-block" style = {{ margin: 0 }} />
+
+                    <span className="ml-4">{ channel }</span>
+                </div>
+            </div>
+        </a>
+    )
+}
+
 const TwitchWidget = ({ channel }: { channel: string }) => {
     const [channelInfo, setChannelInfo] = useState<TwitchStream | null>(null);
 
@@ -339,6 +353,9 @@ const Tutorials = (props: Props)  => {
                                 },
                                 Time: {
                                     component: Time
+                                },
+                                PitwallWidget: {
+                                    component: PitwallWidget
                                 }
                             }
                         }}>{ content }</Markdown>

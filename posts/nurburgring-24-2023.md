@@ -5,7 +5,6 @@ edited: "5/12/23"
 date: "5/11/23"
 authorID: 557730
 tags: [ "Event" ]
-# headerImg: '/posts/nurburgring-24-2023/header.jpg'
 hidden: false
 ---
 
