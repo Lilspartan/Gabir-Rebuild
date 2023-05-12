@@ -77,8 +77,6 @@ const Time = ({ timestamp }: { timestamp: number | string }) => {
 
     let localDate = new Date(Number(timestamp));
 
-    console.log(localDate)
-
     return (
         <span className = "ml-2 dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black px-2 py-1 rounded-lg">{ dateToTime(localDate) } { getTimezoneName() }</span>
     )
