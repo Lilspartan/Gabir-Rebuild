@@ -21,6 +21,11 @@ module.exports = {
         destination: '/tools/specmapping',
         permanent: true,
       },
+      {
+        source: '/status',
+        destination: 'https://stats.uptimerobot.com/p9AxGf9VMk',
+        permanent: true,
+      }
     ];
   },
 }

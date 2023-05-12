@@ -176,7 +176,7 @@ const Tutorials = (props: Props)  => {
                     setDriver("error");
                 }
             } else {
-                setDriver("error");
+                setDriver("fetching");
             }
         }, [])
     

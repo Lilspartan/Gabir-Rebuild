@@ -5,7 +5,7 @@ edited: "5/12/23"
 date: "5/11/23"
 authorID: 557730
 tags: [ "Event" ]
-hidden: false
+hidden: true
 ---
 
 ![image](/posts/nurburgring-24-2023/header.jpg)
@@ -40,6 +40,7 @@ This weekend the PA League is fielding three teams in the [Nurburgring 24h](http
 <TwitchWidget channel = "skiggity242" />
 <TwitchWidget channel = "ravenholm337" />
 <TwitchWidget channel = "keyma5ter" />
+<TwitchWidget channel = "veeveevonvore" />
 
 **Drivers:**
 - <Driver accountId = "622658" />
