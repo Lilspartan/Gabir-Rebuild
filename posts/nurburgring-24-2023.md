@@ -10,14 +10,18 @@ hidden: true
 
 ![image](/posts/nurburgring-24-2023/header.jpg)
 
-[iRacing Event](https://www.iracing.com/this-week-iracing-nurburgring-24-special-event-2023/)
+This weekend the PA League is fielding two teams in the [Nurburgring 24h](https://www.iracing.com/this-week-iracing-nurburgring-24-special-event-2023/), below you'll find a list of the teams and their drivers. 
 
 ## Teams
 
-### Anvil NIght 
+### Anvil Night 
 
 **Car:** Porsche GT4 Cayman <br>
 **Start Time:** Friday @ 15:00 PT <br>
+**Watch Live:**
+- [red_stapler](https://www.twitch.tv/red_stapler)
+- [Gargos](https://www.twitch.tv/gargosthemighty)
+
 **Drivers:**
 - <Driver accountId = "440513" />
 - <Driver accountId = "241709" />
@@ -26,10 +30,17 @@ hidden: true
 - <Driver accountId = "722005" />
 - <Driver accountId = "214406" />
 
+***
+
 ### Red Shift
 
 **Car:** BMW M4 GT3 <br>
 **Start Time:** Friday @ 15:00 PT <br>
+**Watch Live:**
+- [Skiggity242](https://www.twitch.tv/skiggity242)
+- [Ravenholm](https://www.twitch.tv/ravenholm337)
+- [keyma5ter](https://www.twitch.tv/keyma5ter)
+
 **Drivers:**
 - <Driver accountId = "622658" />
 - <Driver accountId = "18953" />
