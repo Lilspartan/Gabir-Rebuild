@@ -117,44 +117,42 @@ const PitwallWidget = ({ channel }: { channel: string }) => {
     }, [])
 
     return (
-        <a href = {`https://pitwall.gabirmotors.com/user/${channel}`} target = "_blank" className = "no-underline">
-            <div className = "dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black my-2 px-4 rounded-lg py-2 transition duration-200 hover:-translate-y-1 flex flex-row justify-between">
-                { pitwallData !== "error" && pitwallData !== "fetching" && pitwallData !== "offline" && (
-                    <>
-                        <div>
-                            <span className = "font-bold text-2xl">Race Overview:</span>
+        <>
+            { pitwallData !== "error" && pitwallData !== "fetching" && pitwallData !== "offline" && (
+                <a href = {`https://pitwall.gabirmotors.com/user/${channel}`} target = "_blank" className = "no-underline">
+                    <div className = "dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black my-2 px-4 rounded-lg py-2 transition duration-200 hover:-translate-y-1 flex flex-row justify-between">
+                        <>
+                            <div>
+                                <span className = "font-bold text-2xl">Race Overview:</span>
 
-                            <div className="">
-                                <div className="flex flex-row gap-2">
-                                    <span className="font-bold">Time Remaining:</span>
-                                    <span>{ new Date(pitwallData.session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span>
-                                </div>
+                                <div className="">
+                                    <div className="flex flex-row gap-2">
+                                        <span className="font-bold">Time Remaining:</span>
+                                        <span>{ new Date(pitwallData.session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span>
+                                    </div>
 
-                                <div className="flex flex-row gap-2">
-                                    <span className="font-bold">Position:</span>
-                                    <span>{ pitwallData.driverData.driver.raceData.position }</span>
-                                </div>
+                                    <div className="flex flex-row gap-2">
+                                        <span className="font-bold">Position:</span>
+                                        <span>{ pitwallData.driverData.driver.raceData.position }</span>
+                                    </div>
 
-                                <div className="flex flex-row gap-2">
-                                    <span className="font-bold">Lap:</span>
-                                    <span>{ pitwallData.driverData.driver.raceData.lap }</span>
+                                    <div className="flex flex-row gap-2">
+                                        <span className="font-bold">Lap:</span>
+                                        <span>{ pitwallData.driverData.driver.raceData.lap }</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className = "self-end">
-                            <span className="text-sm mr-2 opacity-70">
-                                See more on the Pitwall
-                            </span><BiLinkExternal className = "inline opacity-70" />
-                        </div>
-                    </>
-                ) }
-
-                { pitwallData === "offline" && (
-                    <span>{ channel } is not running the Pitwall</span>
-                ) }
-            </div>
-        </a>
+                            <div className = "self-end">
+                                <span className="text-sm mr-2 opacity-70">
+                                    See more on the Pitwall
+                                </span><BiLinkExternal className = "inline opacity-70" />
+                            </div>
+                        </>
+                    </div>
+                </a>
+            ) }
+        </>
     )
 }
 
