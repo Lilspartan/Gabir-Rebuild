@@ -1,21 +1,23 @@
-import { useState, useEffect } from 'react';
 import fs from 'fs';
-import { useRouter } from 'next/router'
-import Markdown from 'markdown-to-jsx';
-import matter from 'gray-matter';
+import path from 'path';
 import axios from 'axios'
+import Head from 'next/head';
+import slugify from 'slugify';
+import matter from 'gray-matter';
+import Markdown from 'markdown-to-jsx';
+import { useRouter } from 'next/router';
+import { Modal } from '../../components';
+import { useState, useEffect } from 'react';
+import DefaultTemplate from '../../templates/Default';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { ArticleMetaData, Driver, PitwallData } from '../../utils/interfaces';
+import { oneDark as DarkStyle, oneLight as LightStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+
 import { AiOutlineTwitter } from 'react-icons/ai';
 import { BsFillMoonFill, BsFillSunFill, BsShareFill, BsTwitch, BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { HiArrowLeft, HiArrowUp } from 'react-icons/hi';
-import path from 'path';
-import { ArticleMetaData, Driver } from '../../utils/interfaces';
-import DefaultTemplate from '../../templates/Default';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneDark as DarkStyle, oneLight as LightStyle } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import slugify from 'slugify';
 import { MdOpenInFull, MdCloseFullscreen } from 'react-icons/md';
-import { Modal } from '../../components';
-import Head from 'next/head';
+import { BiLinkExternal } from 'react-icons/bi';
 
 interface Props {
     metadata: ArticleMetaData;
@@ -65,7 +67,7 @@ function getTimezoneName() {
       // in some magic case when short representation of date is not present in the long one, just return the long one as a fallback, since it should contain the timezone's name
       return full;
     }
-  }
+}
 
 const Time = ({ timestamp }: { timestamp: number | string }) => {
     const dateToTime = date => date.toLocaleString('en-US', {
@@ -83,15 +85,74 @@ const Time = ({ timestamp }: { timestamp: number | string }) => {
     )
 }
 
+const secondsToFormatted = (seconds: number) => {
+    if (seconds === -1) {
+        return "N/A";
+    }
+
+    let _seconds = seconds;
+    let _tempSeconds = _seconds;
+    _seconds = _seconds % 60;
+    let minutes = (_tempSeconds - _seconds) / 60;
+    return `${(minutes > 0 ? minutes + ":" : "")}${(_seconds < 10 ? (minutes > 0 ? "0" : "") + _seconds.toFixed(3) : _seconds.toFixed(3))}`
+}
+
+
 const PitwallWidget = ({ channel }: { channel: string }) => {
+    const [pitwallData, setPitwallData] = useState<PitwallData | "fetching" | "offline" | "error">("fetching");
+
+    useEffect(() => {
+        (async () => {
+            try {
+                let res = await axios.get('https://streaming.gabirmotors.com/pitwall/channel/' + channel);
+                let data = res.data;
+
+                if (data.name !== undefined) {
+                    setPitwallData(data);
+                }
+            } catch (e) {
+                setPitwallData("offline");
+            }
+        })()
+    }, [])
+
     return (
         <a href = {`https://pitwall.gabirmotors.com/user/${channel}`} target = "_blank" className = "no-underline">
-            <div className = "dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black my-2 px-4 rounded-lg py-2 transition duration-200 hover:-translate-y-1 flex flex-row">
-                <div>
-                    <img src = "/small_logo.png" alt = "Gabir Motors Logo" className = "w-12 inline-block" style = {{ margin: 0 }} />
+            <div className = "dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black my-2 px-4 rounded-lg py-2 transition duration-200 hover:-translate-y-1 flex flex-row justify-between">
+                { pitwallData !== "error" && pitwallData !== "fetching" && pitwallData !== "offline" && (
+                    <>
+                        <div>
+                            <span className = "font-bold text-2xl">Race Overview:</span>
 
-                    <span className="ml-4">{ channel }</span>
-                </div>
+                            <div className="">
+                                <div className="flex flex-row gap-2">
+                                    <span className="font-bold">Time Remaining:</span>
+                                    <span>{ new Date(pitwallData.session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span>
+                                </div>
+
+                                <div className="flex flex-row gap-2">
+                                    <span className="font-bold">Position:</span>
+                                    <span>{ pitwallData.driverData.driver.raceData.position }</span>
+                                </div>
+
+                                <div className="flex flex-row gap-2">
+                                    <span className="font-bold">Lap:</span>
+                                    <span>{ pitwallData.driverData.driver.raceData.lap }</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className = "self-end">
+                            <span className="text-sm mr-2 opacity-70">
+                                See more on the Pitwall
+                            </span><BiLinkExternal className = "inline opacity-70" />
+                        </div>
+                    </>
+                ) }
+
+                { pitwallData === "offline" && (
+                    <span>{ channel } is not running the Pitwall</span>
+                ) }
             </div>
         </a>
     )

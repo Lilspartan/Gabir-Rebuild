@@ -118,3 +118,180 @@ export interface DownforceGuide {
 		[key in DownforceCar]: DownforceValue;
 	}
 }
+
+export interface PitwallData {
+	name:          string;
+	fuelIsPublic:  boolean;
+	password:      string;
+	missedPings:   number;
+	fastestLap:    FastestLap[];
+	fastestDriver: P_Driver;
+	drivers:       P_Driver[];
+	session:       PitwallDataSession;
+	driverData:    DriverData;
+}
+
+export interface DriverData {
+	tiresRemaining: TiresRemaining;
+	fuel:           Fuel;
+	carIndex:       number;
+	driver:         P_Driver;
+	laps:           Lap[];
+}
+
+export interface P_Driver {
+	carIndex:         number;
+	name:             string;
+	userID:           number;
+	carNumber:        string;
+	isPaceCar:        boolean;
+	raceData:         RaceData;
+	carData:          CarData;
+	lapTimes:         LapTimes;
+	flags:            Flag[];
+	qualifyingResult: QualifyingResult;
+	class:            Class;
+	teamName:         string;
+	license:          License;
+	isSpectator:      boolean;
+	isAI:             boolean;
+	estTimeIntoLap:   number;
+}
+
+export interface CarData {
+	trackSurface: TrackSurface;
+	steer:        number;
+	rpm:          number;
+	gear:         number;
+}
+
+export type TrackSurface =
+	"OnTrack" |
+	"OffTrack" |
+	"AproachingPits" | 
+	"InPitStall" |
+	"NotInWorld" |
+	string
+
+export interface Class {
+	car:   string;
+	color: string;
+	id:    number;
+}
+
+export type Flag = 
+	"OneLapToGreen" | 
+	"StartReady" |
+	"Caution" |
+	"StartHidden" |
+	"Checkered" | 
+	"Green" |
+	"GreenHeld" |
+	"CautionWaving" |
+	"White" |
+	"Servicible" |
+	"StartSet" |
+	"StartGo" |
+	"Disqualify" |
+	"Furled" |
+	"Black" |
+	string
+
+export interface LapTimes {
+	last: number;
+	best: Best;
+}
+
+export interface Best {
+	time: number;
+	lap:  number;
+}
+
+export interface License {
+	iRating:         number;
+	licenseLevel:    number;
+	licenseSubLevel: number;
+	licenseName:     string;
+	licenseColor:    string | null;
+}
+
+export interface QualifyingResult {
+	position:      number;
+	classPosition: number;
+	fastestLap:    number;
+	fastestTime:   number;
+}
+
+export interface RaceData {
+	position:        number;
+	onPitRoad:       boolean;
+	class:           number;
+	f2Time:          number;
+	lap:             number;
+	lapsCompleted:   number;
+	fastRepairsUsed: number;
+	lapPercent:      number;
+}
+
+export interface Fuel {
+	remaining: number;
+	percent:   number;
+}
+
+export interface Lap {
+	lapNumber:         number;
+	fuelAtStartPct:    number;
+	fuelAtStartLiters: number;
+	lapTime:           number;
+	fuelUsedLiters:    number;
+	fuelUsedPct:       number;
+	sessionType:       string;
+}
+
+export interface TiresRemaining {
+	left:  Left;
+	right: Left;
+}
+
+export interface Left {
+	front: number;
+	rear:  number;
+}
+
+export interface FastestLap {
+	CarIdx:      number;
+	FastestLap:  number;
+	FastestTime: number;
+}
+
+export interface PitwallDataSession {
+	flags:           string[];
+	isPALeagueRace:  boolean;
+	focusedCarIndex: number;
+	session:         SessionSession;
+	track:           Track;
+	weather:         Weather;
+}
+
+export interface SessionSession {
+	number:        number;
+	type:          string;
+	timeRemaining: number;
+	fastRepairs:   number;
+	fastestLap:    FastestLap[];
+}
+
+export interface Track {
+	name:        string;
+	id:          number;
+	city:        string;
+	country:     string;
+	temperature: string;
+	length:      string;
+}
+
+export interface Weather {
+	windSpeed:   string;
+	temperature: string;
+	skies:       string;
+}
