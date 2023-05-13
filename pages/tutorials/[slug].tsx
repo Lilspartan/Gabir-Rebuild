@@ -98,13 +98,13 @@ const secondsToFormatted = (seconds: number) => {
 }
 
 
-const PitwallWidget = ({ channel }: { channel: string }) => {
+const PitwallWidget = ({ channel, url }: { channel: string, url: string }) => {
     const [pitwallData, setPitwallData] = useState<PitwallData | "fetching" | "offline" | "error">("fetching");
 
     useEffect(() => {
         (async () => {
             try {
-                let res = await axios.get('https://streaming.gabirmotors.com/pitwall/channel/' + channel);
+                let res = await axios.get('https://streaming.gabirmotors.com/pitwall/channel/' + url);
                 let data = res.data;
 
                 if (data.name !== undefined) {
