@@ -14,8 +14,6 @@ This weekend the PA League is fielding three teams in the [Nurburgring 24h](http
 
 ## Anvil Night 
 
-<PitwallWidget url = "gargosthemighty" channel = "GargosTheMighty" />
-
 **Car:** Porsche GT4 Cayman <br>
 **Start Time:** <Time timestamp = "1683928800000" /><br>
 **Watch Live:**
@@ -34,8 +32,6 @@ This weekend the PA League is fielding three teams in the [Nurburgring 24h](http
 ***
 
 ## Red Shift
-
-<PitwallWidget url = "skiggity242" channel = "Skiggity242" />
 
 **Car:** BMW M4 GT3 <br>
 **Start Time:** <Time timestamp = "1683928800000" /><br>
@@ -57,8 +53,6 @@ This weekend the PA League is fielding three teams in the [Nurburgring 24h](http
 ***
 
 ## S.E.N.D.I.T
-
-<PitwallWidget channel = "mattcribbsracing" />
 
 **Car:** Aston Martin Vantage GT4 <br>
 **Start Time:** <Time timestamp = "1683993600000" /><br>

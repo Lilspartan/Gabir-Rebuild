@@ -46,7 +46,7 @@ const Navbar = ({ invertOpenButton=false }) => {
               <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="/main.png" alt="Gabir Motors logo" /></a>
             </div>
 
-            <NavHighlight text = "The Nurburgring 24h" link = "/tutorials/nurburgring-24-2023" />
+            {/* <NavHighlight text = "The Nurburgring 24h" link = "/tutorials/nurburgring-24-2023" /> */}
             
             <hr className = "mx-4 mt-4 border-zinc-500" />
 

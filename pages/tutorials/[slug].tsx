@@ -85,76 +85,76 @@ const Time = ({ timestamp }: { timestamp: number | string }) => {
     )
 }
 
-const secondsToFormatted = (seconds: number) => {
-    if (seconds === -1) {
-        return "N/A";
-    }
+// const secondsToFormatted = (seconds: number) => {
+//     if (seconds === -1) {
+//         return "N/A";
+//     }
 
-    let _seconds = seconds;
-    let _tempSeconds = _seconds;
-    _seconds = _seconds % 60;
-    let minutes = (_tempSeconds - _seconds) / 60;
-    return `${(minutes > 0 ? minutes + ":" : "")}${(_seconds < 10 ? (minutes > 0 ? "0" : "") + _seconds.toFixed(3) : _seconds.toFixed(3))}`
-}
+//     let _seconds = seconds;
+//     let _tempSeconds = _seconds;
+//     _seconds = _seconds % 60;
+//     let minutes = (_tempSeconds - _seconds) / 60;
+//     return `${(minutes > 0 ? minutes + ":" : "")}${(_seconds < 10 ? (minutes > 0 ? "0" : "") + _seconds.toFixed(3) : _seconds.toFixed(3))}`
+// }
 
 
-const PitwallWidget = ({ channel, url }: { channel: string, url: string }) => {
-    const [pitwallData, setPitwallData] = useState<PitwallData | "fetching" | "offline" | "error">("fetching");
+// const PitwallWidget = ({ channel, url }: { channel: string, url: string }) => {
+//     const [pitwallData, setPitwallData] = useState<PitwallData | "fetching" | "offline" | "error">("fetching");
 
-    useEffect(() => {
-        (async () => {
-            try {
-                let res = await axios.get('https://streaming.gabirmotors.com/pitwall/channel/' + url);
-                let data = res.data;
+//     useEffect(() => {
+//         (async () => {
+//             try {
+//                 let res = await axios.get('https://streaming.gabirmotors.com/pitwall/channel/' + url);
+//                 let data = res.data;
 
-                if (data.name !== undefined) {
-                    setPitwallData(data);
-                }
-            } catch (e) {
-                setPitwallData("offline");
-            }
-        })()
-    }, [])
+//                 if (data.name !== undefined) {
+//                     setPitwallData(data);
+//                 }
+//             } catch (e) {
+//                 setPitwallData("offline");
+//             }
+//         })()
+//     }, [])
 
-    return (
-        <>
-            { pitwallData !== "error" && pitwallData !== "fetching" && pitwallData !== "offline" && (
-                <a href = {`https://pitwall.gabirmotors.com/user/${channel}`} target = "_blank" className = "no-underline">
-                    <div className = "dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black my-2 px-4 rounded-lg py-2 transition duration-200 hover:-translate-y-1 flex flex-row justify-between">
-                        <>
-                            <div>
-                                <span className = "font-bold text-2xl">Race Overview:</span>
+//     return (
+//         <>
+//             { pitwallData !== "error" && pitwallData !== "fetching" && pitwallData !== "offline" && (
+//                 <a href = {`https://pitwall.gabirmotors.com/user/${channel}`} target = "_blank" className = "no-underline">
+//                     <div className = "dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black my-2 px-4 rounded-lg py-2 transition duration-200 hover:-translate-y-1 flex flex-row justify-between">
+//                         <>
+//                             <div>
+//                                 <span className = "font-bold text-2xl">Race Overview:</span>
 
-                                <div className="">
-                                    <div className="flex flex-row gap-2">
-                                        <span className="font-bold">Time Remaining:</span>
-                                        <span>{ new Date(pitwallData.session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span>
-                                    </div>
+//                                 <div className="">
+//                                     <div className="flex flex-row gap-2">
+//                                         <span className="font-bold">Time Remaining:</span>
+//                                         <span>{ new Date(pitwallData.session.session.timeRemaining * 1000).toISOString().substr(11, 8) }</span>
+//                                     </div>
 
-                                    <div className="flex flex-row gap-2">
-                                        <span className="font-bold">Position:</span>
-                                        <span>{ pitwallData.driverData.driver.raceData.position }</span>
-                                    </div>
+//                                     <div className="flex flex-row gap-2">
+//                                         <span className="font-bold">Position:</span>
+//                                         <span>{ pitwallData.driverData.driver.raceData.position }</span>
+//                                     </div>
 
-                                    <div className="flex flex-row gap-2">
-                                        <span className="font-bold">Lap:</span>
-                                        <span>{ pitwallData.driverData.driver.raceData.lap }</span>
-                                    </div>
-                                </div>
-                            </div>
+//                                     <div className="flex flex-row gap-2">
+//                                         <span className="font-bold">Lap:</span>
+//                                         <span>{ pitwallData.driverData.driver.raceData.lap }</span>
+//                                     </div>
+//                                 </div>
+//                             </div>
 
-                            <div className = "self-end">
-                                <span className="text-sm mr-2 opacity-70">
-                                    See more on the Pitwall
-                                </span><BiLinkExternal className = "inline opacity-70" />
-                            </div>
-                        </>
-                    </div>
-                </a>
-            ) }
-        </>
-    )
-}
+//                             <div className = "self-end">
+//                                 <span className="text-sm mr-2 opacity-70">
+//                                     See more on the Pitwall
+//                                 </span><BiLinkExternal className = "inline opacity-70" />
+//                             </div>
+//                         </>
+//                     </div>
+//                 </a>
+//             ) }
+//         </>
+//     )
+// }
 
 const TwitchWidget = ({ channel }: { channel: string }) => {
     const [channelInfo, setChannelInfo] = useState<TwitchStream | null>(null);
@@ -437,9 +437,6 @@ const Tutorials = (props: Props)  => {
                                 },
                                 Time: {
                                     component: Time
-                                },
-                                PitwallWidget: {
-                                    component: PitwallWidget
                                 }
                             }
                         }}>{ content }</Markdown>
