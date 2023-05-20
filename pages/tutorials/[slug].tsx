@@ -263,20 +263,20 @@ const Tutorials = (props: Props)  => {
                         </div>
                     </Modal>
 
-                    <span className = "font-bold link" onClick = {() => { setOpen(true) }}>
+                    <span className = "font-bold ml-2 cursor-pointer dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black px-2 py-1 rounded-lg" onClick = {() => { setOpen(true) }}>
                         { driver.name } { driver.username !== undefined && `(${driver.username})` }
                     </span>
                 </>
             )
         } else if (driver === "error") {
             return (
-                <span className = "text-red-500 font-bold">
+                <span className = "text-red-500 font-bold ml-2">
                     Error Fetching Driver
                 </span>
             )
         } else {
             return (
-                <span className = "font-bold">
+                <span className = "font-bold ml-2">
                     Fetching Driver
                 </span>
             )
