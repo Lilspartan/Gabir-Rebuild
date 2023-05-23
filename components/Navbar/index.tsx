@@ -66,15 +66,15 @@ const Navbar = ({ invertOpenButton=false }) => {
 
             <div className = "flex flex-row justify-center mx-4 text-black text-2xl gap-2 mt-4 ml-4">
               {[
-                { title: "PA League Discord", url: "https://discord.gabirmotors.com", color: "bg-discord", Icon: FaDiscord },
-                { title: "Gabir Motors Twitter", url: "https://twitter.com/@GabirMotors", color: "bg-twitter", Icon: FaTwitter },
-                { title: "PA Twitch", url: "https://twitch.com/PennyArcade", color: "bg-twitch", Icon: FaTwitch },
-                { title: "Gabir Motors Merch", url: "https://store.penny-arcade.com/collections/gabir-motors", color: "bg-green-500", Icon: AiFillShopping },
-                { title: "Source Code", url: "https://github.com/LilSpartan/Gabir-Rebuild", color: "bg-github", Icon: VscSourceControl },
-                { title: "Status Page", url: "https://stats.uptimerobot.com/p9AxGf9VMk", color: "bg-orange-500", Icon: HiOutlineStatusOnline },
+                { title: "PA League Discord", url: "https://discord.gabirmotors.com", color: "hover:bg-discord", Icon: FaDiscord },
+                { title: "Gabir Motors Twitter", url: "https://twitter.com/@GabirMotors", color: "hover:bg-twitter", Icon: FaTwitter },
+                { title: "PA Twitch", url: "https://twitch.com/PennyArcade", color: "hover:bg-twitch", Icon: FaTwitch },
+                { title: "Gabir Motors Merch", url: "https://store.penny-arcade.com/collections/gabir-motors", color: "hover:bg-green-500", Icon: AiFillShopping },
+                { title: "Source Code", url: "https://github.com/LilSpartan/Gabir-Rebuild", color: "hover:bg-github", Icon: VscSourceControl },
+                { title: "Status Page", url: "https://stats.uptimerobot.com/p9AxGf9VMk", color: "hover:bg-orange-500", Icon: HiOutlineStatusOnline },
               ].map(icon => (
                 <a title = { icon.title } href = { icon.url } target = "_blank">
-                  <div className = {`bg-white rounded-full p-2 transition duration-300 hover:${icon.color} hover:text-white`}>
+                  <div className = {`bg-white rounded-full p-2 transition duration-300 ${icon.color} hover:text-white`}>
                     <icon.Icon />
                   </div>
                 </a>
