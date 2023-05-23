@@ -19,9 +19,18 @@ type Props = {
     type?: Type;
     closeable?: boolean;
     backgroundVisible?: boolean;
+    ephemeral?: boolean;
+    autoDismissTime?: number;
 }
 
-const colors = {
+interface ColorScheme {
+    background: string;
+    border:     string;
+    text:       string;
+    noBgText:   string;
+}
+
+const colors: { [ key in Type ]: ColorScheme } = {
     "warning": {
         background: "bg-yellow-700",
         border: "border-yellow-800",
@@ -48,6 +57,8 @@ const colors = {
     }
 }
 
+var autoDismissTimeout = setTimeout(() => {}, Infinity);
+
 const Alert = (props: Props) => {
     const [open, setOpen] = useState(true);
 
@@ -56,13 +67,23 @@ const Alert = (props: Props) => {
         if (localDismissed !== null) setOpen(false);
     }, [])
 
-    let { closeable=true, backgroundVisible=true } = props
+    let { closeable=true, backgroundVisible=true, ephemeral=false, autoDismissTime=3000 } = props
 	
     const close = () => {
         setOpen(false);
 
         if (props.permaDismiss) localStorage.setItem("alert-dismissed-" + props.id, "true");
     }
+
+    useEffect(() => {
+        clearTimeout(autoDismissTimeout);
+
+        if (ephemeral && open) {
+            autoDismissTimeout = setTimeout(() => {
+                setOpen(false);
+            }, autoDismissTime)
+        }
+    }, [ ephemeral, autoDismissTime ])
 
     if (open) {
         return (

@@ -80,9 +80,7 @@ const Modal = ({
         <AnimatePresence>
             { open && (
                 <>
-                    { 
-                        !hideBackdrop && <Backdrop setOpen = { setOpen } id = { id } onClose = { onClose } /> 
-                    }
+                    { !hideBackdrop && <Backdrop setOpen = { setOpen } id = { id } onClose = { onClose } /> }
 
                     <div className = "w-screen h-screen fixed top-0 left-0 grid place-items-center z-40 text-white pointer-events-none">
                         <motion.div 

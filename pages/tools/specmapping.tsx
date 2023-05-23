@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react'
-import { CarFrame, Alert, Navbar, SEO, Dropdown, Button } from '../../components'
+import { CarFrame, Alert, Navbar, SEO, Dropdown, Button, AlertArea } from '../../components'
 import { useRouter } from 'next/router';
 
-// http://localhost:3000/tools/specmapping?metallic=70&roughness=40&clearcoat=80&car=dallaraf3&color=000000
-
+// All the car options and the url to find them at
 const links = [
 	{ name: "Toyota GR86", link: "toyotagr86" },
 	{ name: "BMW LMDh", link: "bmwlmdh" },
@@ -13,7 +12,8 @@ const links = [
 	{ name: "Street Stock", link: "streetstock" }
 ]
 
-var updateTimeout = setTimeout(() => { }, 999999);
+// the update timeout
+var updateTimeout = setTimeout(() => { }, Infinity);
 
 type Preset = {
 	name: string;
@@ -23,6 +23,7 @@ type Preset = {
 }
 
 const DEFAULT_COLOR = "#6f38b2";
+const UPDATE_PREVIEW_TIME = 500;
 
 const toHex = (value: number) => { return value.toString(16).padStart(2, "0") }
 
@@ -34,10 +35,14 @@ const SpecMap = (props: any) => {
 	const [metal, setMetal] = useState(0);
 	const [roughness, setRoughness] = useState(0);
 	const [clearcoat, setClearcoat] = useState(0);
+
+	// The object that has the selected car's name and link
 	const [carImagesLink, setCarImagesLink] = useState(links[0]);
+
+	// If the link has been copied to the clipboard or not
 	const [shareLinkCopied, setShareLinkCopied] = useState(false);
 
-	// eslint-disable-next-line
+	// list of texture presets
 	const [presets, setPresets] = useState<Preset[]>([
 		{ name: "Gloss (Default)", metal: 0, rough: 0, clearcoat: 0 },
 		{ name: "Flat", metal: 0, rough: 80, clearcoat: 0 },
@@ -50,6 +55,7 @@ const SpecMap = (props: any) => {
 		{ name: "Velvet", metal: 80, rough: 100, clearcoat: 0 },
 	]);
 
+	// Values from the UI, these will be set to what is shown in the preview after 500ms of the values not changing
 	const [toSetValues, setToSetValues] = useState({
 		metal: 0,
 		roughness: 0,
@@ -58,13 +64,14 @@ const SpecMap = (props: any) => {
 	})
 
 	useEffect(() => {
+		// To save performance, the preview is not updated in realtime, but instead it's updated after the controls have stayed the same for 500ms
 		clearTimeout(updateTimeout);
 		updateTimeout = setTimeout(() => {
 			setMetal(toSetValues.metal);
 			setRoughness(toSetValues.roughness);
 			setClearcoat(toSetValues.clearcoat);
 			setColor(toSetValues.color);
-		}, 500)
+		}, UPDATE_PREVIEW_TIME)
 	}, [toSetValues])
 
 	useEffect(() => {
@@ -152,10 +159,36 @@ const SpecMap = (props: any) => {
 											<span className="">
 												<input className="bg-dark-card-handle rounded-md ml-2 px-1" type="text" placeholder="Color Hex" value={toSetValues.color} onChange={(e) => { setToSetValues({ ...toSetValues, color: e.target.value }) }} />
 											</span>
+
 											<br />
-											<label htmlFor="metallic">Metallic</label> <span id="metallic-container"><input type="range" min="0" max="100" value={toSetValues.metal} id="metallic" onChange={(e) => { setToSetValues({ ...toSetValues, metal: parseInt(e.target.value) }) }} /> {toSetValues.metal}%</span><br />
-											<label htmlFor="rough">Roughness</label> <span id="rough-container"><input type="range" min="0" max="100" value={toSetValues.roughness} id="rough" onChange={(e) => { setToSetValues({ ...toSetValues, roughness: parseInt(e.target.value) }) }} /> {toSetValues.roughness}%</span><br />
-											<label htmlFor="clearcoat">Clear coat</label> <span id="clearcoat-container"><input type="range" min="0" max="100" value={toSetValues.clearcoat} id="clearcoat" onChange={(e) => { setToSetValues({ ...toSetValues, clearcoat: parseInt(e.target.value) }) }} /> {toSetValues.clearcoat}%</span><br />
+
+											{ [
+												{ name: "Metallic", variable: "metal", id: "metallic" },
+												{ name: "Roughness", variable: "roughness", id: "roughness" },
+												{ name: "Clear coat", variable: "clearcoat", id: "clearcoat" },
+											].map((value) => (
+												<div className = "flex flex-row">
+													<label htmlFor = { value.id }>{ value.name }</label> 
+													<div id = { `${value.id}-container` }>
+														<input 
+															type="range" 
+															min="0" 
+															max="100" 
+															value={toSetValues[value.variable]} 
+															id="metallic" 
+															className = "mx-2" 
+															onChange={(e) => { 
+																setToSetValues({ 
+																	...toSetValues, 
+																	[value.variable]: parseInt(e.target.value) 
+																}) 
+															}} /> 
+															
+															{toSetValues[value.variable]}%
+													</div>
+												</div>
+											)) }
+											
 											<span>Spec Map Color: </span>
 											<span className="">
 												<input className="px-1 rounded-md" type="text" placeholder="Spec Map Hex" value={`#${toHex(Math.ceil(metal * 2.55)) + toHex(Math.ceil(roughness * 2.55)) + toHex(Math.ceil(clearcoat * 2.55))}`} disabled />
@@ -193,6 +226,8 @@ const SpecMap = (props: any) => {
 													clearcoat: 0,
 													color: DEFAULT_COLOR
 												})
+
+												setCarImagesLink(links[0]);
 
 												router.push('');
 											}}>Reset</Button>

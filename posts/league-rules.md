@@ -27,7 +27,7 @@ These basic tenants are the foundation of the league.
 Currently, the main league race occurs weekly on Thursday night at 11PM Eastern/8PM Pacific.  There are also league organized practices every week night (Monday through Wednesday) in the same timeslot.  [A variety of side series](https://gabirmotors.com/tutorials/league-series) catering to different disciplines and skill levels also enjoy regular participation.  The PA Racing League has also branched out into official multi-driver iRacing endurance events, and we encourage interested drivers to join us for these outings. We also occasionally raid specific official iRacing sprint events for fun.
 The Thursday league is called the Gabir Motors Cup, and contains two championships that award exactly nothing except the adulation of other league members.  Adulation levels may vary, your experience may differ from others.  The Gabir Motors Cup is the main championship, with the Champions Cup being a series-within-a-series, where past champions rotate out of the main championship and battle with each other to the benefit of precisely nobody. The greatest reward is that we are all dear friends.
 
-Because our Thursday races are streamed on [Twitch](www.twitch.tv/pennyarcade), **any in-sim banter must be free of sensitive or offensive topics**. We are guests in Mike and Jerry's house, and we don't want to get mud on the coffee table.
+Because our Thursday races are streamed on [Twitch](https://www.twitch.tv/pennyarcade), **any in-sim banter must be free of sensitive or offensive topics**. We are guests in Mike and Jerry's house, and we don't want to get mud on the coffee table.
 
 The rules of the league fall into two categories: On-track and Off-track.
 

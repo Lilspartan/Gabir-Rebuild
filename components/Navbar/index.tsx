@@ -65,12 +65,20 @@ const Navbar = ({ invertOpenButton=false }) => {
             <hr className = "mx-4 border-zinc-500" />
 
             <div className = "flex flex-row justify-center mx-4 text-black text-2xl gap-2 mt-4 ml-4">
-              <a title = "PA League Discord" href = "https://discord.gabirmotors.com" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-discord hover:text-white"><FaDiscord /></div></a>
-              <a title = "Gabir Motors Twitter" href = "https://twitter.com/@GabirMotors" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-twitter hover:text-white"><FaTwitter /></div></a>
-              <a title = "PA Twitch" href = "https://twitch.com/PennyArcade" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-twitch hover:text-white"><FaTwitch /></div></a>
-              <a title = "Gabir Motors Merch" href = "https://store.penny-arcade.com/collections/gabir-motors" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-green-500 hover:text-white"><AiFillShopping /></div></a>
-              <a title = "Source Code" href = "https://github.com/LilSpartan/Gabir-Rebuild" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-github hover:text-white"><VscSourceControl /></div></a>
-              <a title = "Status Page" href = "https://stats.uptimerobot.com/p9AxGf9VMk" target = "_blank"><div className = "bg-white rounded-full p-2 transition duration-300 hover:bg-orange-500 hover:text-white"><HiOutlineStatusOnline /></div></a>
+              {[
+                { title: "PA League Discord", url: "https://discord.gabirmotors.com", color: "bg-discord", Icon: FaDiscord },
+                { title: "Gabir Motors Twitter", url: "https://twitter.com/@GabirMotors", color: "bg-twitter", Icon: FaTwitter },
+                { title: "PA Twitch", url: "https://twitch.com/PennyArcade", color: "bg-twitch", Icon: FaTwitch },
+                { title: "Gabir Motors Merch", url: "https://store.penny-arcade.com/collections/gabir-motors", color: "bg-green-500", Icon: AiFillShopping },
+                { title: "Source Code", url: "https://github.com/LilSpartan/Gabir-Rebuild", color: "bg-github", Icon: VscSourceControl },
+                { title: "Status Page", url: "https://stats.uptimerobot.com/p9AxGf9VMk", color: "bg-orange-500", Icon: HiOutlineStatusOnline },
+              ].map(icon => (
+                <a title = { icon.title } href = { icon.url } target = "_blank">
+                  <div className = {`bg-white rounded-full p-2 transition duration-300 hover:${icon.color} hover:text-white`}>
+                    <icon.Icon />
+                  </div>
+                </a>
+              ))}
             </div>
 
             <div className = "text-center mx-4 mt-4">

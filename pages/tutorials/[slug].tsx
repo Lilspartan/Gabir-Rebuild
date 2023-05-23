@@ -478,38 +478,48 @@ const SocialLink = ({ link, dontDoDark=false }: { link: {type: string, text: str
 } 
 
 export const getServerSideProps = async (props) => {
-    const folder = path.join(process.cwd(), 'posts/');
-    const file = `${folder}${props.query.slug}.md`;
-    const content = fs.readFileSync(file, "utf8");
+    try {
+        const folder = path.join(process.cwd(), 'posts/');
+        const file = `${folder}${props.query.slug}.md`;
+        const content = fs.readFileSync(file, "utf8");
 
-    const matterResults = matter(content);
+        const matterResults = matter(content);
 
-    let data = await axios.get('https://api.gabirmotors.com/driver/accountid/' + matterResults.data.authorID);
-    let author: Driver | null;
+        let data = await axios.get('https://api.gabirmotors.com/driver/accountid/' + matterResults.data.authorID);
+        let author: Driver | null;
 
-    if (data.data.length) {
-        author = data.data[0];
-    } else {
-        author = null;
-    }
-
-    // author = null;
-    
-    return {
-        props: {
-            content: matterResults.content,
-            metadata: {
-                title: matterResults.data.title,
-                subtitle: matterResults.data.subtitle,
-                edited: matterResults.data.edited,
-                date: matterResults.data.date,
-                headerImg: matterResults.data.headerImg || null,
-                headerAlt: matterResults.data.headerAlt || null,
-                tags: matterResults.data.tags,
-            },
-            author
+        if (data.data.length) {
+            author = data.data[0];
+        } else {
+            author = null;
         }
-    };
+
+        // author = null;
+        
+        return {
+            props: {
+                content: matterResults.content,
+                metadata: {
+                    title: matterResults.data.title,
+                    subtitle: matterResults.data.subtitle,
+                    edited: matterResults.data.edited,
+                    date: matterResults.data.date,
+                    headerImg: matterResults.data.headerImg || null,
+                    headerAlt: matterResults.data.headerAlt || null,
+                    tags: matterResults.data.tags,
+                },
+                author
+            }
+        };
+    } catch (err) {
+        return {
+            redirect: {
+              permanent: false,
+              destination: "/tutorials",
+            },
+            props:{},
+          };
+    }
 }
 
 const ShareButton = (props) => {
