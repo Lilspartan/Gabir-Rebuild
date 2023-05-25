@@ -15,7 +15,7 @@ While iRacing has some built-in functions to allow a driver to customize the loo
 
 ## Enabling Custom Liveries
 
-Step one is to simply make an account [https://www.tradingpaints.com](https://www.tradingpaints.com) and tie it to your iRacing user ID. (In iRacing, click your helmet in the upper right, then "Account," the top of the popup window has your Customer ID #, typically six digits long for newer users. Write this number down, as it's important later when making your own livery!)
+Step one is to simply [make an account](https://www.tradingpaints.com) and tie it to your iRacing user ID. (In iRacing, click your helmet in the upper right, then "Account," the top of the popup window has your Customer ID #, typically six digits long for newer users. Write this number down, as it's important later when making your own livery!)
 
 Next, download the Trading Paints app for your computer. All the paint files for cars in a given race are saved in TGA format by default in your computer's **Documents/iRacing/paint/** folder, and from there in subfolders for each car with filenames that match each driver's iRacing Customer ID. When you enter a race with Trading Paints running, the default liveries load from iRacing, then the Trading Paints app looks at those numbers and downloads each driver's declared livery from the Trading Paints server to the local folders. It can take a few moments for all the liveries to download in a crowded session, during which time you'll see cars turn blank white for a moment before popping into their full-custom glory.
 
@@ -35,11 +35,11 @@ To begin, open the iRacing interface, select the car you want to paint in the "M
 
 <Image url = "iRacingPaintTutorial5.webp" caption = "A freshly-opened iRacing car template in GIMP." />
 
-Expand the three layer tabs (bottom right in GIMP) and take a moment to turn visibility on and off for some of the hidden layers. The Spec Map layer will be confusing for now, so leave it hidden after taking a peek. Click on the Wire frame layer for a handy guide that shows where the 3D model contours often line up with the flat layer (usually white lines) and where the boundaries of the painted layer exist (usually bright green lines). If you're planning to paint a white car, we recommend selecting the Wire layer, using the color picker tool to highlight all the white lines, and then using a fill tool or other method to make the wireframe a darker color so you can see it against white paint. We also turn on the Number Blocks so you can see where iRacing will by default place its number panels; it's a bummer to paint a beautiful livery only to discover a big number in the middle of your primary graphic.
+Expand the three layer tabs (bottom right in GIMP) and take a moment to turn visibility on and off for some of the hidden layers. The Spec Map layer will be confusing for now, so leave it hidden after taking a peek. Click on the Wire frame layer for a handy guide that shows where the 3D model contours often line up with the flat layer (usually white lines) and where the boundaries of the painted layer exist (usually bright green lines). If you're planning to paint a white car, we recommend selecting the Wire layer, using the color picker tool to highlight all the white lines, and then using a fill tool or other method to make the wireframe a darker color so you can see it against the white paint. We also turn on the Number Blocks so you can see where iRacing will by default place its number panels; it's a bummer to paint a beautiful livery only to discover a big number in the middle of your primary graphic.
 
 <Image url = "iRacingPaintTutorial6.webp" caption = "Expanding the layer tabs reveals the sublayers. The GREEN boxes (hidden by default) are for the Spec Map layer, which we'll get to later. The RED boxes are for tools and guides that help with the painting process, but which you won't want on when you do your final export. The BLUE boxes are where we do the actual painting on the car." />
 
-Play with the visibility of the various layers in the BLUE section. You can usually turn off all the existing decals in a click or two, and find the small boxes (sometimes just a few pixels each) for coloring pieces like the rollbar, pit box and pit lane tent separately from the rest of the car. Now's a good time to name and save the project!
+Play with the visibility of the various layers in the BLUE section. You can usually turn off all the existing decals in a click or two, and find the small boxes (sometimes just a few pixels each) for coloring pieces like the rollbar, pit box, and pit lane tent separately from the rest of the car. Now's a good time to name and save the project!
 
 <Image url = "iRacingPaintTutorial7.webp" caption = "Our base livery with decals turned off, wireframe on, and number boxes (the big pink squares) enabled so we can see where iRacing will put the numbers." />
 
@@ -49,10 +49,10 @@ Next, we're going to export our paint file so we can look at it in 3D in the iRa
 
 Now that we've exported our file to the correct location as a TGA, anytime we hit "CTRL-E" in GIMP, we'll be updating that file. This is super handy with two monitors, as you can make small changes and then quickly send them to the 3D renderer in iRacing, allowing you to "walk in" small movements and other minor changes, or see big placement adjustments quickly. 
 
-Now's a great time to play around and see how changes get applied to the car. Find a piece of art or a logo (we're using the Gabir Motors decal) and apply it to the hood. Paste it in as a new layer, make sure it's on the top of the pile in the BLUE "paintable area" section (the names change sometimes but the color schemes seem consistent in iRacing tempates). Resize and rotate the layer until your art fits nicely on the hood section then re-export (CTRL-E), then check it out in the renderer.
+Now's a great time to play around and see how changes get applied to the car. Find a piece of art or a logo (we're using the Gabir Motors decal) and apply it to the hood. Paste it in as a new layer, make sure it's on the top of the pile in the BLUE "paintable area" section (the names change sometimes but the color schemes seem consistent in iRacing templates). Resize and rotate the layer until your art fits nicely on the hood section then re-export (CTRL-E), then check it out in the renderer.
 
 <Image url = "iRacingPaintTutorial9.webp" caption = "" />
-<Image url = "iRacingPaintTutorial10.webp" caption = "Our Gabir Motors logo as it appears in GIMP, and then as it exported to iRacing." />
+<Image url = "iRacingPaintTutorial10.webp" caption = "Our Gabir Motors logo as it appears in GIMP, and then as it appears exported to iRacing." />
 
 This is the punch-kick combo upon which all livery creation kung-fu is based. As you piece together your livery, you can rotate the 3D model in iRacing with the mouse, and zoom in and out with the mouse wheel, to see up close how you're doing. (At a glance our Gabir Motors logo was a touch too big and getting cut off on the tip of the G and the red M, so we'll shrink it down a tad more before the next step.)
 
@@ -84,7 +84,7 @@ Let's start at the bottom layer in this stack: Alpha. This car has Alpha channel
 
 Our next layer group up is Blue Channel Clearcoat. By default on most cars, this layer is set at pure black, a value of 00 in the hexadecimal RGB array (where 00 is zero percent and FF is 100 percent). At a blue channel hexadecimal value of 10 (approx 5 percent, or 16 on the 0-255 scale for color intensity), a super-shiny clearcoat will appear on top of the painted layer. Increasing the blue value above this point will start to fade the clearcoat, up to the 100 percent value, where it looks like a junkyard car that's been in the sun for ages. Note that clearcoat can visually override the metallic/roughness values underneath. We're going to leave this one at full black, 0 percent, for now.
 
-Green is the first layer group we're going to really mess with. First, in GIMP, click on the "Green Channel Roughness" layer group (the root of that folder) and note at the top where it says "Mode    Pass Through." Hit the menu arrow next to "Pass Through" and switch this channel to "Addition." Go ahead and to the same thing for the Red Channel Group.
+Green is the first layer group we're going to really mess with. First, in GIMP, click on the "Green Channel Roughness" layer group (the root of that folder) and note at the top where it says "Mode    Pass Through." Hit the menu arrow next to "Pass Through" and switch this channel to "Addition." Go ahead and do the same thing for the Red Channel Group.
 
 <Image url = "iRacingPaintTutorial14.webp" caption = "Switch the Mode to Addition to allow each layer to stack onto the next one in GIMP." />
 
@@ -107,11 +107,11 @@ Now we've got the spec map for the car back to "stock," where it appears in GIMP
 <Image url = "iRacingPaintTutorial18.webp" caption = "Here's our export filename to create the spec map. Your ID will be a different number, unless you're me." />
 <Image url = "iRacingPaintTutorial19.webp" caption = "Here's what the autogenerated MIP file looks like on our hard drive." />
 
-Now let's get a little fancy. We're going to duplicate our Gabir Motors decals in our spec map layer, but in a single color so they stand out as a different layer. (Do this quickly by putting all your intended art elements in a layer group, use the color select to select everything around the layer, then invert selection and you should have them all trapped. We're filling ours in with a guessed value (based on some experience) of about 25 percent metallic and 30 percent rough. Putting this layer above all the other stacks ensures no matter what else we do, our Gabir Motors "decals" will stay consistent and true.
+Now let's get a little fancy. We're going to duplicate our Gabir Motors decals in our spec map layer, but in a single color so they stand out as a different layer. (Do this quickly by putting all your intended art elements in a layer group, using the color select to select everything around the layer, then invert selection and you should have them all trapped. We're filling ours in with a guessed value (based on some experience) of about 25 percent metallic and 30 percent rough. Putting this layer above all the other stacks ensures no matter what else we do, our Gabir Motors "decals" will stay consistent and true.
 
 <Image url = "iRacingPaintTutorial20.webp" caption = "Our Gabir Motors logos on the spec map, in a lovely shade of pea green. Make sure they line up EXACTLY with your paint-layer decals or things can get wonky." />
 
-Next, we get a little nuts with our hexagon base layer. Mess with values, trying selecting and deleting stuff; we made the centers of our hexes much more green (towards a satin/matte value on the roughness scale) while making the "outline" a purer red. The end result starts to really pop, and you can see how having the Gabir Motors logos on top of everything because they're on their own separate layer ("Decals" in the top of the layers stack).
+Next, we get a little nuts with our hexagon base layer. Mess with values, trying selecting and deleting stuff; we made the centers of our hexes much more green (towards a satin/matte value on the roughness scale) while making the "outline" a purer red. The end result starts to really pop, and you can see how having the Gabir Motors logos on top of everything because they're on their own separate layer ("Decals" at the top of the layers stack).
 
 <Image url = "iRacingPaintTutorial21.webp" caption = "" />
 <Image url = "iRacingPaintTutorial22.webp" caption = "With some spec map value variations applied to the existing hexagon pattern baselayer, we get a lot more visual bang from the same underlying paint layer." />
@@ -132,7 +132,7 @@ Help your fellow iRacing livery creators! [Submit your own advanced livery creat
 
 ### Big and Bold Works Best!
 
-iRacing has difficulty in the sim drawing clean thin lines between differing colors—for example a pixel-width black outline between white text and a red background—can result in some fairly garbled visual data at the seams as distance from the object increases. Try to avoid high contrast fine details like this when you can get away with it, broader bolder shapes hold up best at all ranges.
+iRacing has difficulty in the sim drawing clean thin lines between differing colors—for example, a pixel-width black outline between white text and a red background—can result in some fairly garbled visual data at the seams as distance from the object increases. Try to avoid high contrast fine details like this when you can get away with it, broader bolder shapes hold up best at all ranges.
 
 <Image url = "Advanced Tip 1 Broad Line.webp" caption = "" />
 <Image url = "Advanced Tip 1 Narrow Lines.webp" caption = "Note how the broad line separator between the red/orange and white works well on the Honda, but this smaller logo with a thin black outline becomes jagged as the camera moves away." />
