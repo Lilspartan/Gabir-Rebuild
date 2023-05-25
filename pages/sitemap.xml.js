@@ -13,10 +13,7 @@ export const getServerSideProps = ({
     } [process.env.NODE_ENV];
 
     const staticPages = fs
-        .readdirSync({
-            development: 'pages',
-            production: './',
-        }[process.env.NODE_ENV])
+        .readdirSync("pages")
         .filter((staticPage) => {
             return ![
                 "_app.tsx",
