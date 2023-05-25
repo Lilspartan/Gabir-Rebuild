@@ -382,6 +382,33 @@ const Tutorials = (props: Props)  => {
         )
     }
 
+    const getLink = (type) => {
+        if (props.author !== null && props.author.links !== undefined) {
+            let link = props.author.links.filter((link) => {
+                return link.type === type;
+            })
+
+            if (link.length) {
+                switch (link[0].type) {
+                    case "twitter": return "https://twitter.com/@" + link[0].text;
+                    case "twitch": return "https://twitch.com/" + link[0].text;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    const getPrimaryLink = (priority) => {
+        for (let i = 0; i < priority.length; i ++) {
+            let result = getLink(priority[i]);
+
+            if (result !== null) return result;
+        }
+
+        return "https://gabirmotors.com";
+    }
+
     const structuredData = {
         "@context": "https://schema.org",
         "@type": "NewsArticle",
@@ -394,7 +421,7 @@ const Tutorials = (props: Props)  => {
         "author": [{
             "@type": "Person",
             "name": props.author.name,
-            "url": "https://gabirmotors.com"
+            "url": getPrimaryLink(["twitter", "twitch"]),
           }]
       }
 
