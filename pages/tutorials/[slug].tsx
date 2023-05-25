@@ -3,8 +3,8 @@ import path from 'path';
 import axios from 'axios'
 import Head from 'next/head';
 import slugify from 'slugify';
-import Image from "next/image";
 import matter from 'gray-matter';
+import { motion } from 'framer-motion';
 import Markdown from 'markdown-to-jsx';
 import { useRouter } from 'next/router';
 import { Modal } from '../../components';
@@ -286,15 +286,17 @@ const Tutorials = (props: Props)  => {
 
     const CustomImage = ({ url, caption }: { url: string, caption: string }) => {
         return (
-            <div className = "flex flex-col">
-                <img 
-                    src = {`/posts/${slug}/${url}`} 
-                    alt= {caption}
-                    className="block" style = {{ margin: "0px" }}
-                />
+                <div className = "flex flex-col">
+                    <a className = "flex flex-row justify-center" href = {`/posts/${slug}/${url}`} target = "_blank">
+                        <img 
+                            src = {`/posts/${slug}/${url}`} 
+                            alt= {caption}
+                            className="block" style = {{ margin: "0px" }}
+                        />
+                    </a>
 
-                <div className = "ml-2 text-sm font-bold mb-6 mt-2">{ caption }</div>
-            </div>
+                    <div className = "ml-2 text-sm font-bold mb-6 mt-2 text-center">{ caption }</div>
+                </div>
         )
     }
 

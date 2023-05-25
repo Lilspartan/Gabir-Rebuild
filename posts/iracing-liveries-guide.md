@@ -4,12 +4,14 @@ subtitle: ''
 edited: "5/24/23"
 date: "5/24/23"
 authorID: 18953
-headerImg: '/posts/iracing-liveries-guide/iracingpainttutorial25.webp'
+headerImg: '/posts/iracing-liveries-guide/header.webp'
 tags: [ "guide" ]
 hidden: false
 ---
 
 While iRacing has some built-in functions to allow a driver to customize the look of their car, the system is limited to a three-color palette and a handful of templates per car, plus an assortment of built-in decal designs with predetermined locations. Fortunately, the majority of the iRacing community—and iRacing itself to a certain extent— has embraced an aftermarket program called Trading Paints which ties to your iRacing account and lets you run any custom livery you can cook up, while also seeing designs your competitors have chosen.
+
+If you're already a custom-livery veteran, scroll to the bottom to see some of our advanced tips for painting in iRacing, and help add to the library by submitting your own advice for others to enjoy. You can skip to that section by clicking [here](#submit).
 
 <Image url = "iRacingPaintTutorial1.webp" caption = "The default iRacing Paint Shop offers limited options." />
 
@@ -31,7 +33,7 @@ The first hurdle is access to photo-editing software that can open PSD files and
 
 This author uses a free open-source editing program called [GIMP](https://www.gimp.org/), which is very powerful but has a steep learning curve. There are tons of tutorials on the web to help bring newcomers up to speed. Did we mention it's free? This tutorial uses GIMP screenshots going forward, but the information should apply to any layered photo-editing software.
 
-To begin, open the iRacing interface, select the car you want to paint in the "My Content/Cars" tab, then click "Paint Car" at the bottom right. To the right of the 3D model of the car, you'll see a blue "Download Template" button. Open the downloaded ZIP file in your photo editor, and you'll see a 2048x2048 pixel flat representation of every paintable panel on the car. Many cars open in a uniform medium blue, but some have real-world default liveries that have a lot more going on visually
+To begin, open the iRacing interface, select the car you want to paint in the "My Content/Cars" tab, then click "Paint Car" at the bottom right. To the right of the 3D model of the car, you'll see a blue "Download Template" button. Open the downloaded ZIP file in your photo editor, and you'll see a 2048x2048 pixel flat representation of every paintable panel on the car. Many cars open in a uniform medium blue, but some have real-world default liveries that have a lot more going on visually.
 
 <Image url = "iRacingPaintTutorial5.webp" caption = "A freshly-opened iRacing car template in GIMP." />
 
@@ -56,7 +58,7 @@ Now's a great time to play around and see how changes get applied to the car. Fi
 
 This is the punch-kick combo upon which all livery creation kung-fu is based. As you piece together your livery, you can rotate the 3D model in iRacing with the mouse, and zoom in and out with the mouse wheel, to see up close how you're doing. (At a glance our Gabir Motors logo was a touch too big and getting cut off on the tip of the G and the red M, so we'll shrink it down a tad more before the next step.)
 
-All the iRacing pattern templates exist in a subfolder in the BLUE section ("Car Patterns" in this case), and there's nothing to stop you from finding a pattern you like in that folder and color changing it to meet your needs. Alternatively, you can get as hands-on as you want, even sketching out your own art if you're so inclined and talented. Let's give our demo paint here a bit more splash by applying a simple geometric pattern as the background, and adding a few more Gabir Motors logos on the flanks and rear
+All the iRacing pattern templates exist in a subfolder in the BLUE section ("Car Patterns" in this case), and there's nothing to stop you from finding a pattern you like in that folder and color changing it to meet your needs. Alternatively, you can get as hands-on as you want, even sketching out your own art if you're so inclined and talented. Let's give our demo paint here a bit more splash by applying a simple geometric pattern as the background, and adding a few more Gabir Motors logos on the flanks and rear.
 
 <Image url = "iRacingPaintTutorial11.webp" caption = "" />
 <Image url = "iRacingPaintTutorial12.webp" caption = "A simple repeating hexagon background and a few more logos give us a nice overall look. Note that whole-body patterns, or anything that crosses the seams of a car, rarely line up on the first try. Getting such elements to line up across seams is the bulk of the labor when making a livery, and sometimes you have to accept that it's not going to be real-world perfect due to the limitations of a 2048x2048 canvas." />
@@ -126,7 +128,9 @@ Happy painting!
 <Image url = "iracingpainttutorial24.webp" caption = "" />
 <Image url = "iracingpainttutorial25.webp" caption = "" />
 
-Help your fellow iRacing livery creators! [Submit your own advanced livery creation tip!](https://forms.gle/mABUeEuW6xN4WH8K7)
+<p id = "submit">
+    Help your fellow iRacing livery creators! [Submit your own advanced livery creation tip!](https://forms.gle/mABUeEuW6xN4WH8K7)
+</p>
 
 ## Advanced Livery Creation Tips
 
