@@ -129,8 +129,10 @@ Happy painting!
 <Image url = "iracingpainttutorial25.webp" caption = "" />
 
 <p id = "submit">
-    Help your fellow iRacing livery creators! [Submit your own advanced livery creation tip!](https://forms.gle/mABUeEuW6xN4WH8K7)
+    Help your fellow iRacing livery creators!
 </p>
+
+<Button url = "https://forms.gle/mABUeEuW6xN4WH8K7">Submit your own advanced livery creation tip!</Button>
 
 ## Advanced Livery Creation Tips
 

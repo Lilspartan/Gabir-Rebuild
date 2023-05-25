@@ -68,8 +68,6 @@ export const getServerSideProps = ({
     res.write(sitemap);
     res.end();
 
-    console.log(staticPages);
-
     return {
         props: {},
     };

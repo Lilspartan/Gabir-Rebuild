@@ -320,6 +320,16 @@ const Tutorials = (props: Props)  => {
         return <pre {...rest}>{children}</pre>;
     };
 
+    const Button = ({ url, children }: { url: string, children: any }) => {
+        return (
+            <div className = "flex justify-center">
+                <a href = {url} target = "_blank" className = "no-underline text-2xl font-bold py-3 px-6 inline-block text-center rounded-lg transition duration-300 dark:bg-white dark:text-black bg-dark-card-handle text-white opacity-60 hover:opacity-100">
+                    { children }
+                </a>
+            </div>
+        )
+    }
+
     const TableOfContents = () => {
         const [TOC, setTOC] = useState<TOCType[]>([]);
         const [open, setOpen] = useState(true);
@@ -457,6 +467,9 @@ const Tutorials = (props: Props)  => {
                                 },
                                 Image: {
                                     component: CustomImage
+                                },
+                                Button: {
+                                    component: Button
                                 }
                             }
                         }}>{ content }</Markdown>
