@@ -6,6 +6,13 @@ module.exports = {
 	],
   theme: {
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            maxWidth: '100%', // add required value here
+          }
+        }
+      },
       colors: {
         "dark-card-handle": "#222222ff",
         "dark-card-body": "#222222aa",

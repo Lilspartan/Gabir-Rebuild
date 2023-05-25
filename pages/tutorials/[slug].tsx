@@ -286,7 +286,7 @@ const Tutorials = (props: Props)  => {
 
     const CustomImage = ({ url, caption }: { url: string, caption: string }) => {
         return (
-                <div className = "flex flex-col">
+                <div className = "flex flex-col lg:w-2/3 mx-auto">
                     <a className = "flex flex-row justify-center" href = {`/posts/${slug}/${url}`} target = "_blank">
                         <img 
                             src = {`/posts/${slug}/${url}`} 
@@ -446,7 +446,7 @@ const Tutorials = (props: Props)  => {
 
                 <TableOfContents />
 
-                <section className="lg:mx-auto mt-16 mx-4 md:w-2/3 md:pr-4 lg:pr-0 lg:w-1/2">
+                <section className="lg:mx-auto mt-16 mx-4 md:w-2/3 md:pr-4 lg:pr-0 lg:w-3/5">
                     <div className = "w-full flex flex-row justify-start mb-8">
                         <a href = "/tutorials" className="link"><HiArrowLeft className = "inline text-xl" /> Go Back</a>
                     </div>
@@ -479,7 +479,7 @@ const Tutorials = (props: Props)  => {
                         </div>
                      ) }
                    
-                    <article className = "prose prose-sm lg:prose-xl dark:prose-invert">
+                    <article className = "prose prose-sm lg:prose-xl dark:prose-invert" style = {{ margin: "0px"}}>
                         <Markdown options={{
                             overrides: {
                                 pre: PreBlock,
