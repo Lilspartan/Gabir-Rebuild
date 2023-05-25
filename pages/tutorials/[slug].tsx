@@ -3,6 +3,7 @@ import path from 'path';
 import axios from 'axios'
 import Head from 'next/head';
 import slugify from 'slugify';
+import Image from "next/image";
 import matter from 'gray-matter';
 import Markdown from 'markdown-to-jsx';
 import { useRouter } from 'next/router';
@@ -283,6 +284,20 @@ const Tutorials = (props: Props)  => {
         }
     }
 
+    const CustomImage = ({ url, caption }: { url: string, caption: string }) => {
+        return (
+            <div className = "flex flex-col">
+                <img 
+                    src = {`/posts/${slug}/${url}`} 
+                    alt= {caption}
+                    className="block" style = {{ margin: "0px" }}
+                />
+
+                <div className = "ml-2 text-sm font-bold mb-6 mt-2">{ caption }</div>
+            </div>
+        )
+    }
+
     const CodeBlock = ({className, children}) => {
         let lang = 'text'; // default monospaced text
         if (className && className.startsWith('lang-')) {
@@ -437,6 +452,9 @@ const Tutorials = (props: Props)  => {
                                 },
                                 Time: {
                                     component: Time
+                                },
+                                Image: {
+                                    component: CustomImage
                                 }
                             }
                         }}>{ content }</Markdown>
