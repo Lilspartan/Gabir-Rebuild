@@ -122,9 +122,9 @@ To upload your work to Trading Paints, simply copy your final result TGA in the 
 
 Happy painting!
 
-<Image url = "iRacingPaintTutorial23.webp" caption = "" />
-<Image url = "iRacingPaintTutorial24.webp" caption = "" />
-<Image url = "iRacingPaintTutorial25.webp" caption = "" />
+<Image url = "iracingpainttutorial23.webp" caption = "" />
+<Image url = "iracingpainttutorial24.webp" caption = "" />
+<Image url = "iracingpainttutorial25.webp" caption = "" />
 
 Help your fellow iRacing livery creators! [Submit your own advanced livery creation tip!](https://forms.gle/mABUeEuW6xN4WH8K7)
 
