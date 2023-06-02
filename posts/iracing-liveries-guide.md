@@ -1,6 +1,6 @@
 ---
 title: "Beginner's Guide to Custom iRacing Liveries"
-subtitle: ''
+subtitle: 'Get started in the exciting world of custom liveries'
 edited: "5/24/23"
 date: "5/24/23"
 authorID: 18953

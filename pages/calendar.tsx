@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO , CalendarRow, Navbar, Modal } from '../components';
+import { Button, Loading, SEO, Navbar, Modal } from '../components';
 import { Calendar, Event } from '../utils/interfaces';
 import { Client } from "gabir-motors";
 import { google, outlook, yahoo, ics } from "calendar-link";
@@ -8,6 +8,15 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/router'
 
 const client = new Client();
+
+const getTextDate = (timestamp) => {
+	var dateObj: string | string[] = new Date(timestamp * 1000).toString();
+	dateObj = dateObj.split(' ');
+	var newObj: string | string[] = [dateObj[1], dateObj[2], dateObj[3]];
+	newObj = newObj.join(' ');
+	console.log(dateObj)
+	return newObj;
+}
 
 const Calendar = ()  => {
 	const [loading, setLoading] = useState(true);
@@ -104,7 +113,22 @@ const Calendar = ()  => {
 							{ calendar && calendar.events.sort((a, b) => {
 								return a.timestamp - b.timestamp; 
 							}).map((event, index) => (
-								<CalendarRow highlighted = {highlighted} index = {index} event = {event} openModal = {openCalendarModal} />
+								<motion.tr initial = {{ opacity: 0 }} animate = {{ opacity: 1 }} transition = {{ delay: 1.5 + (0.1 * index), duration: 1 }} className={`hover:bg-[#66666655] transition duration-200 ${Number(highlighted) === event.timestamp && "bg-[#66666677]"}`} style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
+									<td className = "text-2xl px-4 py-6 font-bold">{ getTextDate(event.timestamp) } { event.hasPassed && <span className = "italic font-bold opacity-50">COMPLETED</span> }</td>
+									<td className = "text-2xl">{ event.track.paid && <span className = "text-green-500 font-extrabold">$</span> } { event.track.name }</td>
+									<td className = "text-2xl">
+										{ event.cars.map((car, index) => (
+										<>
+											{ car.paid && <span className = "text-green-500 font-extrabold">$</span> }
+											<span>{ car.name }</span>
+										</>
+										)) }
+									</td>
+									<td className = "text-2xl">{ event.notes }</td>
+									<td><a className = "cursor-pointer opacity-50 hover:opacity-100 transition duration-200" onClick = {() => {
+										openCalendarModal(event, index);
+									}}><AiFillCalendar className = "inline mr-4" /></a></td>
+								</motion.tr>
 							)) }
 							</tbody>
 						</table>

@@ -11,8 +11,6 @@ import Badge from './Badge';
 import Dropdown from './Dropdown';
 import Redirect from './Redirect';
 
-import CalendarRow from './CalendarRow';
-
 export {
 	Button,
 	Loading,
@@ -20,7 +18,6 @@ export {
 	SEO,
 	Tooltip,
 	Navbar,
-	CalendarRow,
 	CarFrame,
 	Modal,
 	AlertArea,
