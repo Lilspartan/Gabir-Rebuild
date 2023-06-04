@@ -43,7 +43,7 @@ const Navbar = ({ invertOpenButton=false }) => {
         <div id="innerNav" className = "flex flex-col justify-center h-screen">
           <div className = "flex flex-col text-white">
             <div className = "flex flex-row justify-center mt-4 mx-16">
-              <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="/main.png" alt="Gabir Motors logo" /></a>
+              <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="/GMPride.png" alt="Gabir Motors logo" /></a>
             </div>
 
             {/* <NavHighlight text = "The Nurburgring 24h" link = "/tutorials/nurburgring-24-2023" /> */}

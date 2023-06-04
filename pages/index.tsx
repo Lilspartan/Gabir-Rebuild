@@ -58,7 +58,10 @@ export default function Channels() {
 			// Get the next race
 			let calendar = await client.getCalendar();
 			let nextEvent = calendar.getNext();
-			setNext({ ...nextEvent, timestamp: nextEvent.timestamp });
+
+			if (nextEvent) {
+				setNext({ ...nextEvent, timestamp: nextEvent.timestamp });
+			}
 		})()
 
 		// toggle loading screen
