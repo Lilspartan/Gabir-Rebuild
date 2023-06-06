@@ -157,6 +157,12 @@ const Time = ({ timestamp }: { timestamp: number | string }) => {
 //     )
 // }
 
+const SpecMapDemo = ({ metallic, roughness, clearcoat, color="FFFFFF", car="toyotagr86" }) => {
+    return (
+        <a className = "ml-2 dark:bg-[#333333] dark:text-white bg-[#eeeeee] text-black px-2 py-1 rounded-lg no-underline opacity-70 transition duration-300 hover:opacity-100" href = {`https://gabirmotors.com/tools/specmapping?metallic=${metallic}&roughness=${roughness}&clearcoat=${clearcoat}&car=${car}&color=${color}`} target = "_blank">Demo Spec Map</a>
+    )
+}
+
 const TwitchWidget = ({ channel }: { channel: string }) => {
     const [channelInfo, setChannelInfo] = useState<TwitchStream | null>(null);
 
@@ -497,6 +503,9 @@ const Tutorials = (props: Props)  => {
                                 },
                                 Button: {
                                     component: Button
+                                },
+                                SpecMapDemo: {
+                                    component: SpecMapDemo
                                 }
                             }
                         }}>{ content }</Markdown>
