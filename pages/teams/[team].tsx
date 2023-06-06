@@ -60,7 +60,7 @@ const Teams = ()  => {
                                             <tbody>
                                                 { team && team.drivers.map((driver, i) => (
                                                     <tr key = { i }>
-                                                        <td className = "mt-2">{ driver.name }</td>
+                                                        <td className = "mt-2">{ driver.name } { driver.username && `(${driver.username})` }</td>
                                                         <td>{ driver.car_number !== "-1" ? driver.car_number : "N/A" }</td>
                                                     </tr>
                                                 )) }
