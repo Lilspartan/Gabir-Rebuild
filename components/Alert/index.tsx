@@ -21,6 +21,7 @@ type Props = {
     backgroundVisible?: boolean;
     ephemeral?: boolean;
     autoDismissTime?: number;
+    onClose?: Function;
 }
 
 interface ColorScheme {
@@ -62,6 +63,8 @@ var autoDismissTimeout = setTimeout(() => {}, Infinity);
 const Alert = (props: Props) => {
     const [open, setOpen] = useState(true);
 
+    let { onClose=() => {} } = props;
+
     useEffect(() => {
         let localDismissed = localStorage.getItem("alert-dismissed-" + props.id);
         if (localDismissed !== null) setOpen(false);
@@ -71,6 +74,8 @@ const Alert = (props: Props) => {
 	
     const close = () => {
         setOpen(false);
+
+        onClose();
 
         if (props.permaDismiss) localStorage.setItem("alert-dismissed-" + props.id, "true");
     }
@@ -93,6 +98,10 @@ const Alert = (props: Props) => {
                     { props.type === "error" && <BiErrorAlt /> }
                     { props.type === "tip" && <AiOutlineInfoCircle /> }
                     { props.type === "success" && <AiOutlineCheckCircle /> }
+                </div>
+
+                <div>
+                    <span className = "font-extrabold mr-2">{ props.title }</span>
                 </div>
                 
                 <div className = "alert-body">

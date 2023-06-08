@@ -43,15 +43,15 @@ const Navbar = ({ invertOpenButton=false }) => {
       <div onClick = {() => { setOpen(false) }} className = {`cursor-pointer transition duration-500 fixed w-screen h-screen bg-black z-40 ${open ? "opacity-60 pointer-events-auto" : "opacity-0 pointer-events-none"}`}></div>
       
       <nav id = "nav" className = {`fixed z-40 bg-dark-card-handle h-screen transition duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}>
-        {/* { session ? (
-          <div className = "absolute right-0 mr-4 mt-2">
-            <img src = {session.userData.icon} className = "w-12 rounded-full cursor-pointer" onClick = {() => { signOut() }} />
-          </div>
+        { session ? (
+          <a className = "absolute right-0 mr-4 mt-2" href = "/auth/dashboard">
+            <img src = {session.userData.icon} className = "w-12 rounded-full cursor-pointer" />
+          </a>
         ) : (
           <div className = "absolute right-0 mr-4 mt-2 bg-[#333333] rounded-full p-3 cursor-pointer" onClick = {() => { signIn() }}>
             <CgLogIn className = "text-white text-2xl" />
           </div>
-        ) } */}
+        ) }
 
         <div id="innerNav" className = "flex flex-col justify-center h-screen">
           <div className = "flex flex-col text-white">

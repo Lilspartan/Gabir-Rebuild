@@ -433,9 +433,16 @@ export interface UserData {
 	icon: string;
 	account_creation_time: number;
 	api_key: string;
-	alerts: object[];
+	alerts: AlertTypes[];
 	roles: Role[];
 	iracing_account_id: string;
 }
 
 type Role = "user" | "admin" | "driver";
+
+interface AlertTypes {
+    id: string;
+    title: string;
+    type: "tip" | "success" | "error" | "warning";
+    text: string;
+}

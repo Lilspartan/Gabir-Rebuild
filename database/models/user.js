@@ -32,7 +32,15 @@ const UserSchema = new Schema({
         type: String,
         default: "-1",
     },
-    alerts: [Object],
+    alerts: {
+        type: Array,
+        default: [{
+            "id": "new-account",
+            "title": "Welcome to Gabir Motors",
+            "type": "tip",
+            "text": "Welcome to your new Gabir Motors account!"
+          }]
+    },
     setupComplete: {
         type: Boolean,
         default: false,

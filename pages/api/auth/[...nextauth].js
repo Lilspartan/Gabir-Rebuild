@@ -65,7 +65,12 @@ export const authOptions = {
           name: session.user.name || session.user.email.split('@')[0],
           email: session.user.email,
           icon: icon,
-          alerts: [],
+          alerts: [{
+            "id": "new-account",
+            "title": "Welcome to Gabir Motors",
+            "type": "tip",
+            "text": "Your new Gabir Motors account has been successfully created"
+          }],
           api_key: null,
           account_creation_time: Date.now(),
           roles: [ "user" ],
