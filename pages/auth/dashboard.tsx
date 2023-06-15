@@ -14,7 +14,9 @@ const Teams = ()  => {
     const [iracingData, setIracingData] = useState<IracingAPIData>();    
     const [accountId, setAccountId] = useState("557730");
 
-    const { data: session, status, update } = useSession();
+    const { data: session, status, update } = useSession({
+        required: true,
+    });
 
 	useEffect(() => {
 		setTimeout(() => {

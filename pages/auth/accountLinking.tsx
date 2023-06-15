@@ -20,7 +20,7 @@ const client = new Client();
     4. Instructions for setting email
     5. Wait for update
     6. Complete
-    */
+*/
    
    const AccountLinking = ()  => {
         const [iracingData, setIracingData] = useState<IracingAPIData>();    
@@ -28,7 +28,9 @@ const client = new Client();
         
         const [step, setStep] = useState(1);
         
-        const { data: session, status, update } = useSession();
+        const { data: session, status, update } = useSession({
+            required: true,
+        });
         
         useEffect(() => {
             if (session && session.userData.iracing_account_id !== "-1") {
@@ -124,7 +126,7 @@ const Step1 = ({ setStep, setID }: { setStep: Function, setID: Function }) => {
                 placeholder="iRacing Account ID" 
                 value={accountId} 
                 onChange={(e) => { setAccountId(String(e.target.value)) }} 
-                />
+            />
 
             <div className = "flex flex-row justify-end mt-16">
                 { accountId.length ? (

@@ -20,6 +20,21 @@ export interface Event {
 	hasPassed:  boolean;
 }
 
+export interface NewEvent {
+	track:      {
+		name: string;
+		paid: boolean;
+	};
+	cars:       {
+		name: string;
+		paid: boolean;
+	}[];
+	winner: 	string | null;
+	notes:      string | null;
+	timestamp:  number;
+	tags:       string[];
+}
+
 export interface Content {
 	name: string;
 	paid: string;

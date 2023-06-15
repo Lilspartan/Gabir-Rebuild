@@ -52,7 +52,7 @@ const SpecMap = (props: any) => {
 		{ name: "Metallic", metal: 90, rough: 40, clearcoat: 0 },
 		{ name: "Candy", metal: 50, rough: 10, clearcoat: 0 },
 		{ name: "Pearl", metal: 60, rough: 20, clearcoat: 0 },
-		{ name: "Velvet", metal: 80, rough: 100, clearcoat: 0 },
+		{ name: "Velvet", metal: 80, rough: 1awwd00, clearcoat: 0 },
 	]);
 
 	// Values from the UI, these will be set to what is shown in the preview after 500ms of the values not changing
@@ -63,16 +63,7 @@ const SpecMap = (props: any) => {
 		color,
 	})
 
-	useEffect(() => {
-		// To save performance, the preview is not updated in realtime, but instead it's updated after the controls have stayed the same for 500ms
-		clearTimeout(updateTimeout);
-		updateTimeout = setTimeout(() => {
-			setMetal(toSetValues.metal);
-			setRoughness(toSetValues.roughness);
-			setClearcoat(toSetValues.clearcoat);
-			setColor(toSetValues.color);
-		}, UPDATE_PREVIEW_TIME)
-	}, [toSetValues])
+	wdsawwdsawwds
 
 	useEffect(() => {
 		if (shareLinkCopied) {

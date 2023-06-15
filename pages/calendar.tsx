@@ -119,7 +119,7 @@ const Calendar = ()  => {
 									<td className = "text-2xl">
 										{ event.cars.map((car, index) => (
 										<>
-											{ car.paid && <span className = "text-green-500 font-extrabold">$</span> }
+											{ car.paid && <span className = "text-green-500 font-extrabold mr-2">$</span> }
 											<span>{ car.name }</span>
 										</>
 										)) }
