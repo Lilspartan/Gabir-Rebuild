@@ -313,16 +313,8 @@ const ColorTemplate = (props: any) => {
                                                 <h1 className = "font-bold text-4xl">Upload PSD</h1>
 
                                                 <div className="max-w-xl mt-8">
-                                                    <label
-                                                        className="text-white flex justify-center w-full h-32 px-4 transition bg-[#333333] border-2 border-zinc-600 rounded-md appearance-none cursor-pointer hover:border-zinc-400 focus:outline-none">
-                                                        <span className="flex items-center space-x-2">
-                                                            <MdOutlineFileUpload className = "text-2xl" />
-
-                                                            <span className="font-medium text-zinc-300">
-                                                                Drop files to Attach, or
-                                                                <span className="text-white underline ml-1">browse</span>
-                                                            </span>
-                                                        </span>
+                                                    <label>
+                                                        <Button block>Upload Template PSD</Button>
                                                         <input type="file" name="file_upload" className="hidden" accept = ".psd" onChange = {(e) => {
                                                             setUploadedFile(e.target.files[0].name);
                                                             checkFile(e);
