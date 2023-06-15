@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build": "npm rebuild &&next build",
         "start": "next start",
         "lint": "next lint"
     },
@@ -46,7 +46,7 @@
     },
     "devDependencies": {
         "@tailwindcss/typography": "^0.5.9",
-        "@types/node": "^17.0.21",
+        "@types/node": "^17.0.45",
         "@types/react": "^17.0.40",
         "autoprefixer": "^10.4.2",
         "postcss": "^8.4.6",
