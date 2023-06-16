@@ -7,7 +7,6 @@ import 'ag-psd/initialize-canvas';
 import { readPsd, Layer } from 'ag-psd';
 import * as _ from 'lodash';
 
-import { MdOutlineFileUpload } from 'react-icons/md';
 import { motion } from 'framer-motion';
 import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 
