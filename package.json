@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "next dev",
-        "build": "npm rebuild &&next build",
+        "build": "npm rebuild && next build",
         "start": "next start",
         "lint": "next lint"
     },
