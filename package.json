@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "next dev",
-        "build": "rm -f node_modules/canvas/build/Release/libglib-2.0.so.0 && rm -f node_modules/canvas/build/Release/librsvg-2.so.2 && next build",
+        "build": "rm -f node_modules/canvas/build/Release/libglib-2.0.so.0 && rm -f node_modules/canvas/build/Release/librsvg-2.so.2 && rm -f node_modules/canvas/build/Release/libgio-2.0.so.0 && next build",
         "start": "next start",
         "lint": "next lint"
     },
