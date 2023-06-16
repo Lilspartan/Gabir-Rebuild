@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "next dev",
-        "build": "npm rebuild && next build",
+        "build": "rm -f node_modules/canvas/build/Release/libglib-2.0-0.dll && next build",
         "start": "next start",
         "lint": "next lint"
     },
