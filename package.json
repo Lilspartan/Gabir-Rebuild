@@ -18,7 +18,7 @@
         "@vercel/analytics": "^1.0.0",
         "ag-psd": "^15.2.0",
         "calendar-link": "^2.4.0",
-        "canvas": "2.6.1",
+        "canvas": "^2.11.2",
         "chalk": "^5.2.0",
         "chart.js": "^4.2.1",
         "classnames": "^2.3.2",
