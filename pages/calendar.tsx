@@ -118,10 +118,12 @@ const Calendar = ()  => {
 									<td className = "text-2xl">{ event.track.paid && <span className = "text-green-500 font-extrabold">$</span> } { event.track.name }</td>
 									<td className = "text-2xl">
 										{ event.cars.map((car, index) => (
-										<>
-											{ car.paid && <span className = "text-green-500 font-extrabold mr-2">$</span> }
-											<span>{ car.name }</span>
-										</>
+											<>
+												<span className = "">
+													{ car.paid && <span className = "text-green-500 font-extrabold mr-2">$</span> }
+													<span>{ car.name }{ index < event.cars.length - 1 && "," } </span>
+												</span>
+											</>
 										)) }
 									</td>
 									<td className = "text-2xl">{ event.notes }</td>
@@ -141,7 +143,16 @@ const Calendar = ()  => {
 							<motion.div initial = {{ opacity: 0 }} animate = {{ opacity: 1 }} transition = {{ delay: 1.5 + (0.1 * index), duration: 2 }} className = {`flex flex-col gap-2 py-6 ${Number(highlighted) === event.timestamp && "bg-[#66666677]"}`} style = {{ borderWidth: "1px 0", borderColor: "#666666AA" }}>
 								<span className = "px-4 font-bold">{ event.date } { event.hasPassed && <span className = "italic font-bold opacity-50">COMPLETED</span> }</span>
 								<span className="px-4">{ event.track.paid && <span className = "text-green-500 font-extrabold">$</span> } { event.track.name }</span>
-								<span className="px-4">{ event.cars[0].paid && <span className = "text-green-500 font-extrabold">$</span> } { event.cars[0].name }</span>
+								<span className="px-4">
+									{ event.cars.map((car, index) => (
+										<>
+											<span className = "">
+												{ car.paid && <span className = "text-green-500 font-extrabold mr-2">$</span> }
+												<span>{ car.name }{ index < event.cars.length - 1 && "," } </span>
+											</span>
+										</>
+									)) }
+								</span>
 								{ event.notes !== null && <span className="px-4"><span className="font-bold">NOTES:</span> { event.notes }</span> }
 								<span className = "px-4 mt-2 text-sm"><a className = "cursor-pointer" onClick = {() => {
 									openCalendarModal(event, index);

@@ -71,7 +71,7 @@ const Navbar = ({ invertOpenButton=false }) => {
                 <span className = "text-2xl font-"><a href = "/standings" className = "link">Standings</a></span>
                 <span className = "text-2xl font-"><a href = "/tutorials" className = "link">Tutorials</a></span>
                 <span className = "text-2xl font-"><a href = "/teams" className = "link">Teams</a></span>
-                <span className = "text-2xl font-"><a href = "https://pitwall.gabirmotors.com" target = "_blank" className = "link">The Pitwall</a></span>
+                {/* <span className = "text-2xl font-"><a href = "https://pitwall.gabirmotors.com" target = "_blank" className = "link">The Pitwall</a></span> */}
               </div>
             </div>
 
