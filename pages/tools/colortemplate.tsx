@@ -386,7 +386,7 @@ const ColorTemplate = (props: any) => {
                                             </div>
 
                                             <div className = "mt-4 flex flex-row justify-start self-end">
-                                                <CoolLink text = "Upload New Template" click = {() => { newFile(uploadedFile) }} reverse />
+                                                <CoolLink text = "Upload New Template" click = {() => { window.location.reload(); }} reverse />
                                             </div>
                                         </div>
 
