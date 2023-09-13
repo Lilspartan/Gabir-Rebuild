@@ -92,7 +92,7 @@ const ColorTemplate = (props: any) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [open, setOpen] = useState(false);
 
-    // File name of the file in the imput
+    // File name of the file in the input
     const [uploadedFile, setUploadedFile] = useState(null);
     const [uploadState, setUploadState] = useState<UploadState | null>(null);
 
