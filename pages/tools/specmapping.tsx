@@ -134,6 +134,12 @@ const SpecMap = (props: any) => {
 				url = "tools/specmapping"
 			/>
 
+			<AlertArea>
+				<Alert permaDismiss id = "new-tool-1" type = "tip" title = "New Tool!">
+					Check out the new <a href="/tools/colortemplate">color template tool</a> that helps you get started with a basic template!
+				</Alert>
+			</AlertArea>
+
 			<Navbar />
 
 			<div className="min-h-screen absolute text-white max-w-full w-screen">

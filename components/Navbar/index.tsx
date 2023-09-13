@@ -7,6 +7,7 @@ import { VscSourceControl } from 'react-icons/vsc';
 import { BsArrowRightShort } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import { useSession, signIn, signOut } from "next-auth/react"
+import { Badge } from '../';
 
 const NavHighlight = ({ text, link }: { text: string, link: string }) => {
   return (
@@ -59,7 +60,7 @@ const Navbar = ({ invertOpenButton=false }) => {
               <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="/GMPride.png" alt="Gabir Motors logo" /></a>
             </div>
 
-            {/* <NavHighlight text = "The Nurburgring 24h" link = "/tutorials/nurburgring-24-2023" /> */}
+            {/* <NavHighlight text = "New Template Tool" link = "/tools/colortemplate" /> */}
 
             <hr className = "mx-4 mt-4 border-zinc-500" />
 
@@ -67,6 +68,7 @@ const Navbar = ({ invertOpenButton=false }) => {
               <div className="flex flex-col gap-3 ml-4 py-2 justify-center">
                 <span className = "text-2xl font-"><a href = "/calendar" className = "link">Calendar</a></span>
                 <span className = "text-2xl font-"><a href = "/tools/specmapping" className = "link">Spec Mapping</a></span>
+                <span className = "text-2xl font-"><a href = "/tools/colortemplate" className = "link">Color Template</a></span>
                 <span className = "text-2xl font-"><a href = "/assets"className = "link">Assets</a></span>
                 <span className = "text-2xl font-"><a href = "/standings" className = "link">Standings</a></span>
                 <span className = "text-2xl font-"><a href = "/tutorials" className = "link">Tutorials</a></span>
