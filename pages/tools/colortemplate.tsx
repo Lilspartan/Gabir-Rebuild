@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react'
-import { Navbar, SEO, Modal, Button } from '../../components';
+import { Navbar, SEO, Modal, Button, Alert } from '../../components';
 
 import 'ag-psd/initialize-canvas';
 
@@ -294,7 +294,7 @@ const ColorTemplate = (props: any) => {
 		<>
 			<SEO
 				title = "Color Templates" 
-				description = "" 
+				description = "Gabir Motorsports presents the Color Template tool, upload the psd for your car and you'll be able to create a basic livery by just picking 3 colors and the template of your choice!" 
 				url = "tools/colortemplate"
 			/>
 
