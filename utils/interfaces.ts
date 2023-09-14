@@ -441,20 +441,6 @@ export interface Track {
 	configName: string;
 }
 
-export interface UserData {
-	_id: string;
-	name: string;
-	email: string;
-	icon: string;
-	account_creation_time: number;
-	api_key: string;
-	alerts: AlertTypes[];
-	roles: Role[];
-	iracing_account_id: string;
-}
-
-type Role = "user" | "admin" | "driver";
-
 interface AlertTypes {
     id: string;
     title: string;

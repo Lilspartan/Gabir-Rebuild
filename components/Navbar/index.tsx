@@ -2,11 +2,9 @@ import { useState } from 'react'
 import { AiOutlineMenu, AiFillShopping } from 'react-icons/ai';
 import { FaDiscord, FaTwitter, FaTwitch } from 'react-icons/fa';
 import { HiOutlineStatusOnline } from 'react-icons/hi';
-import { CgLogIn } from 'react-icons/cg';
 import { VscSourceControl } from 'react-icons/vsc';
 import { BsArrowRightShort } from 'react-icons/bs';
 import { motion } from 'framer-motion';
-import { useSession, signIn, signOut } from "next-auth/react"
 import { Badge } from '../';
 
 const NavHighlight = ({ text, link }: { text: string, link: string }) => {
@@ -37,23 +35,12 @@ const NavHighlight = ({ text, link }: { text: string, link: string }) => {
 
 const Navbar = ({ invertOpenButton=false }) => {
   const [open, setOpen] = useState(false);
-  const { data: session, status, update } = useSession();
 
   return (
     <>
       <div onClick = {() => { setOpen(false) }} className = {`cursor-pointer transition duration-500 fixed w-screen h-screen bg-black z-40 ${open ? "opacity-60 pointer-events-auto" : "opacity-0 pointer-events-none"}`}></div>
       
       <nav id = "nav" className = {`fixed z-40 bg-dark-card-handle h-screen transition duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}>
-        {/* { session ? (
-          <a className = "absolute right-0 mr-4 mt-2" href = "/auth/dashboard">
-            <img src = {session.userData.icon} className = "w-12 rounded-full cursor-pointer" />
-          </a>
-        ) : (
-          <div className = "absolute right-0 mr-4 mt-2 bg-[#333333] rounded-full p-3 cursor-pointer" onClick = {() => { signIn() }}>
-            <CgLogIn className = "text-white text-2xl" />
-          </div>
-        ) } */}
-
         <div id="innerNav" className = "flex flex-col justify-center h-screen">
           <div className = "flex flex-col text-white">
             <div className = "flex flex-row justify-center mt-4 mx-16">
