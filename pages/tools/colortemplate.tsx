@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react'
-import { Navbar, SEO, Modal, Button, Alert } from '../../components';
+import { Navbar, SEO, Modal, Button } from '../../components';
 
 import 'ag-psd/initialize-canvas';
 
@@ -10,9 +10,11 @@ import * as _ from 'lodash';
 import { motion } from 'framer-motion';
 import { BsArrowLeftShort, BsArrowRightShort } from 'react-icons/bs';
 
+import { FaChevronRight, FaChevronLeft, FaSearch } from 'react-icons/fa';
+
 type UploadState = "INVALID_TYPE" | "VALID" | "INVALID_PSD" | "PARSING";
 
-var updateTimeout = setTimeout(() => { }, Infinity);
+var updateTimeout = setTimeout(() => { }, 1);
 const UPDATE_PREVIEW_TIME = 100;
 
 export interface Image {
@@ -92,7 +94,7 @@ const ColorTemplate = (props: any) => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [open, setOpen] = useState(false);
 
-    // File name of the file in the input
+    // File name of the file in the imput
     const [uploadedFile, setUploadedFile] = useState(null);
     const [uploadState, setUploadState] = useState<UploadState | null>(null);
 
@@ -257,6 +259,7 @@ const ColorTemplate = (props: any) => {
 
         console.log(psd)
         
+        // get only layers that have a template
         const parsedLayers: Layer[] = _.flattenDeep([parseLayer(psd.children || [])]).filter((layer) => {
             return (layer.name.startsWith("car_pattern"));
         });        
@@ -290,11 +293,25 @@ const ColorTemplate = (props: any) => {
         }
     }
 
+    const changeTemplate = (direction) => {
+        let currentIndex;
+        for (let i = 0; i < images.length; i ++) {
+            if (images[i].imageData === selectedImage) currentIndex = i;
+        }
+
+        currentIndex += direction;
+        
+        if (currentIndex < 0) currentIndex = images.length - 1;
+        if (currentIndex > images.length -1) currentIndex = 0;
+
+        setSelectedImage(images[currentIndex].imageData);
+    }
+
 	return (
 		<>
 			<SEO
 				title = "Color Templates" 
-				description = "Gabir Motorsports presents the Color Template tool, upload the psd for your car and you'll be able to create a basic livery by just picking 3 colors and the template of your choice!" 
+				description = "" 
 				url = "tools/colortemplate"
 			/>
 
@@ -330,7 +347,7 @@ const ColorTemplate = (props: any) => {
 
                                         { uploadState === "VALID" && (
                                             <div className = "mt-4 flex flex-row justify-end">
-                                                <CoolLink text = "Continue" click = {() => { newFile(uploadedFile) }} />
+                                                <AnimatedButton text = "Continue" click = {() => { newFile(uploadedFile) }} />
                                             </div>
                                         ) }
                                     </div>
@@ -343,7 +360,17 @@ const ColorTemplate = (props: any) => {
                                 { images !== null && (
                                     <div className = "flex flex-row gap-8 h-full">
                                         <div className = "">
-                                            <Button block click = {() => { setOpen(true) }}>Select a Template</Button>  
+                                            {/* <Button block click = {() => { setOpen(true) }}>Select a Template</Button>  */}
+
+                                            <h2 className = "text-2xl font-bold text-center mb-4">1. Choose your Template</h2>
+
+                                            <div className = "flex flex-row justify-center select-none">
+                                                <div onClick = {() => { changeTemplate(-1) }} className = "bg-light-card-handle text-black p-4 rounded-l-lg hover:opacity-60 opacity-100 transition duration-100 cursor-pointer"><FaChevronLeft /></div>
+                                                <div onClick = {() => { setOpen(true) }} className = "bg-light-card-handle text-black p-4 hover:opacity-60 opacity-100 transition duration-100 cursor-pointer"><FaSearch /></div>
+                                                <div onClick = {() => { changeTemplate(1) }}className = "bg-light-card-handle text-black p-4 rounded-r-lg hover:opacity-60 opacity-100 transition duration-100 cursor-pointer"><FaChevronRight /></div>
+                                            </div>
+
+                                            <h2 className = "text-2xl font-bold text-center mb-4 mt-8">2. Choose your Colors</h2>
 
                                             <div className = "flex flex-col gap-4 mt-8">
                                                 <div className = "flex flex-row gap-2">
@@ -374,6 +401,8 @@ const ColorTemplate = (props: any) => {
                                                 </div>
                                             </div>
 
+                                            <h2 className = "text-2xl font-bold text-center mb-4 mt-8">3. Download your Template</h2>
+
                                             <div className = "mt-8">
                                                 <Button block click = {() => {
                                                     var canvas = document.getElementById("canv_download") as HTMLCanvasElement;
@@ -385,9 +414,9 @@ const ColorTemplate = (props: any) => {
                                                 }}>Download template</Button>
                                             </div>
 
-                                            <div className = "mt-4 flex flex-row justify-start self-end">
-                                                <CoolLink text = "Upload New Template" click = {() => { window.location.reload(); }} reverse />
-                                            </div>
+                                            {/* <div className = "mt-4 flex flex-row justify-start self-end">
+                                                <AnimatedButton text = "Go Back" click = {() => { newFile(uploadedFile) }} reverse />
+                                            </div> */}
                                         </div>
 
                                         <div className = "w-full lg:w-1/2">				
@@ -442,7 +471,7 @@ const ColorTemplate = (props: any) => {
 	)
 }
 
-const CoolLink = ({ click , text, reverse = false}, { click: Function, text: string, reverse: boolean }) => {
+const AnimatedButton = ({ click , text, reverse = false}, { click: Function, text: string, reverse: boolean }) => {
     return (
         <motion.div 
             whileHover = "hover" initial = "none" 
