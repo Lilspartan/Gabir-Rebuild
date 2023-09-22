@@ -36,6 +36,7 @@ const index = ({
         <meta property="twitter:title" content={ title } />
         <meta property="twitter:description" content={ description } />
         <meta property="twitter:image" content={ headerImg }></meta>
+        <meta property="twitter:site" content="@GabirMotors" />
     </Head>
   )
 }

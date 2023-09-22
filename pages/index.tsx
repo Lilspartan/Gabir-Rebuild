@@ -221,7 +221,7 @@ const PageShowoff = ({ page }) => {
 								</motion.div>
 
 								{/* Hidden image to force the div to the correct size */}
-								<img src = {page.image} className = "opacity-0 pointer-events-none"/>
+								<img src = {page.image} className = "opacity-0 pointer-events-none" alt = {`Preview of the ${page.id.replaceAll('-', ' ')} page`}/>
 							</motion.div>
 						</motion.div>
 					</Link>
