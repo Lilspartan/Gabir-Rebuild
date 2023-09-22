@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO , CalendarRow, Navbar, Modal, Alert, AlertArea } from '../components';
+import { Button, Loading, SEO, Navbar, Modal, Alert, AlertArea } from '../components';
 import { Standing } from '../utils/interfaces';
 import { motion } from 'framer-motion';
 import axios from 'axios';
