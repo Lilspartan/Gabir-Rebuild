@@ -156,3 +156,35 @@ html {
  **************************************************/
 
  @-webkit-keyframes animate-svg-stroke-1{0%{stroke-dashoffset:801.780517578125px;stroke-dasharray:801.780517578125px}100%{stroke-dashoffset:0;stroke-dasharray:801.780517578125px}}@keyframes animate-svg-stroke-1{0%{stroke-dashoffset:801.780517578125px;stroke-dasharray:801.780517578125px}100%{stroke-dashoffset:0;stroke-dasharray:801.780517578125px}}@-webkit-keyframes animate-svg-fill-1{0%{fill:transparent}100%{fill:rgb(255,209,0)}}@keyframes animate-svg-fill-1{0%{fill:transparent}100%{fill:rgb(255,209,0)}}.svg-elem-1{-webkit-animation:animate-svg-stroke-1 1s cubic-bezier(0.47,0,0.745,0.715) 2s both,animate-svg-fill-1 0.7s cubic-bezier(0.47,0,0.745,0.715) 2.8s both;animation:animate-svg-stroke-1 1s cubic-bezier(0.47,0,0.745,0.715) 2s both,animate-svg-fill-1 0.7s cubic-bezier(0.47,0,0.745,0.715) 2.8s both}@-webkit-keyframes animate-svg-stroke-2{0%{stroke-dashoffset:810.2860107421875px;stroke-dasharray:810.2860107421875px}100%{stroke-dashoffset:0;stroke-dasharray:810.2860107421875px}}@keyframes animate-svg-stroke-2{0%{stroke-dashoffset:810.2860107421875px;stroke-dasharray:810.2860107421875px}100%{stroke-dashoffset:0;stroke-dasharray:810.2860107421875px}}@-webkit-keyframes animate-svg-fill-2{0%{fill:transparent}100%{fill:rgb(255,131,0)}}@keyframes animate-svg-fill-2{0%{fill:transparent}100%{fill:rgb(255,131,0)}}.svg-elem-2{-webkit-animation:animate-svg-stroke-2 1s cubic-bezier(0.47,0,0.745,0.715) 2.12s both,animate-svg-fill-2 0.7s cubic-bezier(0.47,0,0.745,0.715) 2.9s both;animation:animate-svg-stroke-2 1s cubic-bezier(0.47,0,0.745,0.715) 2.12s both,animate-svg-fill-2 0.7s cubic-bezier(0.47,0,0.745,0.715) 2.9s both}@-webkit-keyframes animate-svg-stroke-3{0%{stroke-dashoffset:793.2432250976562px;stroke-dasharray:793.2432250976562px}100%{stroke-dashoffset:0;stroke-dasharray:793.2432250976562px}}@keyframes animate-svg-stroke-3{0%{stroke-dashoffset:793.2432250976562px;stroke-dasharray:793.2432250976562px}100%{stroke-dashoffset:0;stroke-dasharray:793.2432250976562px}}@-webkit-keyframes animate-svg-fill-3{0%{fill:transparent}100%{fill:rgb(255,18,18)}}@keyframes animate-svg-fill-3{0%{fill:transparent}100%{fill:rgb(255,18,18)}}.svg-elem-3{-webkit-animation:animate-svg-stroke-3 1s cubic-bezier(0.47,0,0.745,0.715) 2.24s both,animate-svg-fill-3 0.7s cubic-bezier(0.47,0,0.745,0.715) 3s both;animation:animate-svg-stroke-3 1s cubic-bezier(0.47,0,0.745,0.715) 2.24s both,animate-svg-fill-3 0.7s cubic-bezier(0.47,0,0.745,0.715) 3s both}@-webkit-keyframes animate-svg-stroke-4{0%{stroke-dashoffset:2116.4130859375px;stroke-dasharray:2116.4130859375px}100%{stroke-dashoffset:0;stroke-dasharray:2116.4130859375px}}@keyframes animate-svg-stroke-4{0%{stroke-dashoffset:2116.4130859375px;stroke-dasharray:2116.4130859375px}100%{stroke-dashoffset:0;stroke-dasharray:2116.4130859375px}}@-webkit-keyframes animate-svg-fill-4{0%{fill:transparent}100%{fill:rgb(255,255,255)}}@keyframes animate-svg-fill-4{0%{fill:transparent}100%{fill:rgb(255,255,255)}}.svg-elem-4{-webkit-animation:animate-svg-stroke-4 1s cubic-bezier(0.47,0,0.745,0.715) 2.36s both,animate-svg-fill-4 0.7s cubic-bezier(0.47,0,0.745,0.715) 3.0999999999999996s both;animation:animate-svg-stroke-4 1s cubic-bezier(0.47,0,0.745,0.715) 2.36s both,animate-svg-fill-4 0.7s cubic-bezier(0.47,0,0.745,0.715) 3.0999999999999996s both}@-webkit-keyframes animate-svg-stroke-5{0%{stroke-dashoffset:2192px;stroke-dasharray:2192px}100%{stroke-dashoffset:0;stroke-dasharray:2192px}}@keyframes animate-svg-stroke-5{0%{stroke-dashoffset:2192px;stroke-dasharray:2192px}100%{stroke-dashoffset:0;stroke-dasharray:2192px}}@-webkit-keyframes animate-svg-fill-5{0%{fill:transparent}100%{fill:rgb(255,255,255)}}@keyframes animate-svg-fill-5{0%{fill:transparent}100%{fill:rgb(255,255,255)}}.svg-elem-5{-webkit-animation:animate-svg-stroke-5 1s cubic-bezier(0.47,0,0.745,0.715) 2.48s both,animate-svg-fill-5 0.7s cubic-bezier(0.47,0,0.745,0.715) 3.1999999999999997s both;animation:animate-svg-stroke-5 1s cubic-bezier(0.47,0,0.745,0.715) 2.48s both,animate-svg-fill-5 0.7s cubic-bezier(0.47,0,0.745,0.715) 3.1999999999999997s both}
+
+ .fall-leaf img { 
+	width: 100px;
+	position: absolute;
+	top: 0;
+  animation-name: fall;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+  z-index: 10;
+}
+
+@keyframes fall{
+    0% {
+      top:-100px
+    }
+
+    25% {
+      transform: translateX(var(--wobble1)) rotate(var(--rotate1));
+    }
+
+    50% {
+      transform: translateX(var(--wobble2)) rotate(var(--rotate2));
+    }
+
+    75% {
+      transform: translateX(var(--wobble3)) rotate(var(--rotate3));
+    }
+
+    100% {
+			top: calc(100vh - 50px);
+		}
+}

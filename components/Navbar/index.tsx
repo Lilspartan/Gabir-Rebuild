@@ -1,11 +1,11 @@
-import { useState } from 'react'
 import { AiOutlineMenu, AiFillShopping } from 'react-icons/ai';
 import { FaDiscord, FaTwitter, FaTwitch } from 'react-icons/fa';
 import { HiOutlineStatusOnline } from 'react-icons/hi';
 import { VscSourceControl } from 'react-icons/vsc';
-import { BsArrowRightShort } from 'react-icons/bs';
+import { BsArrowRightShort, BsToggleOff, BsToggleOn } from 'react-icons/bs';
 import { motion } from 'framer-motion';
-import { Badge } from '../';
+import { Badge, Fall } from '../';
+import { useState, useEffect } from 'react';
 
 const NavHighlight = ({ text, link }: { text: string, link: string }) => {
   return (
@@ -36,15 +36,31 @@ const NavHighlight = ({ text, link }: { text: string, link: string }) => {
 const Navbar = ({ invertOpenButton=false }) => {
   const [open, setOpen] = useState(false);
 
+  const [showEffects, setShowEffects] = useState(false);
+
+  useEffect(() => {
+    let localEffects = localStorage.getItem("show-effects");
+
+    if (localEffects !== null && localEffects === "true") {
+        setShowEffects(true);
+    }  
+  }, [])
+
   return (
     <>
       <div onClick = {() => { setOpen(false) }} className = {`cursor-pointer transition duration-500 fixed w-screen h-screen bg-black z-40 ${open ? "opacity-60 pointer-events-auto" : "opacity-0 pointer-events-none"}`}></div>
       
+      <div style = {{ zIndex: 40 }} className = {`fixed w-screen h-screen pointer-events-none transition duration-300 ${open ? "opacity-100" : "opacity-0"}`}>
+        <Fall />
+      </div>
+
       <nav id = "nav" className = {`fixed z-40 bg-dark-card-handle h-screen transition duration-300 ${open ? "translate-x-0" : "-translate-x-full"}`}>
-        <div id="innerNav" className = "flex flex-col justify-center h-screen">
+        <div id="innerNav" className = "flex flex-col justify-center h-screen" style = {{ zIndex: 70 }}>
+          <img src="/img/fall/web.png" alt="" className = {`${open ? "opacity-100" : "opacity-0"} pointer-events-none transition duration-300 w-64 top-0 -right-64 fixed`} />
+          
           <div className = "flex flex-col text-white">
             <div className = "flex flex-row justify-center mt-4 mx-16">
-              <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="/GMPride.png" alt="Gabir Motors logo" /></a>
+              <a href = "/"><img data-m = "bounce-down" data-m-delay = "0.2" className = "w-48" src="/img/fall/GABIR pumpkin.png" alt="Gabir Motors logo" /></a>
             </div>
 
             {/* <NavHighlight text = "New Template Tool" link = "/tools/colortemplate" /> */}

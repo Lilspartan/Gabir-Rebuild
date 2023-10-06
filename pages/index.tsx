@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Loading, SEO, Navbar, Modal } from '../components';
+import { Button, Loading, SEO, Navbar, Modal, Fall } from '../components';
 import { Event } from '../utils/interfaces';
 import { Client } from "gabir-motors";
 import { motion } from 'framer-motion';
@@ -32,7 +32,7 @@ export default function Channels() {
 	const [nOpen, setNOpen] = useState(false);
 
 	// Is this the user's first visit to the new site? used to show a "changes" modal
-	const [firstVisit, setFirstVisit] = useState(false);
+	const [effectsModal, setEffectsModal] = useState(false);
 
 
 	// calculates the times to show in the countdown at the top of the page
@@ -70,8 +70,8 @@ export default function Channels() {
 		}, 500)
 
 		// check localstorage to see if the user has visited the page before
-		let visited = localStorage.getItem("visited");
-		if (visited === null) setFirstVisit(true);
+		let seenEffectsModal = localStorage.getItem("seenEffectsModal");
+		if (seenEffectsModal === null) setEffectsModal(true);
 	}, [])
 
 	useEffect(() => {
@@ -94,19 +94,26 @@ export default function Channels() {
 			<Navbar />
 
 			{/* Modal with information about changes with the rebuild */}
-			<Modal open = {firstVisit} setOpen = {setFirstVisit} closeButton onClose = {() => {
-				localStorage.setItem("visited", "true");
-			}} id = "new-website">
-				<h1 className = "font-bold text-3xl">Welcome to the new Gabir Motors Site!</h1>
-				<p>A few things have changed, here's a list of some changes you'll find:</p>
-				<ul className = "pl-4 mt-4">
-					<li>- A new <a href = "/calendar" className="link">calendar page</a> that lets you add events to your calendar app of choice</li>
-					<li>- A working <a href = "/standings" className="link">standings page</a> to see how the drivers are doing throughout the season</li>
-					<li>- An <a href = "/assets" className="link">assets page</a> that lets people with slow internet connections turn off gallery mode</li>
-					<li>- A new <a href = "/tutorials" className="link">tutorials page</a> with useful tips to get better at racing</li>
-					<li>- A redesigned home page that shows off some of what the site has to offer</li>
-				</ul>
-			</Modal>
+			{/* <Modal open = {effectsModal} setOpen = {setEffectsModal} closeButton onClose = {() => {
+				localStorage.setItem("seenEffectsModal", "true");
+			}} id = "seasonal-effects">
+				<h1 className = "font-bold text-3xl">Enable Seasonal Effects</h1>
+				<p className = "mt-8">Would you like to enable seasonal effects? (you can change this at any time in the sidebar)</p>
+
+				<div className="flex flex-row gap-8 p-4">
+					<Button block click = {() => {
+						localStorage.setItem("seenEffectsModal", "true");
+						localStorage.setItem("show-effects", "true");
+						setEffectsModal(false);
+						location.reload();
+					}}>Yes</Button>
+					<Button block click = {() => {
+						localStorage.setItem("seenEffectsModal", "true");
+						localStorage.setItem("show-effects", "false");
+						setEffectsModal(false);
+					}}>No</Button>
+				</div>
+			</Modal> */}
 
 			{/* Northern Harbor easter egg (you just spoiled the surprise!) */}
 			<Modal open = {nOpen} setOpen = {setNOpen} id = "northern-harbor">
@@ -121,7 +128,7 @@ export default function Channels() {
 				</blockquote>
 			</Modal>
 
-			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full">
+			<div className = "min-h-screen absolute overflow-hidden text-white max-w-full">				
 				<section id="hero" className = "min-h-screen background-mike_racecar bg-center">
 					{timeLeft !== null ? (
 						<>

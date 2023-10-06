@@ -11,6 +11,8 @@ import Badge from './Badge';
 import Dropdown from './Dropdown';
 import Redirect from './Redirect';
 
+import Fall from './Decorations/Fall';
+
 export {
 	Button,
 	Loading,
@@ -24,4 +26,5 @@ export {
 	Badge,
 	Dropdown,
 	Redirect,
+	Fall
 }
