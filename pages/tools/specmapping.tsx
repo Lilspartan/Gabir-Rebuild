@@ -247,7 +247,7 @@ const SpecMap = (props: any) => {
 										metal={metal / 100}
 										roughness={roughness / 100}
 										color={color}
-										imgPath={`https://s.gabekrahulik.repl.co/${carImagesLink.link}`} />
+										imgPath={`/specmap/${carImagesLink.link}`} />
 								</div>
 							</div>
 						</div>

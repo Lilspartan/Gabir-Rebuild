@@ -17,7 +17,7 @@ const Teams = ()  => {
 
 	useEffect(() => {
 		(async () => {
-			let list: {data: Folder} = await axios.get("https://i.gabirmotors.com/assetsList")
+			let list: {data: Folder} = await axios.get("/api/assets")
             setAssets(list.data);
 
             // const getFolderNames = async (listOfFiles:Folder) => {
@@ -45,7 +45,7 @@ const Teams = ()  => {
         return (
             <div style = {{ marginTop: "20px", padding: "20px" }} className = {``}>
                 <div className="flex place-content-center">
-                    <a style = {{ maxHeight: "150px" }} href = {`https://i.gabirmotors.com${file.path.replace('public', '')}`} target = "_blank"><Image width = "150px" height = "150px" objectFit='contain' src={`https://i.gabirmotors.com${file.path.replace('public', '')}`} alt="" /></a>
+                    <a style = {{ maxHeight: "150px" }} href = {file.path.split('public')[1].replaceAll('\\', '/')} target = "_blank"><Image width = "150px" height = "150px" objectFit='contain' src={file.path.split('public')[1].replaceAll('\\', '/')} alt="" /></a>
                 </div>
             </div>
         )
@@ -74,7 +74,7 @@ const Teams = ()  => {
 
         return (
             <div className = {`text-left text-xl`} style = {{ marginLeft: depth * 15 + "px" }}>
-                <a href = {`https://i.gabirmotors.com${file.path.replace('public', '')}`} target = "_blank">{ fileType === "image" ? <AiOutlineFileImage className = "inline-block" /> : <AiOutlineFileText className = "inline-block" /> } { file.name }</a>
+                <a href = {file.path.split('public')[1].replaceAll('\\', '/')} target = "_blank">{ fileType === "image" ? <AiOutlineFileImage className = "inline-block" /> : <AiOutlineFileText className = "inline-block" /> } { file.name }</a>
             </div>
         )
     }
