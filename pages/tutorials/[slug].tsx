@@ -436,7 +436,7 @@ const Tutorials = (props: Props)  => {
             <DefaultTemplate
                 doLoading = {false}
                 title = {`Gabir Motors | ${props.metadata.title}`} 
-				desc = {`${props.metadata.subtitle}${props.author !== null && `\n\nWritten by ${props.author.name}`}`}
+				desc = {`${props.metadata.subtitle}${props.author !== null && `\n\n Written by ${props.author.name}`}`}
 				url = {"tutorials/" + slug} 
                 headerImg = {props.metadata.headerImg !== null ? props.metadata.headerImg : '/header.jpg'} 
                 solidBg = {true} 
