@@ -581,6 +581,7 @@ export const getServerSideProps = async (props) => {
             }
         };
     } catch (err) {
+        console.log(err);
         return {
             redirect: {
               permanent: false,
