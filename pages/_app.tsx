@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import 'movement.css';
 import Script from 'next/script'
 import { Loading } from '../components'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 function MyApp({
   Component,
@@ -9,6 +10,7 @@ function MyApp({
 }) {
   return (
     <>
+      <SpeedInsights />
       <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-4G44T1DDKE"/>
       <Script
         id='google-analytics'
