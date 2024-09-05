@@ -53,7 +53,7 @@ const Tutorials = (props: Props)  => {
 	)
 }
 
-export const getServerSideProps = () => {
+export const getStaticProps = () => {
     const folder = path.join(process.cwd(), 'posts/');
     const files = fs.readdirSync(folder);
     const markdownPosts = files.filter((file) => file.endsWith(".md"));
