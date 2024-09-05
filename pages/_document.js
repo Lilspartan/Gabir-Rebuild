@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document'
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default class MyDocument extends Document {
   render() {
@@ -10,7 +9,6 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <SpeedInsights />
         </body>
       </Html>
     )
