@@ -544,7 +544,7 @@ const SocialLink = ({ link, dontDoDark=false }: { link: {type: string, text: str
         case "twitter": return ( <a href = {`https://twitter.com/${link.text}`} target = "_blank"><AiOutlineTwitter className = {`${classes} hover:text-twitter`} /></a> );
         case "twitch": return ( <a href = {`https://twitch.com/${link.text}`} target = "_blank"><BsTwitch className = {`${classes} hover:text-twitch`} /></a> );
     }
-} 
+}
 
 export const getServerSideProps = async (props) => {
     try {
