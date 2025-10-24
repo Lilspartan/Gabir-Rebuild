@@ -45,7 +45,7 @@ const Teams = ()  => {
         return (
             <div style = {{ marginTop: "20px", padding: "20px" }} className = {``}>
                 <div className="flex place-content-center">
-                    <a style = {{ maxHeight: "150px" }} href = {file.path.split('public')[1].replaceAll('\\', '/')} target = "_blank"><Image width = "150px" height = "150px" objectFit='contain' src={file.path.split('public')[1].replaceAll('\\', '/')} alt="" /></a>
+                    <a style = {{ maxHeight: "150px" }} href = {file.path.split('public')[1].replaceAll('\\', '/')} target = "_blank"><Image width = {150} height = {150} objectFit='contain' src={file.path.split('public')[1].replaceAll('\\', '/')} alt="" /></a>
                 </div>
             </div>
         )

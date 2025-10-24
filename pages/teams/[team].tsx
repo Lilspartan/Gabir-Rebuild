@@ -44,7 +44,7 @@ const Teams = ()  => {
                             <>
                                 <div className = "bg-dark-card-handle p-16 flex flex-col lg:w-1/3">
                                     <div className = "mb-6"> 
-                                        <img className = "mx-auto" src={`https://i.gabirmotors.com/assets/teams/${team.abbr}/main.png`} alt={`${team.name} Logo`} />
+                                        <img className = "mx-auto" src={`https://gabirmotors.com/i/assets/teams/${team.abbr}/main.png`} alt={`${team.name} Logo`} />
                                     </div>
                                     
                                     <div className="flex flex-col">

@@ -36,7 +36,7 @@ const Teams = ()  => {
                         { teams !== null && teams.map(team => (
                             <Link href = {`/teams/${team.abbr}`}>
 								<div className = "w-1/2 mx-auto my-auto hover:-translate-y-2 hover:scale-105 cursor-pointer transition diration-500">
-									<img src={`https://i.gabirmotors.com/assets/teams/${team.abbr}/main.png`} alt={`${team.name} Logo`} />
+									<img src={`https://gabirmotors.com/i/assets/teams/${team.abbr}/main.png`} alt={`${team.name} Logo`} />
 								</div>
 							</Link>
                         )) }

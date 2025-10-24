@@ -38,7 +38,7 @@ const SpecMap = (props: any) => {
 	const [clearcoat, setClearcoat] = useState(0);
 
 	// The object that has the selected car's name and link
-	const [carImagesLink, setCarImagesLink] = useState(links[0]);
+	const [carImagesLink, setCarImagesLink] = useState(links[2]);
 
 	// If the link has been copied to the clipboard or not
 	const [shareLinkCopied, setShareLinkCopied] = useState(false);
