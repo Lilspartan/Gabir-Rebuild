@@ -5,11 +5,12 @@ import { useRouter } from 'next/router';
 
 // All the car options and the url to find them at
 const links = [
-	{ name: "Toyota GR86", link: "toyotagr86" },
-	{ name: "BMW LMDh", link: "bmwlmdh" },
-	{ name: "Dallara F3", link: "dallaraf3" },
-	{ name: "Pro 2 Lite", link: "pro2lite" },
-	{ name: "Street Stock", link: "streetstock" }
+	{ name: "Dawn", link: "dawn" },
+	{ name: "Morning", link: "morning" },
+	{ name: "Noon", link: "noon" },
+	{ name: "Rain", link: "rain" },
+	{ name: "Sunset", link: "sunset" },
+	{ name: "Twilight", link: "twilight" },
 ]
 
 // the update timeout
@@ -134,11 +135,11 @@ const SpecMap = (props: any) => {
 				url = "tools/specmapping"
 			/>
 
-			<AlertArea>
-				<Alert permaDismiss id = "new-tool-1" type = "tip" title = "New Tool!">
+			{/* <AlertArea>
+				<Alert permaDismiss id = "lighting-update-1" type = "success" title = "Updated Images!">
 					Check out the new <a href="/tools/colortemplate">color template tool</a> that helps you get started with a basic template!
 				</Alert>
-			</AlertArea>
+			</AlertArea> */}
 
 			<Navbar />
 
@@ -151,7 +152,7 @@ const SpecMap = (props: any) => {
 								<div className="w-full xl:w-1/4 flex-grow flex flex-col justify-between py-2">
 									<div className="">
 										<div className = "flex flex-row mb-4">
-											<h2 className="font-bold text-3xl mr-4 flex-shrink">Choose a Car</h2>
+											<h2 className="font-bold text-3xl mr-4 flex-shrink">Select Your Lighting</h2>
 											<div className="ml-2 my-auto flex-grow">
 												<Dropdown change = {(e) => {
 													setCarImagesLink(JSON.parse(e.target.value));
